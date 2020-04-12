@@ -8,7 +8,7 @@ Connect pin 6 of your rasberry pi to the ground of the Arduino. Connect pin 12 a
 
 SOFTWARE:
 
-Upload the .ino file into your arduino. Load the python script "MotorController.py" into your rasberry pi, into the same directory as your python code that will give out movement commands. I've included an example file uses the commands properly.
+Upload the .ino file into your arduino. There are a couple changes from the old motor-controller code, so please re-upload this one to make sure everything works. Load the python script "MotorController.py" into your rasberry pi, into the same directory as your python code that will give out movement commands. I've included an example file uses the commands properly.
 
 
 CALIBRATION:
