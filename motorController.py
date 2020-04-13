@@ -3,7 +3,7 @@ import time
 
 
 class motorController:
-	def __init(self):
+	def __init__(self):
 
 		self.turnRatio = .0091 #ratio of seconds per degree
 		self.moveRatio = .55 #ratio of seconds per meter
