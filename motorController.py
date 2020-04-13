@@ -41,7 +41,7 @@ class motorController:
 	def turn(self,left, degrees, speed):
 			self.turnMotor(left, -speed)
 			self.turnMotor(not left, speed)
-			time.sleep(degrees * turnRatio * 100 / speed)
+			time.sleep(degrees * self.turnRatio * 100 / speed)
 			self.turnMotor(True, 0)
 			self.turnMotor(False, 0)
 	
@@ -54,7 +54,7 @@ class motorController:
 	def move(self, meters, speed):
 		self.turnMotor(True, speed)
 		self.turnMotor(False, speed)
-		time.sleep(meters * moveRatio * 100 / speed)
+		time.sleep(meters * self.moveRatio * 100 / speed)
 		self.turnMotor(True, 0)
 		self.turnMotor(False, 0)
 
