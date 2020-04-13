@@ -3,55 +3,62 @@ import time
 
 
 class motorController:
-	def __init():
+	def __init(self):
 
-		self.turnRatio = 1 #ratio of seconds per degree
-		self.moveRation = 1 #ratio of seconds per meter
+		self.turnRatio = .0091 #ratio of seconds per degree
+		self.moveRatio = .55 #ratio of seconds per meter
 
 		# These are the pins for a 2B rasbperry pi, may differ for other models. 
 		# https://www.raspberrypi.org/forums/viewtopic.php?f=91&t=105044 to get 
 		# pins.
 
-		leftPin = 18
-		rightPin = 12
+		leftPin = 11
+		rightPin = 18
+		GPIO.setmode(GPIO.BOARD)
+		GPIO.setwarnings(False)
+		GPIO.setup(leftPin, GPIO.OUT)
+		GPIO.setup(rightPin, GPIO.OUT)
+		self.leftMotor = GPIO.PWM(leftPin,250)
+		self.leftMotor.start(0)
 
-		leftMotor = GPIO.PWM(leftPin,250)
-		leftMotor.start(0)
-
-		rightMotor = GPIO.PWM(rightPin, 250)
-		rightMotor.start(0)
-
-
-
-	def turn(left, degrees, speed)
-			turnMotor(left, -speed)
-			turnMotor(not left, speed)
-			time.sleep(degrees * turnRatio * 100 / speed)
-	
-	def turnLeft(degrees, speed)
-		turn(True, degrees, speed)
-
-	def turnRight(False, degrees, speed)
-		turn(False, degrees, speed)
-
-	def move(meters, speed)
-		turnMotor(True, speed)
-		turnMotor(False, speed)
-		time.sleep(meters * moveRatio * 100 / speed)
+		self.rightMotor = GPIO.PWM(rightPin, 250)
+		self.rightMotor.start(0)
 
 
 	#left: if true, set left motor, otherwise set right.
 	# speedPercentage: -100 to 100, sets direction of motor and percent of max motor 	# rotation speed to turn at.
-	def turnMotor(left, speedPercentage)
+	def turnMotor(self,left, speedPercentage):
 		if (speedPercentage > 100):
 			speedPercentage = 100
 		elif (speedPercentage < -100):
 			speedPercentage = -100
-		speed = 75 + -0.25 * speedPercentage
+		speed = 37.5 + 0.125 * speedPercentage
 		if (left):
-			leftMotor.ChangeDutyCycle(speed)
+			self.leftMotor.ChangeDutyCycle(speed)
 		else:
-			rightMotor.ChangeDutyCycle(speed)
+			self.rightMotor.ChangeDutyCycle(speed)
+
+	def turn(self,left, degrees, speed):
+			self.turnMotor(left, -speed)
+			self.turnMotor(not left, speed)
+			time.sleep(degrees * turnRatio * 100 / speed)
+			self.turnMotor(True, 0)
+			self.turnMotor(False, 0)
+	
+	def turnLeft(self, degrees, speed):
+		self.turn(True, degrees, speed)
+
+	def turnRight(self, degrees, speed):
+		self.turn(False, degrees, speed)
+
+	def move(self, meters, speed):
+		self.turnMotor(True, speed)
+		self.turnMotor(False, speed)
+		time.sleep(meters * moveRatio * 100 / speed)
+		self.turnMotor(True, 0)
+		self.turnMotor(False, 0)
+
+
 
 
 			
