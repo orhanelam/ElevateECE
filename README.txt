@@ -13,7 +13,7 @@ Upload the .ino file into your arduino. There are a couple changes from the old 
 
 CALIBRATION:
 
-You shouldn't ever need to to change the .ino file, but the python file uses experimentally-derived constants for the movement, which may be different for your bot. The test code is designed to have the bot turn 90 degrees right twice, then back 90 degrees left twice, and then go forward two meters, each action with a one second delay. But if the bot doesn't do the above, i.e. it turns too little or too much or moves too far, you'll need to change the constants. If so change the 'turnConstant' and 'moveConstant parameters until the bot does the above. Roughly you should be able to adjust each with the following process:
+You shouldn't ever need to to change the .ino file, but the python file uses experimentally-derived constants for the movement, which may be different for your bot. The test code is designed to have the bot turn 90 degrees right twice, then back 90 degrees left twice, and then go forward two meters, each action with a one second delay. But if the bot doesn't do the above, i.e. it turns too little or too much or moves too far, you'll need to change the constants. If so change the 'turnConstant' and 'moveConstant' parameters until the bot does the above. Roughly you should be able to adjust each with the following process:
 
 moveConstant:
 
@@ -23,6 +23,6 @@ moveConstant:
 
 turnConstant: 
 
-1. Measure actual angle turned in degrees.
+1. Measure actual right angle turned in degrees.
 2. Divde 180 degrees by actual angle.
 3. Multiply previous turnConstant by this to get the new turnConstant. 
