@@ -4,6 +4,7 @@ TO GET ROBOT MOVING:
 HARDWARE:
 
 Connect pin 6 of your rasberry pi to the ground of the Arduino. Connect pin 12 and 18 of the the pi to A2 and A4 of the arduino, respectively. A picture of these pin connections is in the repository.
+Power the Pi be connecting the outputs of the voltage regulator to power and ground pins on the Pi.
 
 
 SOFTWARE:
@@ -26,3 +27,10 @@ turnConstant:
 1. Measure actual right angle turned in degrees.
 2. Divde 180 degrees by actual angle.
 3. Multiply previous turnConstant by this to get the new turnConstant. 
+
+runOnStartup:
+
+1. On command line execute 'sudo nano /etc/rc.local'
+2. Erase IP address logging code (default) and replace with 'python /home/pi/re$
+3. Make sure the ampersand is there (it tells the Pi to continue loading progra$
+4. Ctrl+X will save, Y, and enter will get you back to command line
