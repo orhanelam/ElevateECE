@@ -3,13 +3,15 @@ TO GET ROBOT MOVING:
 
 HARDWARE:
 
-Connect pin 6 of your rasberry pi to the ground of the Arduino. Connect pin 12 and 18 of the the pi to A2 and A4 of the arduino, respectively. A picture of these pin connections is in the repository.
+Connect pin 6 of your rasberry pi to the ground of the Arduino. Connect pin 12 and 18 of the the pi to A2 and A4 of the arduino, respectively.
 Power the Pi be connecting the outputs of the voltage regulator to power and ground pins on the Pi.
+I have uploaded a video explaining the wiring. 
 
 
 SOFTWARE:
 
-Upload the .ino file into your arduino. There are a couple changes from the old motor-controller code, so please re-upload this one to make sure everything works. Load the python script "MotorController.py" into your rasberry pi, into the same directory as your python code that will give out movement commands. I've included an example file uses the commands properly.
+Upload the .ino file into your arduino. There are a couple changes from the old motor-controller code, so please re-upload this one to make sure everything works. Make sure to download the Adafruit Motor library.
+Load the python script "MotorController.py" into your rasberry pi, into the same directory as your python code that will give out movement commands. I've included an example file uses the commands properly.
 
 
 CALIBRATION:
