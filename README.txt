@@ -5,7 +5,7 @@ HARDWARE:
 
 Connect pin 6 of your rasberry pi to the ground of the Arduino. Connect pin 12 and 18 of the the pi to A2 and A4 of the arduino, respectively.
 Power the Pi be connecting the outputs of the voltage regulator to power and ground pins on the Pi.
-I have uploaded a video explaining the wiring. 
+Please see the 3 images in root directory for further explanations on wiring.
 
 
 SOFTWARE:
