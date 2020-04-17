@@ -3,7 +3,7 @@ TO GET ROBOT MOVING:
 
 HARDWARE:
 
-Connect pin 6 of your rasberry pi to the ground of the Arduino. Connect pin 12 and 18 of the the pi to A2 and A4 of the arduino, respectively.
+Connect pin 6 of your rasberry pi to the ground of the Arduino. Connect pin 11 and 18 of the the pi to A5 and A4 of the arduino, respectively.
 Power the Pi be connecting the outputs of the voltage regulator to power and ground pins on the Pi.
 Please see the 3 images in root directory for further explanations on wiring
 
