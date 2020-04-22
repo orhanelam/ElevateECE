@@ -1,5 +1,3 @@
-#DWM Serial Parser
-
 import serial
 import time
 import datetime
@@ -7,8 +5,12 @@ import pandas as pd
 
 class DWMTag():
     def __init__(self, port_name="/dev/cu.usbmodem0007600981201"):
-        #self.DWM = serial.Serial(port="/dev/cu.usbmodem0007600981201", baudrate=115200)
-        #determine port name using this command in terminal: python -m serial.tools.list_ports -v
+        #defualt port name from my computer. Different on differnt devices.
+        '''
+        Opens the serial connection at the given port and writes commands
+        to read position from the tag.
+        Waits until one position reading is successful before deeming connection successful
+        '''
         self.DWM = serial.Serial(port=port_name, baudrate=115200)
         self.DWM.write("\r\r".encode())
         time.sleep(1)
@@ -29,6 +31,15 @@ class DWMTag():
         print("Connected to " +self.DWM.name)
 
     def get_pos(self):
+        '''
+        Returns a dict in the form:
+        {'Timestamp': '14:44:14',
+        'X': '1.57',
+        'Y': '1.18',
+        'Z': '0.95'}
+        where timestamp is the time at which the position is read from the tag,
+        adnd each of X, Y, and Z are the position in meters of the tag.
+        '''
         try:
             line=self.DWM.readline()
             if(line):
@@ -46,6 +57,9 @@ class DWMTag():
             print('position unavailable')
 
     def close_serial(self):
+        '''
+        Closes the serial connection.
+        '''
         self.DWM.write("\r".encode())
         self.DWM.close()
         print('Serial connection closed')
