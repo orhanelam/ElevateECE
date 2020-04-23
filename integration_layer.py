@@ -201,5 +201,11 @@ def turn_to_heading(rads):
     #print('Heading: ', heading)
 
 
+def set_bot_position(bot_x, bot_y):
+    global x_pos, y_pos
+    x_pos = bot_x
+    y_pos = bot_y
+
+
 
 

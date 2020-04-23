@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 import time
 from matplotlib import style
-from integration_layer import navigate_bot, get_line_angle, drive_to_target, MAX_NUM_STEPS
+from integration_layer import navigate_bot, get_line_angle, drive_to_target, MAX_NUM_STEPS, set_bot_position
 
 # Simulation Vars
 MAX_NUM_TRIALS = 5
@@ -44,11 +44,15 @@ def main(bulk_test=False, num_trials=MAX_NUM_TRIALS):
             print("Trial: ", x)
             x_pos = random.randint(0, 1000)
             y_pos = random.randint(0, 1000)
+            set_bot_position(x_pos, y_pos)
             inital_x = x_pos
             inital_y = y_pos
-            target_x_pos = random.randint(0, 1000)
-            target_y_pos = random.randint(0, 1000)
-            step_count, rec_x, rec_y, adj_x, adj_y, measured_x, measured_y, defined_start_x, defined_start_y, target_x, target_y = drive_to_target(MAX_NUM_STEPS, bulk_test=True)
+            plane_x = random.randint(0, 1000)
+            plane_y = random.randint(0, 1000)
+            plane_heading = (random.randint(0, 100)/100) * 2*math.pi
+
+            step_count, rec_x, rec_y, adj_x, adj_y, measured_x, measured_y, defined_start_x, defined_start_y, target_x,\
+                target_y = drive_to_target(plane_x, plane_y, plane_heading, MAX_NUM_STEPS, bulk_test=True)
             if step_count >= MAX_NUM_STEPS:
                 num_failures += 1
                 print('start_coords: ', inital_x, inital_y)
