@@ -103,9 +103,9 @@ def make_plot(x_pos, y_pos, adj_x, adj_y, measured_x, measured_y):
 def test_navigate_bot():
 
     way_points = []
-    for x in range(20):
-        point_x = random.randint(0, 1000)
-        point_y = random.randint(0, 1000)
+    for x in range(500):
+        point_x = random.randint(0, 10000)
+        point_y = random.randint(0, 10000)
         way_points.append([point_x, point_y])
 
     navigate_bot(way_points)
@@ -125,6 +125,8 @@ def navigate_bot(way_points):
         target_x_pos = point[0]
         target_y_pos = point[1]
         step_count, rec_x, rec_y, adj_x, adj_y, measured_x, measured_y, defined_start_x, defined_start_y = drive_to_target(step_limit=MAX_NUM_STEPS, bulk_test=True)
+        if step_count >= MAX_NUM_STEPS:
+            print('FAILURE!')
         full_rec_x += rec_x
         full_rec_y += rec_y
         full_adj_x += adj_x
