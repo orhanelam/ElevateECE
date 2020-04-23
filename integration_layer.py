@@ -1,11 +1,9 @@
 import math
 import random
-import matplotlib.pyplot as plt
-import matplotlib.animation as animation
-import time
-from matplotlib import style
 
-#eTaxi Variables
+
+# eTaxi Variables
+
 x_pos = 0.0
 y_pos = 1000.0
 start_x_pos = 0.0
@@ -14,101 +12,28 @@ adj_target_x_pos = 0.0
 adj_target_y_pos = 0.0
 heading = 0.0
 
-#Target
+# Target
 target_x_pos = 2500.2
 target_y_pos = 10.2
+TARGET_DISTANCE_FROM_PLANE = 200
 
-#Config vars
+# Config vars
 TARGET_TOLERANCE = 20
 MAX_POS_ERROR = 20
 MAX_IMU_ERROR_DEG = 0.5
 MAX_IMU_ERROR = (MAX_IMU_ERROR_DEG/360) * 2*math.pi
-ANGLE_ADJUST_CONSTANT = 1
-MAX_NUM_STEPS = 90000
+ANGLE_ADJUST_CONSTANT = 1 # 1 is neutral and has no effect
 METERS_PER_MOVE = .02
 MIN_MOVE_SIZE = 0.001
-MAX_NUM_TRIALS = 1000000
-STEPS_PER_DATAPOINT = 5
 
 
-def main(bulk_test=False, num_trials=MAX_NUM_TRIALS):
-    global x_pos, y_pos, target_x_pos, target_y_pos, start_y_pos, start_x_pos
-    # x_pos = 10.2
-    # y_pos = 10.2
-    # target_x_pos = 2000.2
-    # target_y_pos = 3500.2
-    # drive_to_target(MAX_NUM_STEPS)
-
-    # start_x_pos = 5500.2
-    # start_y_pos = 4000.2
-    # target_x_pos = 100.2
-    # target_y_pos = 110.3
-    # drive_to_target(MAX_NUM_STEPS)
-
-    # x_pos = 10.2
-    # y_pos = 2000.2
-    # target_x_pos = 2500.2
-    # target_y_pos = 10.2
-    # drive_to_target(MAX_NUM_STEPS)
-    #
-    # x_pos = 2000.2
-    # y_pos = 10.2
-    # target_x_pos = 10.2
-    # target_y_pos = 3500.2
-    # drive_to_target(MAX_NUM_STEPS)
-
-    if bulk_test:
-        num_failures = 0
-        for x in range(num_trials):
-            if x % 100000 == 0:
-                print("Trial: ", x)
-            x_pos = random.randint(0, 1000)
-            y_pos = random.randint(0, 1000)
-            inital_x = x_pos
-            inital_y = y_pos
-            target_x_pos = random.randint(0, 1000)
-            target_y_pos = random.randint(0, 1000)
-            step_count, rec_x, rec_y, adj_x, adj_y, measured_x, measured_y, defined_start_x, defined_start_y = drive_to_target(MAX_NUM_STEPS, bulk_test=True)
-            if step_count >= MAX_NUM_STEPS:
-                num_failures += 1
-                print('start_coords: ', inital_x, inital_y)
-                print('bot start coords: ', defined_start_x, defined_start_y)
-                print('target_coords', target_x_pos, target_y_pos)
-                print('end_coords: ', x_pos, y_pos)
-                line_angle = math.degrees(get_line_angle())
-                print('line_angle: ', line_angle)
-                print()
-                make_plot(rec_x, rec_y, adj_x, adj_y, measured_x, measured_y)
-
-        print('Results:')
-        print('Trials Run: ', num_trials)
-        print("Trials Failed:  ", num_failures)
-        print('Failure Rate: ', num_failures/num_trials)
+# Sim Variables
+MAX_NUM_STEPS = 90000
+STEPS_PER_DATAPOINT = 1
 
 
-def make_plot(x_pos, y_pos, adj_x, adj_y, measured_x, measured_y):
-    plt.clf()
-
-    plt.plot(x_pos, y_pos, 'b-')
-    plt.plot(adj_x, adj_y, 'go')
-
-    plt.plot(measured_x, measured_y, 'c--')
-
-    plt.plot([target_x_pos], [target_y_pos], 'ro')
-    plt.plot([start_x_pos], [start_y_pos], 'mo')
-
-    plt.show()
-
-
-def test_navigate_bot():
-
-    way_points = []
-    for x in range(500):
-        point_x = random.randint(0, 10000)
-        point_y = random.randint(0, 10000)
-        way_points.append([point_x, point_y])
-
-    navigate_bot(way_points)
+def main():
+    print('main')
 
 
 def navigate_bot(way_points):
@@ -133,12 +58,15 @@ def navigate_bot(way_points):
         full_adj_y += adj_y
         target_point_x += [defined_start_x]
         target_point_y += [defined_start_y]
-    make_plot(full_rec_x, full_rec_y, full_adj_x, full_adj_y, target_point_x, target_point_y)
+    return full_rec_x, full_rec_y, full_adj_x, full_adj_y, target_point_x, target_point_y
+
 
 # grid is quad I, 0 degree is parrallel to x axis
-def drive_to_target(step_limit=float('inf'), bulk_test=False):
+def drive_to_target(plane_x=None, plane_y=None, plane_heading=None, step_limit=float('inf'), bulk_test=False):
     global start_x_pos, start_y_pos
 
+    if plane_x is not None and plane_y is not None and plane_heading is not None:
+        calculate_target_zone(plane_x, plane_y, plane_heading)
     recorded_x_pos = []
     recorded_y_pos = []
     angle_adjust_x_pos = []
@@ -177,20 +105,18 @@ def drive_to_target(step_limit=float('inf'), bulk_test=False):
             measured_y_pos.append(y_pos)
         count += 1
 
-    if not bulk_test:
-        make_plot(recorded_x_pos, recorded_y_pos, angle_adjust_x_pos, angle_adjust_y_pos, measured_x_pos, measured_y_pos)
-        print('\nDone')
-        print('eTaxi Position: ', x_pos, y_pos)
-        print('num_steps: ', count)
-    return count, recorded_x_pos, recorded_y_pos, angle_adjust_x_pos, angle_adjust_y_pos, measured_x_pos, measured_y_pos, start_x_pos, start_y_pos
+    return count, recorded_x_pos, recorded_y_pos, angle_adjust_x_pos, angle_adjust_y_pos, measured_x_pos,\
+           measured_y_pos, start_x_pos, start_y_pos, target_x_pos, target_y_pos
+
+
+def calculate_target_zone(plane_x, plane_y, plane_heading):
+    global target_x_pos, target_y_pos
+    target_x_pos = plane_x + (TARGET_DISTANCE_FROM_PLANE * math.cos(plane_heading))
+    target_y_pos = plane_y + (TARGET_DISTANCE_FROM_PLANE * math.sin(plane_heading))
 
 
 def adjust_heading(loc_x, loc_y):
     line_rad = get_line_angle()
-    # print('\ndefined line_rad: ', math.degrees(line_rad))
-    # if loc_x > target_x_pos:
-    #     line_rad += math.pi
-        # print('fliiped line_rad: ', math.degrees(line_rad))
     if point_above_line(loc_x, loc_y):
         turn_to_heading(line_rad - (MAX_IMU_ERROR*ANGLE_ADJUST_CONSTANT))
     else:
