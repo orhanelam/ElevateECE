@@ -4,8 +4,8 @@ import time
 class motorController:
     def __init__(self):
 
-        self.turnRatio = 1 #ratio of seconds per degree
-        self.moveRation = 1 #ratio of seconds per meter
+        self.turnRatio = .0091 #ratio of seconds per degree
+        self.moveRation = .55 #ratio of seconds per meter
 
         # These are the pins for a 2B rasbperry pi, may differ for other models. 
         # https://www.raspberrypi.org/forums/viewtopic.php?f=91&t=105044 to get 
