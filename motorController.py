@@ -52,7 +52,7 @@ class motorController:
         self.turn(True, degrees, speed)
 
     def turnRight(self, degrees, speed):
-        self.turn(self, False, degrees, speed)
+        self.turn(False, degrees, speed)
 
     def move(self, meters, speed):
         self.turnMotor(True, speed)
