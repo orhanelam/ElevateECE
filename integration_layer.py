@@ -100,13 +100,38 @@ def make_plot(x_pos, y_pos, adj_x, adj_y, measured_x, measured_y):
     plt.show()
 
 
+def test_navigate_bot():
+
+    way_points = []
+    for x in range(20):
+        point_x = random.randint(0, 1000)
+        point_y = random.randint(0, 1000)
+        way_points.append([point_x, point_y])
+
+    navigate_bot(way_points)
+
+
 def navigate_bot(way_points):
     global target_x_pos, target_y_pos
+
+    full_rec_x = []
+    full_rec_y = []
+    full_adj_x = []
+    full_adj_y = []
+    target_point_x = []
+    target_point_y = []
+
     for point in way_points:
         target_x_pos = point[0]
         target_y_pos = point[1]
-        drive_to_target(step_limit=MAX_NUM_STEPS, bulk_test=True)
-
+        step_count, rec_x, rec_y, adj_x, adj_y, measured_x, measured_y, defined_start_x, defined_start_y = drive_to_target(step_limit=MAX_NUM_STEPS, bulk_test=True)
+        full_rec_x += rec_x
+        full_rec_y += rec_y
+        full_adj_x += adj_x
+        full_adj_y += adj_y
+        target_point_x += [defined_start_x]
+        target_point_y += [defined_start_y]
+    make_plot(full_rec_x, full_rec_y, full_adj_x, full_adj_y, target_point_x, target_point_y)
 
 # grid is quad I, 0 degree is parrallel to x axis
 def drive_to_target(step_limit=float('inf'), bulk_test=False):
