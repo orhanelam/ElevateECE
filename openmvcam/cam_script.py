@@ -1,6 +1,22 @@
-3# AprilTags Test Measurements
-
+# main.py -- put your code here!
+import pyb, time
 import sensor, image, time, math
+
+led = pyb.LED(3)
+usb = pyb.USB_VCP()
+while (usb.isconnected()==False):
+   led.on()
+   time.sleep(150)
+   led.off()
+   time.sleep(100)
+   led.on()
+   time.sleep(150)
+   led.off()
+   time.sleep(600)
+   
+# AprilTags Test Measurements
+
+
 
 sensor.reset()
 sensor.set_pixformat(sensor.RGB565)
@@ -56,9 +72,6 @@ def z_cm(x):
 
 def x_cm(x):
     return (-.9887*x - .046)
-
-
-
 
 
 def z_cm(x):
@@ -118,5 +131,7 @@ while(True):
             #print("Tx: %.1f, Ty %.1f, Tz %.1f, T3 %.1f, T5 %.1f, T10 %.1f, Ry %.1f" % print_args)
             #print("Tx: %.1f, Ty %.1f, Unit %.1f, Tz %.1f, T1 %.1f, T3 %.1f, T5 %.1f, T10 %.1f" % print_args)
             print(near(z, .1))
+
+
 
 
