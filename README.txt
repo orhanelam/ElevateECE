@@ -47,4 +47,4 @@ IMU Setup:
 5. Clone this repository. Follow instructions in README. Once you "make", the sensors should be calibrated
 6. From there a command like "./getbno055 -t eul" will give orientation info (90deg test is working)
 Make sure the mode (-m) has fusion set to ON. If not, execute command "./getbno055 -m ndof" and then you can get readings with "./getbno055 -t eul"
-7. Once all of this is setup and functional, see imu_integrated_movement to see how to obtain IMU information from within another python script
+7. Once all of this is setup and functional, see imu_integrated_movement (specifically the getYaw() method) to see how to obtain IMU information from within another python script
