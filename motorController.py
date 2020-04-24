@@ -7,13 +7,13 @@ class motorController:
 
         self.turnRatio = .0091 #ratio of seconds per degree
         self.moveRatio = .55 #ratio of seconds per meter
-
+        
         # These are the pins for a 2B rasbperry pi, may differ for other models. 
         # https://www.raspberrypi.org/forums/viewtopic.php?f=91&t=105044 to get 
         # pins.
 
         leftPin = 12
-        rightPin = 16
+        rightPin = 18
         GPIO.setmode(GPIO.BOARD)
         GPIO.setwarnings(False)
         GPIO.setup(leftPin, GPIO.OUT)
@@ -41,7 +41,7 @@ class motorController:
     def turn(self,left, degrees, speed):
             self.turnMotor(left, -speed)
             self.turnMotor(not left, speed)
-            time.sleep(degrees * self.turnRatio * 100 / speed)
+            time.sleep(degrees * self.turnRatio * 100 / abs(speed))
             self.turnMotor(True, 0)
             self.turnMotor(False, 0)
     
@@ -54,7 +54,7 @@ class motorController:
     def move(self, meters, speed):
         self.turnMotor(True, speed)
         self.turnMotor(False, speed)
-        time.sleep(meters * self.moveRatio * 100 / speed)
+        time.sleep(meters * self.moveRatio * 100 / abs(speed))
         self.turnMotor(True, 0)
         self.turnMotor(False, 0)
 
