@@ -1,14 +1,12 @@
 import time
 from motorController import motorController
 
+power = 90
 x = motorController()
 
-x.turnRight(90, 100)
-time.sleep(1000)
-x.turn(False, 90, 100)
-time.sleep(1000)
-x.turnLeft(90, 100)
-time.sleep(1000)
-x.turn(True, 90, 100)
-time.sleep(1000)
-x.move(2, 100)
+while(True):
+    x.turnRight(90,90)
+    time.sleep(1)
+    #print("here")
+    x.move(1, -90)
+    time.sleep(5)
