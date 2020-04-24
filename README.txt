@@ -38,6 +38,7 @@ runOnStartup:
 4. Ctrl+X will save, Y, and enter will get you back to command line
 
 IMU Setup:
+
 1. https://learn.adafruit.com/adafruit-bno055-absolute-orientation-sensor/pinouts
 2. Connect the SCL and SDA pins to the correct pinouts on the Pi (and also power and ground) ... only these 4 wirings are needed
 
