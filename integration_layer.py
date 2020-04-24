@@ -5,7 +5,7 @@ import matplotlib.animation as animation
 import time
 from matplotlib import style
 
-#eTaxi Variables
+# eTaxi Variables
 x_pos = 0.0
 y_pos = 1000.0
 start_x_pos = 0.0
@@ -14,14 +14,14 @@ adj_target_x_pos = 0.0
 adj_target_y_pos = 0.0
 heading = 0.0
 
-#Target
+# Target
 target_x_pos = 2500.2
 target_y_pos = 10.2
 
-#Config vars
+# Config vars
 TARGET_TOLERANCE = 20
 MAX_POS_ERROR = 20
-MAX_IMU_ERROR_DEG = 0.5
+MAX_IMU_ERROR_DEG = 2
 MAX_IMU_ERROR = (MAX_IMU_ERROR_DEG/360) * 2*math.pi
 ANGLE_ADJUST_CONSTANT = 1
 MAX_NUM_STEPS = 90000
@@ -103,7 +103,7 @@ def make_plot(x_pos, y_pos, adj_x, adj_y, measured_x, measured_y):
 def test_navigate_bot():
 
     way_points = []
-    for x in range(500):
+    for x in range(100):
         point_x = random.randint(0, 10000)
         point_y = random.randint(0, 10000)
         way_points.append([point_x, point_y])
@@ -134,6 +134,7 @@ def navigate_bot(way_points):
         target_point_x += [defined_start_x]
         target_point_y += [defined_start_y]
     make_plot(full_rec_x, full_rec_y, full_adj_x, full_adj_y, target_point_x, target_point_y)
+
 
 # grid is quad I, 0 degree is parrallel to x axis
 def drive_to_target(step_limit=float('inf'), bulk_test=False):
