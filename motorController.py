@@ -1,7 +1,6 @@
 import RPi.GPIO as GPIO
 import time
 
-
 class motorController:
     def __init__(self):
 
@@ -14,20 +13,24 @@ class motorController:
 
         leftPin = 12
         rightPin = 18
+
         GPIO.setmode(GPIO.BOARD)
         GPIO.setwarnings(False)
         GPIO.setup(leftPin, GPIO.OUT)
         GPIO.setup(rightPin, GPIO.OUT)
+        #self.leftMotor
         self.leftMotor = GPIO.PWM(leftPin,250)
         self.leftMotor.start(0)
 
+        #self.rightMotor
         self.rightMotor = GPIO.PWM(rightPin, 250)
         self.rightMotor.start(0)
 
+        
 
     #left: if true, set left motor, otherwise set right.
     # speedPercentage: -100 to 100, sets direction of motor and percent of max motor    # rotation speed to turn at.
-    def turnMotor(self,left, speedPercentage):
+    def turnMotor(self, left, speedPercentage):
         if (speedPercentage > 100):
             speedPercentage = 100
         elif (speedPercentage < -100):
@@ -38,13 +41,13 @@ class motorController:
         else:
             self.rightMotor.ChangeDutyCycle(speed)
 
-    def turn(self,left, degrees, speed):
-            self.turnMotor(left, -speed)
-            self.turnMotor(not left, speed)
-            time.sleep(degrees * self.turnRatio * 100 / abs(speed))
-            self.turnMotor(True, 0)
-            self.turnMotor(False, 0)
-    
+    def turn(self, left, degrees, speed):
+        self.turnMotor(left, -speed)
+        self.turnMotor(not left, speed)
+        time.sleep(degrees * self.turnRatio * 100 / abs(speed))
+        self.turnMotor(left, 0)
+        self.turnMotor(not left, 0)
+
     def turnLeft(self, degrees, speed):
         self.turn(True, degrees, speed)
 
@@ -57,8 +60,6 @@ class motorController:
         time.sleep(meters * self.moveRatio * 100 / abs(speed))
         self.turnMotor(True, 0)
         self.turnMotor(False, 0)
-
-
 
 
             
