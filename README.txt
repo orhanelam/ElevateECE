@@ -36,3 +36,13 @@ runOnStartup:
 2. Erase IP address logging code (default) and replace with 'python /home/pi/re$
 3. Make sure the ampersand is there (it tells the Pi to continue loading progra$
 4. Ctrl+X will save, Y, and enter will get you back to command line
+
+IMU Setup:
+1. https://learn.adafruit.com/adafruit-bno055-absolute-orientation-sensor/pinouts
+2. Connect the SCL and SDA pins to the correct pinouts on the Pi (and also power and ground) ... only these 4 wirings are needed
+
+3. https://github.com/fm4dd/pi-bno055
+4. Enable I2C on your Pi (Pi > Preferences > Raspberry Pi Configuration > Interfaces)  
+5. Clone this repository. Follow instructions in README. Once you "make", the sensors should be calibrated
+6. From there a command like "./getbno055 -t eul" will give orientation info (90deg test is working)
+Make sure the mode (-m) has fusion set to ON. If not, execute command "./getbno055 -m ndof" and then you can get readings with "./getbno055 -t eul"
