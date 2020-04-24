@@ -5,7 +5,7 @@
 import sys, serial, struct
 import time
 
-port = '/dev/ttyACM1'
+port = '/dev/ttyACM0'
 
 
 
@@ -41,12 +41,19 @@ def get_x():
     return cam_mand("getx")
 
 def tag_present():
-    return cam_mand("findtag")
+    return cam_mand("find")
 
 def trust_reading():
-    return cam_mand("trust")
+    return cam_mand("trst")
+
+def test():
+    return cam_mand("test")
 
 
-tag_present()
+print(test())
+
+print(tag_present())
+
+print(get_z())
 
 

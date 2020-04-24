@@ -3,19 +3,19 @@ import sensor, image, time, math, ustruct
 
 led = pyb.LED(3)
 usb = pyb.USB_VCP()
-while (usb.isconnected()==False):
-   led.on()
-   time.sleep(150)
-   led.off()
-   time.sleep(100)
-   led.on()
-   time.sleep(150)
-   led.off()
-   time.sleep(600)
+#while (usb.isconnected()==False):
+   #led.on()
+   #time.sleep(150)
+   #led.off()
+   #time.sleep(100)
+   #led.on()
+   #time.sleep(150)
+   #led.off()
+   #time.sleep(600)
 
 sensor.reset()                      # Reset and initialize the sensor.
 sensor.set_pixformat(sensor.RGB565) # Set pixel format to RGB565 (or GRAYSCALE)
-sensor.set_framesize(sensor.QQVGA)   # Set frame size to QQVGA for april tags
+sensor.set_framesize(sensor.QQVGA)   # Set frame size to QVGA (320x240)
 sensor.skip_frames(time = 2000)     # Wait for settings take effect.
 # AprilTags Test Measurements
 
@@ -91,48 +91,42 @@ def trust(x, z):
         return 1
     return 0
 
-while(True):
-    cmd = usb.recv(4, timeout=5000)
-    if (cmd == b'snap'):
-        img = sensor.snapshot().compress()
-        usb.send(ustruct.pack("<L", img.size()))
-        usb.send(img)
+#while(True):
+    #cmd = usb.recv(4, timeout=5000)
+#if (cmd == b'snap'):
+    #img = sensor.snapshot().compress()
+    #usb.send(ustruct.pack("<L", img.size()))
+    #usb.send(img)
 
-    if (cmd == b'getz'):
-        led.on()
-        time.sleep(150)
-        led.off()
-        x, z = collect_data()
-        data = int(z[10])
-        usb.send(ustruct.pack("<L", data))
+#if (cmd == b'getz'):
+    #led.on()
+    #time.sleep(150)
+    #led.off()
+    #x, z = collect_data()
+    #data = z[10]
+    #usb.send(ustruct.pack("<L", data))
 
-    if (cmd == b'getx'):
-        led.on()
-        time.sleep(150)
-        led.off()
-        x, z = collect_data()
-        data = int(x[10])
-        usb.send(ustruct.pack("<L", data))
+#if (cmd == b'getx'):
+    #led.on()
+    #time.sleep(150)
+    #led.off()
+    #x, z = collect_data()
+    #data = x[10]
+    #usb.send(ustruct.pack("<L", data))
+led.on()
+time.sleep(400)
+led.off()
+tags = find_tag()
+led.on()
+time.sleep(300)
+led.off()
+print(tags)
+#usb.send(ustruct.pack("<L", tags))
 
-    if (cmd == b'find'):
-        led.on()
-        time.sleep(150)
-        led.off()
-        tags = find_tag()
-        usb.send(ustruct.pack("<L", tags))
-
-    if (cmd == b'trst'):
-        led.on()
-        time.sleep(150)
-        led.off()
-        x, z = collect_data()
-        trust = trust(x, z)
-        usb.send(ustruct.pack("<L", trust))
-
-    if (cmd == b'test'):
-        led.on()
-        time.sleep(150)
-        led.off()
-        ans = 7
-        usb.send(ustruct.pack("<L", ans))
-
+#if (cmd == b'trust'):
+    #led.on()
+    #time.sleep(150)
+    #led.off()
+    #x, z = collect_data()
+    #trust = trust(x, z)
+    #usb.send(ustruct.pack("<L", trust))

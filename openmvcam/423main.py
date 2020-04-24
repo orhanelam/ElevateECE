@@ -15,7 +15,7 @@ while (usb.isconnected()==False):
    
 sensor.reset()                      # Reset and initialize the sensor.
 sensor.set_pixformat(sensor.RGB565) # Set pixel format to RGB565 (or GRAYSCALE)
-sensor.set_framesize(sensor.QVGA)   # Set frame size to QVGA (320x240)
+sensor.set_framesize(sensor.QQVGA)   # Set frame size to QQVGA for april tags
 sensor.skip_frames(time = 2000)     # Wait for settings take effect.
 # AprilTags Test Measurements
 
