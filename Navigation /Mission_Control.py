@@ -1,7 +1,7 @@
 import random
 import math
 
-from docking_control import dock
+from docking_simulation import dock
 from eTaxi import set_true_position, get_true_position
 from navigation_control import drive_to_target, get_line_angle, set_plane, navigate_bot, get_target
 from visualization import make_plot
