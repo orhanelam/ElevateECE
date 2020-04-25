@@ -49,6 +49,7 @@ def get_x():
 def tag_present():
     global TAG_PRESENT
     TAG_PRESENT = cam_mand("find")
+    print('tag_updated')
 
 def trust_reading():
     global TRUST_READING
@@ -57,8 +58,5 @@ def trust_reading():
 def test():
     return cam_mand("test")
 
-
-print(test())
-print(cam_mand("test", portB))
 
 
