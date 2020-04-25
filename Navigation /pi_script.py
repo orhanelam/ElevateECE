@@ -70,5 +70,17 @@ def test_threading():
 def get_THREAD_TEST():
     return THREAD_TEST
 
+def get_tag_present():
+    return TAG_PRESENT
+
+def get_tag_x_offset():
+    return TAG_X_OFFSET
+
+def get_trust_reading():
+    return TRUST_READING
+
+def get_test():
+    return TEST
+
 
 

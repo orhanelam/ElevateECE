@@ -2,8 +2,8 @@ import math
 import threading
 import time
 from motorController import motorController
-from pi_script import tag_present, trust_reading, get_x, TAG_PRESENT, TAG_X_OFFSET, TRUST_READING, test, TEST, \
-    test_threading, THREAD_TEST, get_THREAD_TEST
+from pi_script import tag_present, trust_reading, get_x, test, TEST, \
+    test_threading, get_THREAD_TEST, get_tag_present, get_tag_x_offset, get_trust_reading
 
 X_OFFSET_MAX = 80
 CM_PER_MOVE = 20
@@ -22,21 +22,21 @@ def dock_v1():
     print('Dock_v1')
     initalize_openMV()
     time.sleep(0.5)
-    while not TAG_PRESENT:
+    while not get_tag_present():
         print('test: ', TEST)
         print('looking for tag')
         print('THREAD_TEST: ', THREAD_TEST)
         print('THREAD_TEST through getter: ', get_THREAD_TEST())
-    if TAG_PRESENT:
+    if get_tag_present():
         print("Tag is present")
-        offset = TAG_X_OFFSET
+        offset = get_tag_x_offset()
         degrees_off_from_tag_heading = (offset/X_OFFSET_MAX)*fov_degrees
         if offset < 0:
             motors.turnLeft(degrees_off_from_tag_heading, TURN_SPEED)
         else:
             motors.turnRight(degrees_off_from_tag_heading, TURN_SPEED)
         print('Bot just turned hopefully')
-        while not TRUST_READING:
+        while not get_trust_reading():
             motors.move(CM_PER_MOVE, MOVE_SPEED)
         print('bot just moved')
         if offset < 0:
