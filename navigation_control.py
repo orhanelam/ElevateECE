@@ -29,12 +29,6 @@ TARGET_DIST_FROM_PLANE = 20000
 STEPS_PER_DATAPOINT = 5
 
 
-
-
-
-
-
-
 def navigate_bot(way_points):
     global target_x_pos, target_y_pos
 
@@ -74,7 +68,7 @@ def drive_to_target(step_limit=float('inf'), bulk_test=False):
 
     # get current heading and adjust to point to target
     start_x_pos, start_y_pos = get_position()
-    adjust_heading(start_x_pos, start_y_pos)
+    adjust_heading(start_x_pos, start_y_pos) # this should be just turn to line heading
 
     count = 0
     loc_x = start_x_pos
@@ -83,6 +77,7 @@ def drive_to_target(step_limit=float('inf'), bulk_test=False):
         drift_dist, loc_x, loc_y = dist_from_line()
         if drift_dist > MAX_POS_ERROR:
             adjust_heading(loc_x, loc_y)
+            # visualization code
             true_x, true_y = get_true_position()
             angle_adjust_x_pos.append(true_x)
             angle_adjust_y_pos.append(true_y)

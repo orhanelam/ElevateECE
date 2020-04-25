@@ -39,7 +39,7 @@ def dock(plane_x_in, plane_y_in, plane_heading_in):
         print('failed to aquire tag')
 
 
-# standardized form -100 as far right, 0 is center, and 100 far left
+# standardized form -70 as far right, 0 is center, and 70 far left
 def tag_x_offset():
     if tag_present():
         x_pos, y_pos = get_true_position()
