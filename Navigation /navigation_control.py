@@ -25,9 +25,6 @@ STEPS_PER_DATAPOINT = 5
 
 
 
-
-
-
 def navigate_bot(way_points):
     global target_x_pos, target_y_pos
 
