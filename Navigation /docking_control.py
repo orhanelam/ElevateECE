@@ -3,9 +3,9 @@ import math
 
 
 # eVTOL Position
-from numpy.core.umath import sign
 
 from eTaxi import get_true_position, get_imu_heading
+from motorController import motorController
 from navigation_control import turn_to_heading
 
 plane_x = 0.0
@@ -22,7 +22,31 @@ fov = math.radians(fov_degrees)
 # sensor variables
 MAX_ACCURATE_DETECT_RANGE = 350
 ERROR_MAG = 3
-X_OFFSET_MAX = 100
+X_OFFSET_MAX = 80
+
+CM_PER_MOVE = 20
+TURN_SPEED = 100
+MOVE_SPEED = 100
+
+motors = motorController()
+
+
+def dock_v1():
+    if tag_present():
+        offset = tag_x_offset()
+        degrees_off_from_tag_heading = (offset/X_OFFSET_MAX)*fov
+        if offset < 0:
+            motors.turn_left(degrees_off_from_tag_heading, TURN_SPEED)
+        else:
+            motors.turn_right(degrees_off_from_tag_heading, TURN_SPEED)
+        while not trust_reading():
+            motors.move(CM_PER_MOVE, MOVE_SPEED)
+
+        if offset < 0:
+            motors.turn_right(degrees_off_from_tag_heading, TURN_SPEED)
+        else:
+            motors.turn_left(degrees_off_from_tag_heading, TURN_SPEED)
+
 
 
 def dock(plane_x_in, plane_y_in, plane_heading_in):
@@ -38,6 +62,10 @@ def dock(plane_x_in, plane_y_in, plane_heading_in):
     else:
         print('failed to aquire tag')
 
+
+#
+# All  methods below are simulations of real camera mv commands
+#
 
 # standardized form -100 as far right, 0 is center, and 100 far left
 def tag_x_offset():

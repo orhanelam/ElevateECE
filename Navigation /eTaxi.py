@@ -2,6 +2,9 @@ import random
 import math
 
 # eTaxi Variables
+from imu_integrated_movement import args, getYaw
+from motorController import motorController
+
 x_pos = 0.0
 y_pos = 1000.0
 adj_target_x_pos = 0.0
@@ -13,6 +16,8 @@ IMU_heading = 0.0
 MAX_POS_ERROR = 10
 MAX_IMU_ERROR_DEG = 0.05
 MAX_IMU_ERROR = (MAX_IMU_ERROR_DEG/360) * 2*math.pi
+
+motors = motorController()
 
 
 def get_position():
@@ -33,17 +38,28 @@ def move(dist):
     # print("x_pos: ", x_pos, " y_pos: ", y_pos)
 
 
-def turn_to_heading(rads):
+def turn_to_heading(rads, real=False):
+    if real:
+        turn_to_heading_real(rads)
+    else:
+        turn_to_heading_sim(rads)
+
+
+def turn_to_heading_real(rads):
+    current_heading = getYaw(args)
+    
+
+
+def turn_to_heading_sim(rads):
     global heading, IMU_heading
-    IMU_heading = rads if rads < 2 * math.pi else rads - (2*math.pi)
-    error = ((random.randint(0, 200) - 100)/100) * MAX_IMU_ERROR
-    heading = rads + error if rads + error < 2*math.pi else rads + error - (2*math.pi)
+    IMU_heading = rads if rads < 2 * math.pi else rads - (2 * math.pi)
+    error = ((random.randint(0, 200) - 100) / 100) * MAX_IMU_ERROR
+    heading = rads + error if rads + error < 2 * math.pi else rads + error - (2 * math.pi)
 
     print('bot heading: ', math.degrees(heading))
     print('IMU_heading: ', math.degrees(IMU_heading))
     # print('IMU skew is: ', error)
     # print('Heading: ', heading)
-
 
 def get_imu_heading():
     print('apparent heading is: ', math.degrees(IMU_heading))

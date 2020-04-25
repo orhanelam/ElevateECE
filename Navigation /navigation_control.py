@@ -1,14 +1,7 @@
 import math
-import random
-import matplotlib.pyplot as plt
-import matplotlib.animation as animation
-import time
-from matplotlib import style
-
 
 # Target
-from eTaxi import get_position, MAX_POS_ERROR, move, turn_to_heading, MAX_IMU_ERROR, set_true_position, \
-    get_true_heading, get_true_position
+from eTaxi import get_position, MAX_POS_ERROR, move, turn_to_heading, MAX_IMU_ERROR, get_true_position
 from visualization import make_plot
 
 target_x_pos = 2500.2
