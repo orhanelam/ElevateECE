@@ -23,16 +23,16 @@ def dock_v1():
         offset = TAG_X_OFFSET
         degrees_off_from_tag_heading = (offset/X_OFFSET_MAX)*fov_degrees
         if offset < 0:
-            motors.turn_left(degrees_off_from_tag_heading, TURN_SPEED)
+            motors.turnLeft(degrees_off_from_tag_heading, TURN_SPEED)
         else:
-            motors.turn_right(degrees_off_from_tag_heading, TURN_SPEED)
+            motors.turnRight(degrees_off_from_tag_heading, TURN_SPEED)
         while not TRUST_READING:
             motors.move(CM_PER_MOVE, MOVE_SPEED)
 
         if offset < 0:
-            motors.turn_right(degrees_off_from_tag_heading, TURN_SPEED)
+            motors.turnRight(degrees_off_from_tag_heading, TURN_SPEED)
         else:
-            motors.turn_left(degrees_off_from_tag_heading, TURN_SPEED)
+            motors.turnLeft(degrees_off_from_tag_heading, TURN_SPEED)
 
 
 def initalize_openMV():
