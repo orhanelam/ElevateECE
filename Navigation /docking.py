@@ -54,3 +54,7 @@ def update_openMV():
         trust_reading()
         get_x()
         test()
+
+        
+dock_v1()
+
