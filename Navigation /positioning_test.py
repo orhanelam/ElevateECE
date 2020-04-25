@@ -20,3 +20,6 @@ def initialize_positioning_system():
 def update_positioning():
     while True:
         myTag.update_position()
+
+
+main()
