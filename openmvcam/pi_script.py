@@ -6,10 +6,11 @@ import sys, serial, struct
 import time
 
 port = '/dev/ttyACM0'
+portB = '/dev/ttyACM1'
 
 
 
-def cam_mand(serialcmd):
+def cam_mand(serialcmd, port='/dev/ttyACM0'):
     sp = serial.Serial(port, baudrate=115200, bytesize=serial.EIGHTBITS, parity=serial.PARITY_NONE,
             xonxoff=False, rtscts=False, stopbits=serial.STOPBITS_ONE, timeout=5000, dsrdtr=True)
     sp.setDTR(True) # dsrdtr is ignored on Windows.
@@ -51,11 +52,6 @@ def test():
 
 
 print(test())
-
-print(tag_present())
-
-print(get_z())
-print(get_z())
-print(get_z())
+print(cam_mand("test", portB))
 
 
