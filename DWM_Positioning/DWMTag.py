@@ -29,32 +29,54 @@ class DWMTag():
                     except Exception as ex:
                         print('connecting...')
         print("Connected to " +self.DWM.name)
+        self.x_position = 0.00
+        self.y_position = 0.00
+        self.curr_time = curr_time = datetime.datetime.now().strftime("%H:%M:%S.%f")
 
-    def get_pos(self):
+    def update_position(self):
         '''
-        Returns a dict in the form:
-        {'Timestamp': '14:44:14',
-        'X': '1.57',
-        'Y': '1.18',
-        'Z': '0.95'}
-        where timestamp is the time at which the position is read from the tag,
-        adnd each of X, Y, and Z are the position in meters of the tag.
+        Calling this function reads the line over the serial connection
+        and parses it to update the variables
+        self.x_position
+        self.y_position
+        self.curr_time
         '''
         try:
             line=self.DWM.readline()
             if(line):
                 if len(line)>=5:
                     parse=line.decode().split(",")
-                    pos_ind = parse.index("POS")
-                    tag_pos = {"Timestamp":datetime.datetime.now().strftime("%H:%M:%S"),"X":parse[pos_ind+1], "Y":parse[pos_ind+2], "Z":parse[pos_ind+3]}
+                    if parse.index("POS"):
+                        pos_ind = parse.index("POS")
+                        curr_time = datetime.datetime.now().strftime("%H:%M:%S.%f")
+                        x_pos = parse[pos_ind+1]
+                        y_pos = parse[pos_ind+2]
 
-                    return tag_pos
+                        self.x_position = float(x_pos)
+                        self.y_position = float(y_pos)
+                        self.curr_time = curr_time
 
-                else:
-                    print("Distance not calculated: ",line.decode())
-                    return
+            else:
+                print("Distance not calculated: ",line.decode())
         except Exception as ex:
             print('position unavailable')
+            print(ex)
+
+    def get_pos(self):
+        '''
+        return the most recently position of the tag in the form of a list:
+        [x_pos, y_pos]
+        where x_pos is a float, y_pos is a float.
+        Ex:
+        [1.79, 1.80]
+        '''
+        return [self.x_position, self.y_position]
+
+    def get_time(self):
+        '''
+        returns the time at which the most recent position reading was taken
+        '''
+        return self.curr_time
 
     def close_serial(self):
         '''
