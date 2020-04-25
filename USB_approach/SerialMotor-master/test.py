@@ -1,7 +1,7 @@
 import SerialMotor as S
 import time
 
-sm = S.SerialMotor("/dev/ttyACM0")
+sm = S.SerialMotor("/dev/ttyUSB1")
 x = 100
 
 while x > 0: 
