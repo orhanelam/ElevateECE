@@ -6,10 +6,16 @@ import sys, serial, struct
 import time
 
 port = '/dev/ttyACM0'
+portB = '/dev/ttyACM1'
 
+TAG_PRESENT = False
+TAG_X_OFFSET = 0.0
+TAG_Z = 0.0
+TRUST_READING = False
+TEST = 0.0
+THREAD_TEST = 0
 
-
-def cam_mand(serialcmd):
+def cam_mand(serialcmd, port='/dev/ttyACM0'):
     sp = serial.Serial(port, baudrate=115200, bytesize=serial.EIGHTBITS, parity=serial.PARITY_NONE,
             xonxoff=False, rtscts=False, stopbits=serial.STOPBITS_ONE, timeout=5000, dsrdtr=True)
     sp.setDTR(True) # dsrdtr is ignored on Windows.
@@ -33,27 +39,46 @@ def get_photo():
     
     with open("img.jpg", "wb") as f:
         f.write(img)
-        
-def get_z():
-    return cam_mand("getz")
 
-def get_x():
-    return cam_mand("getx")
+def update_get_z():
+    global TAG_Z
+    TAG_Z = cam_mand("getz")
+
+def update_get_x():
+    global TAG_X_OFFSET
+    TAG_X_OFFSET = cam_mand("getx")
+
+def update_tag_present():
+    global TAG_PRESENT
+    TAG_PRESENT = cam_mand("find")
+
+def update_trust_reading():
+    global TRUST_READING
+    TRUST_READING = cam_mand("trst")
+
+def update_test():
+    global TEST
+    TEST = cam_mand("test")
+
+
+def test_threading():
+    global THREAD_TEST
+    THREAD_TEST += 1
+
+def get_THREAD_TEST():
+    return THREAD_TEST
 
 def tag_present():
-    return cam_mand("find")
+    return TAG_PRESENT
+
+def tag_x_offset():
+    return TAG_X_OFFSET
 
 def trust_reading():
-    return cam_mand("trst")
+    return TRUST_READING
 
-def test():
-    return cam_mand("test")
+def get_test():
+    return TEST
 
-
-print(test())
-
-print(tag_present())
-
-print(get_z())
 
 

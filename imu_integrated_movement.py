@@ -55,6 +55,7 @@ def generatePoints(numChecks, slope, x1, x2):
         multiplier = multiplier + 1
     return allPoints
 
+
 def go(allPoints, angle):
     allDist = []
     for x in range(0, len(allPoints)-3, 2):
