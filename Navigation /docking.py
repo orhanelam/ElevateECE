@@ -10,7 +10,7 @@ CM_PER_MOVE = 20
 motors = motorController()
 
 
-TURN_SPEED = 100
+TURN_SPEED = 50
 MOVE_SPEED = 100
 
 
@@ -29,6 +29,7 @@ def dock_v1():
         print("Tag is present")
         offset = tag_x_offset()
         degrees_off_from_tag_heading = (offset/X_OFFSET_MAX)*fov_degrees
+        print('degree turn: ', degrees_off_from_tag_heading)
         if offset < 0:
             motors.turnLeft(degrees_off_from_tag_heading, TURN_SPEED)
         else:
