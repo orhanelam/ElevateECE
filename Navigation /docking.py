@@ -1,5 +1,6 @@
 import math
 import threading
+import time
 from motorController import motorController
 from pi_script import tag_present, trust_reading, get_x, TAG_PRESENT, TAG_X_OFFSET, TRUST_READING
 
@@ -17,6 +18,7 @@ fov_rad = math.radians(fov_degrees)
 
 def dock_v1():
     initalize_openMV()
+    time.sleep(0.3)
     if TAG_PRESENT:
         offset = TAG_X_OFFSET
         degrees_off_from_tag_heading = (offset/X_OFFSET_MAX)*fov_degrees
