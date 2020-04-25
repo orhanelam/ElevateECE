@@ -20,8 +20,9 @@ fov_rad = math.radians(fov_degrees)
 def dock_v1():
     print('Dock_v1')
     initalize_openMV()
-    time.sleep(0.3)
-    print('looking for tag')
+    time.sleep(0.5)
+    while not TAG_PRESENT:
+        print('looking for tag')
     if TAG_PRESENT:
         print("Tag is present")
         offset = TAG_X_OFFSET
