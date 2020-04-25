@@ -16,6 +16,7 @@ fov_rad = math.radians(fov_degrees)
 
 
 def dock_v1():
+    initalize_openMV()
     if TAG_PRESENT:
         offset = TAG_X_OFFSET
         degrees_off_from_tag_heading = (offset/X_OFFSET_MAX)*fov_degrees

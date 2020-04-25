@@ -52,7 +52,7 @@ def tag_present():
 
 def trust_reading():
     global TRUST_READING
-    TRUST_READING =  cam_mand("trst")
+    TRUST_READING = cam_mand("trst")
 
 def test():
     return cam_mand("test")
