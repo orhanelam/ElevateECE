@@ -11,13 +11,13 @@ TURN_SPEED = 100
 MOVE_SPEED = 100
 
 fov_degrees = 10
-fov = math.radians(fov_degrees)
+fov_rad = math.radians(fov_degrees)
 
 
 def dock_v1():
     if tag_present(): # change this to real tag_present
         offset = tag_x_offset() # change this to real tag_x_offset
-        degrees_off_from_tag_heading = (offset/X_OFFSET_MAX)*fov
+        degrees_off_from_tag_heading = (offset/X_OFFSET_MAX)*fov_degrees
         if offset < 0:
             motors.turn_left(degrees_off_from_tag_heading, TURN_SPEED)
         else:
