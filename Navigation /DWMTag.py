@@ -54,7 +54,6 @@ class DWMTag():
                         self.x_position = float(x_pos)
                         self.y_position = float(y_pos)
                         self.curr_time = curr_time
-                        print('position updated in dwnTAg to: ', self.x_position, self.y_position)
 
             else:
                 print("Distance not calculated: ",line.decode())

@@ -19,7 +19,6 @@ def initialize_positioning_system():
 
 def update_positioning():
     while True:
-        print('thread_hit')
         myTag.update_position()
 
 
