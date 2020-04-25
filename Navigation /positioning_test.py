@@ -8,7 +8,8 @@ myTag = DWMTag()
 def main():
     initialize_positioning_system()
     position = myTag.get_pos()
-    print('position: ', position[0], position[1])
+    while True:
+        print('position: ', position[0], position[1])
 
 
 def initialize_positioning_system():
