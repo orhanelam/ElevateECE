@@ -16,7 +16,6 @@ TEST = 0.0
 THREAD_TEST = 0
 
 def cam_mand(serialcmd, port='/dev/ttyACM0'):
-    print('cam_mand is reached')
     sp = serial.Serial(port, baudrate=115200, bytesize=serial.EIGHTBITS, parity=serial.PARITY_NONE,
             xonxoff=False, rtscts=False, stopbits=serial.STOPBITS_ONE, timeout=5000, dsrdtr=True)
     sp.setDTR(True) # dsrdtr is ignored on Windows.
@@ -41,42 +40,41 @@ def get_photo():
     with open("img.jpg", "wb") as f:
         f.write(img)
 
-def get_z():
+def update_get_z():
     global TAG_Z
     TAG_Z = cam_mand("getz")
 
-def get_x():
+def update_get_x():
     global TAG_X_OFFSET
     TAG_X_OFFSET = cam_mand("getx")
 
-def tag_present():
+def update_tag_present():
     global TAG_PRESENT
     TAG_PRESENT = cam_mand("find")
 
-def trust_reading():
+def update_trust_reading():
     global TRUST_READING
     TRUST_READING = cam_mand("trst")
 
-def test():
+def update_test():
     global TEST
     TEST = cam_mand("test")
 
 
 def test_threading():
     global THREAD_TEST
-    print('THREAD_TEST incremented')
     THREAD_TEST += 1
 
 def get_THREAD_TEST():
     return THREAD_TEST
 
-def get_tag_present():
+def tag_present():
     return TAG_PRESENT
 
-def get_tag_x_offset():
+def tag_x_offset():
     return TAG_X_OFFSET
 
-def get_trust_reading():
+def trust_reading():
     return TRUST_READING
 
 def get_test():
