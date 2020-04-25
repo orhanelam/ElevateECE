@@ -2,7 +2,8 @@ import math
 import threading
 import time
 from motorController import motorController
-from pi_script import tag_present, trust_reading, get_x, TAG_PRESENT, TAG_X_OFFSET, TRUST_READING, test, TEST
+from pi_script import tag_present, trust_reading, get_x, TAG_PRESENT, TAG_X_OFFSET, TRUST_READING, test, TEST, \
+    test_threading, THREAD_TEST
 
 X_OFFSET_MAX = 80
 CM_PER_MOVE = 20
@@ -24,6 +25,7 @@ def dock_v1():
     while not TAG_PRESENT:
         print('test: ', TEST)
         print('looking for tag')
+        print('THREAD_TEST: ', THREAD_TEST)
     if TAG_PRESENT:
         print("Tag is present")
         offset = TAG_X_OFFSET
@@ -54,7 +56,8 @@ def update_openMV():
         trust_reading()
         get_x()
         test()
+        test_threading()
 
-        
+
 dock_v1()
 

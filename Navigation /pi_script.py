@@ -13,6 +13,7 @@ TAG_X_OFFSET = 0.0
 TAG_Z = 0.0
 TRUST_READING = False
 TEST = 0.0
+THREAD_TEST = 0
 
 def cam_mand(serialcmd, port='/dev/ttyACM0'):
     sp = serial.Serial(port, baudrate=115200, bytesize=serial.EIGHTBITS, parity=serial.PARITY_NONE,
@@ -58,6 +59,11 @@ def trust_reading():
 def test():
     global TEST
     TEST = cam_mand("test")
+
+
+def test_threading():
+    global THREAD_TEST
+    THREAD_TEST += 1
 
 
 
