@@ -9,7 +9,7 @@ def main():
     initialize_positioning_system()
     while True:
         position = myTag.get_pos()
-        print('position: ', position[0], position[1])
+        print('position: ', position)
 
 
 def initialize_positioning_system():
@@ -19,6 +19,7 @@ def initialize_positioning_system():
 
 def update_positioning():
     while True:
+        print('thread_hit')
         myTag.update_position()
 
 
