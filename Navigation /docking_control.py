@@ -4,7 +4,7 @@ import math
 
 # eVTOL Position
 
-from eTaxi import get_true_position, get_imu_heading
+from eTaxi import get_true_position, get_imu_heading, angle_between_headings, MOVE_SPEED, TURN_SPEED
 from motorController import motorController
 from navigation_control import turn_to_heading
 
@@ -25,8 +25,7 @@ ERROR_MAG = 3
 X_OFFSET_MAX = 80
 
 CM_PER_MOVE = 20
-TURN_SPEED = 100
-MOVE_SPEED = 100
+
 
 motors = motorController()
 
@@ -46,7 +45,6 @@ def dock_v1():
             motors.turn_right(degrees_off_from_tag_heading, TURN_SPEED)
         else:
             motors.turn_left(degrees_off_from_tag_heading, TURN_SPEED)
-
 
 
 def dock(plane_x_in, plane_y_in, plane_heading_in):
@@ -116,10 +114,3 @@ def tag_present():
     return abs(angle_diff) <= fov/2
 
 
-def angle_between_headings(angle_1, angle_2):
-    wrapped_delta = abs(angle_1 - angle_2) % 2*math.pi
-    shortest_delta = 2*math.pi - wrapped_delta if wrapped_delta > math.pi else wrapped_delta
-    sign = 1 if (angle_1 - angle_2 >= 0 and angle_1 - angle_2 <= math.pi) \
-                or (angle_1 - angle_2 <= -math.pi and angle_1 - angle_2 >= -2*math.pi) else -1
-    shortest_delta *= sign
-    return shortest_delta

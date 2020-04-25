@@ -16,8 +16,13 @@ IMU_heading = 0.0
 MAX_POS_ERROR = 10
 MAX_IMU_ERROR_DEG = 0.05
 MAX_IMU_ERROR = (MAX_IMU_ERROR_DEG/360) * 2*math.pi
+ACCEPTABLE_TURN_ERROR_DEG = 3
+ACCEPTABLE_TURN_ERROR = math.radians(ACCEPTABLE_TURN_ERROR_DEG)
 
 motors = motorController()
+
+TURN_SPEED = 100
+MOVE_SPEED = 100
 
 
 def get_position():
@@ -47,7 +52,16 @@ def turn_to_heading(rads, real=False):
 
 def turn_to_heading_real(rads):
     current_heading = getYaw(args)
-    
+    delta = angle_between_headings(math.radians(current_heading), rads)
+    count = 0
+    while delta > ACCEPTABLE_TURN_ERROR and count < 10:
+        if delta < 0:
+            motors.turnRight(math.degrees(abs(delta)), TURN_SPEED)
+        else:
+            motors.turnLeft(math.degrees(abs(delta)), TURN_SPEED)
+        current_heading = getYaw(args)
+        delta = angle_between_headings(math.radians(current_heading), rads)
+        count += 1
 
 
 def turn_to_heading_sim(rads):
@@ -60,6 +74,7 @@ def turn_to_heading_sim(rads):
     print('IMU_heading: ', math.degrees(IMU_heading))
     # print('IMU skew is: ', error)
     # print('Heading: ', heading)
+
 
 def get_imu_heading():
     print('apparent heading is: ', math.degrees(IMU_heading))
@@ -84,3 +99,11 @@ def get_true_position():
 def get_true_heading():
     return heading
 
+
+def angle_between_headings(angle_1, angle_2):
+    wrapped_delta = abs(angle_1 - angle_2) % 2*math.pi
+    shortest_delta = 2*math.pi - wrapped_delta if wrapped_delta > math.pi else wrapped_delta
+    sign = 1 if (angle_1 - angle_2 >= 0 and angle_1 - angle_2 <= math.pi) \
+                or (angle_1 - angle_2 <= -math.pi and angle_1 - angle_2 >= -2*math.pi) else -1
+    shortest_delta *= sign
+    return shortest_delta
