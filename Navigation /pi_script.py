@@ -16,6 +16,7 @@ TEST = 0.0
 THREAD_TEST = 0
 
 def cam_mand(serialcmd, port='/dev/ttyACM0'):
+    print('cam_mand is reached')
     sp = serial.Serial(port, baudrate=115200, bytesize=serial.EIGHTBITS, parity=serial.PARITY_NONE,
             xonxoff=False, rtscts=False, stopbits=serial.STOPBITS_ONE, timeout=5000, dsrdtr=True)
     sp.setDTR(True) # dsrdtr is ignored on Windows.
@@ -63,7 +64,11 @@ def test():
 
 def test_threading():
     global THREAD_TEST
+    print('THREAD_TEST incremented')
     THREAD_TEST += 1
+
+def get_THREAD_TEST():
+    return THREAD_TEST
 
 
 
