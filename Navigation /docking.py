@@ -28,7 +28,8 @@ def dock_v1():
     if tag_present():
         print("Tag is present")
         offset = tag_x_offset()
-        degrees_off_from_tag_heading = (offset/X_OFFSET_MAX)*fov_degrees
+        print('offset: ', offset)
+        degrees_off_from_tag_heading = (offset/X_OFFSET_MAX)*(fov_degrees/2)
         print('degree turn: ', degrees_off_from_tag_heading)
         if offset < 0:
             motors.turnLeft(degrees_off_from_tag_heading, TURN_SPEED)
