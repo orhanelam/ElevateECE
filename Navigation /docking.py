@@ -25,7 +25,6 @@ def dock_v1():
     while not get_tag_present():
         print('test: ', TEST)
         print('looking for tag')
-        print('THREAD_TEST: ', THREAD_TEST)
         print('THREAD_TEST through getter: ', get_THREAD_TEST())
     if get_tag_present():
         print("Tag is present")
