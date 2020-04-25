@@ -8,7 +8,10 @@ import time
 port = '/dev/ttyACM0'
 portB = '/dev/ttyACM1'
 
-
+TAG_PRESENT = False
+TAG_X_OFFSET = 0.0
+TAG_Z = 0.0
+TRUST_READING = False
 
 def cam_mand(serialcmd, port='/dev/ttyACM0'):
     sp = serial.Serial(port, baudrate=115200, bytesize=serial.EIGHTBITS, parity=serial.PARITY_NONE,
@@ -34,18 +37,22 @@ def get_photo():
     
     with open("img.jpg", "wb") as f:
         f.write(img)
-        
+
 def get_z():
-    return cam_mand("getz")
+    global TAG_Z
+    TAG_Z = cam_mand("getz")
 
 def get_x():
-    return cam_mand("getx")
+    global TAG_X_OFFSET
+    TAG_X_OFFSET = cam_mand("getx")
 
 def tag_present():
-    return cam_mand("find")
+    global TAG_PRESENT
+    TAG_PRESENT = cam_mand("find")
 
 def trust_reading():
-    return cam_mand("trst")
+    global TRUST_READING
+    TRUST_READING =  cam_mand("trst")
 
 def test():
     return cam_mand("test")
