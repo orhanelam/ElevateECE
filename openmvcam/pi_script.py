@@ -55,5 +55,7 @@ print(test())
 print(tag_present())
 
 print(get_z())
+print(get_z())
+print(get_z())
 
 
