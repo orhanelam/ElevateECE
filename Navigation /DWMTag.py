@@ -1,10 +1,9 @@
 import serial
 import time
 import datetime
-import pandas as pd
 
 class DWMTag():
-    def __init__(self, port_name="/dev/cu.usbmodem0007600981201"):
+    def __init__(self, port_name="/dev/ttyACM1"):
         #defualt port name from my computer. Different on differnt devices.
         '''
         Opens the serial connection at the given port and writes commands
