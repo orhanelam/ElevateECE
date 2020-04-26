@@ -39,9 +39,9 @@ def dock_v2():
                 offset_delta = -offset - offset_current
                 degrees_off_from_tag_heading = (offset_delta / X_OFFSET_MAX) * (fov_rad / 2)
                 if offset_delta > 0:
-                    tug.turnLeft(abs(degrees_off_from_tag_heading))
-                else:
                     tug.turnRight(abs(degrees_off_from_tag_heading))
+                else:
+                    tug.turnLeft(abs(degrees_off_from_tag_heading))
                 time.sleep(1)
             else:
                 if offset < 0:
