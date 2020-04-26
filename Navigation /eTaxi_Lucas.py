@@ -26,8 +26,8 @@ class eTaxi_Lucas(eTaxiBase):
         #self.cameras.append(H7Camera(port_name="/dev/ttyACM1"))
 
 
-        MV_thread = threading.Thread(target=self.update_openMV)
-        MV_thread.start()
+        # MV_thread = threading.Thread(target=self.update_openMV)
+        # MV_thread.start()
         print('eTaxi_Lucas Initialized')
 
     def get_position(self):

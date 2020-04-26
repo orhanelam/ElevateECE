@@ -48,17 +48,17 @@ class H7Camera():
     # def update_z(self):
     #     self.z = self.cam_mand("getz")
 
-    def update_x_offset(self):
-        self.x_offset = self.cam_mand("getx")
-
-    def update_tag_present(self):
-        self.tag_present = self.cam_mand("find")
-        return self.tag_present
-
-    def update_trust_reading(self):
-        self.trust_reading = self.cam_mand("trst")
-        return self.trust_reading
-    
+    # def update_x_offset(self):
+    #     self.x_offset = self.cam_mand("getx")
+    #
+    # def update_tag_present(self):
+    #     self.tag_present = self.cam_mand("find")
+    #     return self.tag_present
+    #
+    # def update_trust_reading(self):
+    #     self.trust_reading = self.cam_mand("trst")
+    #     return self.trust_reading
+    #
     def update_test(self):
         self.test = self.cam_mand("test")
 
@@ -83,15 +83,15 @@ class H7Camera():
     
     def get_x_offset(self):
         time.sleep(0.5)
-        return self.x_offset
+        return self.cam_mand("getx")
 
     def get_tag_present(self):
         time.sleep(0.5)
-        return self.tag_present
+        return self.cam_mand("find")
 
     def get_trust_reading(self):
         time.sleep(0.5)
-        return self.trust_reading
+        return self.cam_mand("trst")
 
     def get_test(self):
         return self.test
