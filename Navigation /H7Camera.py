@@ -53,9 +53,11 @@ class H7Camera():
 
     def update_tag_present(self):
         self.tag_present = self.cam_mand("find")
+        return [self.tag_present].copy()[0]
 
     def update_trust_reading(self):
         self.trust_reading = self.cam_mand("trst")
+        return [self.trust_reading()].copy()[0]
     
     def update_test(self):
         self.test = self.cam_mand("test")
@@ -64,12 +66,12 @@ class H7Camera():
         self.thread_test += 1 #only this works, arithmetic. nested function fails
         
     def update(self):
-        self.update_z()
-        self.update_x_offset()
-        self.update_tag_present()
-        self.update_trust_reading()
-        self.update_test()
-        self.update_thread_test()
+        if self.update_tag_present():
+            self.update_x_offset()
+            if self.update_trust_reading():
+                self.update_z()
+        # self.update_test()
+        # self.update_thread_test()
         
 # get methods will be used by docking script
 
