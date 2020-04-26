@@ -13,7 +13,7 @@ class eTaxi_Dima(eTaxiBase):
     MAX_IMU_ERROR_DEG = 0.05
     MAX_IMU_ERROR = (MAX_IMU_ERROR_DEG / 360) * 2 * math.pi
 
-    ACCEPTABLE_TURN_ERROR = 0.5
+    ACCEPTABLE_TURN_ERROR = 3
     TURN_SPEED = 80
     MOVE_SPEED = 100
     MAX_NUM_TURN_ADJUSTMENTS = 20
@@ -27,7 +27,8 @@ class eTaxi_Dima(eTaxiBase):
 
     def get_position(self):
         position = self.myTag.get_pos()
-        return position[0], position[1]
+        pos_copy = position.copy()
+        return pos_copy[0], pos_copy[1]
 
     def move(self, dist):
         self.motors.setSpeed(self.MOVE_SPEED)
