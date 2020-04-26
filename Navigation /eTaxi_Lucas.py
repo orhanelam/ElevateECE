@@ -55,7 +55,6 @@ class eTaxi_Lucas(eTaxiBase):
         x = 0
         while x < 10:
             for camera in self.cameras:
-                print("update start")
                 camera.update()
                 x += 1
 

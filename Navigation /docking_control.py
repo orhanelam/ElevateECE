@@ -19,8 +19,7 @@ def dock_v2():
     time.sleep(0.5)
 
     while not tug.cameras[0].get_tag_present():
-        print('looking for tag')
-        print('THREAD_TEST through getter: ', tug.cameras[0].get_thread_test())
+       x = 3
     if tug.cameras[0].get_tag_present():
         print("Tag is present")
         offset = tug.cameras[0].get_x_offset()
