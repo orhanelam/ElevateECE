@@ -15,7 +15,7 @@ class eTaxi_Dima(eTaxiBase):
 
     ACCEPTABLE_TURN_ERROR = 3
     TURN_SPEED = 80
-    MOVE_SPEED = 100
+    MOVE_SPEED = 40
     MAX_NUM_TURN_ADJUSTMENTS = 20
 
     def __init__(self):
