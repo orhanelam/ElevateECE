@@ -44,7 +44,7 @@ def dock_v1():
             tug.get_motors().turnRight(degrees_off_from_tag_heading, TURN_SPEED)
         print('Bot just turned hopefully')
         while not tug.cameras[0].get_trust_reading():
-            tug.get_motors().move(CM_PER_MOVE, MOVE_SPEED)
+            tug.move(CM_PER_MOVE)
             time.sleep(0.5)
         print('bot just moved')
         if offset < 0:
