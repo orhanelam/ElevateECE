@@ -38,6 +38,7 @@ class eTaxi_Dima(eTaxiBase):
         time.sleep(0.2)
         current_heading = getYaw(args)
         delta = math.degrees(self.angle_between_headings(math.radians(current_heading), rads))
+        print('Current heading: ', current_heading)
         print('Delta for initial spin: ', delta)
         count = 0
         while abs(delta) > self.ACCEPTABLE_TURN_ERROR and count < self.MAX_NUM_TURN_ADJUSTMENTS:
@@ -45,6 +46,7 @@ class eTaxi_Dima(eTaxiBase):
             time.sleep(0.2)
             current_heading = getYaw(args)
             delta = math.degrees(self.angle_between_headings(math.radians(current_heading), rads))
+            print('Current heading: ', current_heading)
             print('Delta for correction ', count, ' is: ', delta)
             count += 1
 
