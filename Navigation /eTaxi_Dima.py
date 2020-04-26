@@ -35,9 +35,10 @@ class eTaxi_Dima(eTaxiBase):
 
         return (100*pos_copy[0]), (100*pos_copy[1])
 
-    def move(self, dist):
+    def move(self, dist_cm):
         self.motors.setSpeed(self.MOVE_SPEED)
-        self.motors.move(dist)
+        dist_meters = dist_cm/100
+        self.motors.move(dist_meters)
 
     def turn_to_heading(self, rads):
         self.motors.setSpeed(self.TURN_SPEED)
