@@ -26,10 +26,11 @@ def dock_v2():
         rads_off_from_tag_heading = (offset / X_OFFSET_MAX) * (fov_rad / 2)
         print('degree turn: ', math.degrees(rads_off_from_tag_heading))
         # turn bot so tag is symmetrically in opposite side of FOV
-        if offset < 0:
-            tug.turnLeft(2*abs(rads_off_from_tag_heading))
-        else:
-            tug.turnRight(2*abs(rads_off_from_tag_heading))
+        if rads_off_from_tag_heading < 1000:
+            if offset < 0:
+                tug.turnLeft(2*abs(rads_off_from_tag_heading))
+            else:
+                tug.turnRight(2*abs(rads_off_from_tag_heading))
 
         while not tug.cameras[0].get_trust_reading():
             if tug.cameras[0].get_tag_present():
@@ -39,10 +40,11 @@ def dock_v2():
                 offset_delta = -offset - offset_current
                 rads_off_from_tag_heading = (offset_delta / X_OFFSET_MAX) * (fov_rad / 2)
                 print('offset-delta: ', offset_delta)
-                if offset_delta > 0:
-                    tug.turnRight(abs(rads_off_from_tag_heading))
-                else:
-                    tug.turnLeft(abs(rads_off_from_tag_heading))
+                if rads_off_from_tag_heading < 1000:
+                    if offset_delta > 0:
+                        tug.turnRight(abs(rads_off_from_tag_heading))
+                    else:
+                        tug.turnLeft(abs(rads_off_from_tag_heading))
                 time.sleep(1)
             else:
                 if offset < 0:
