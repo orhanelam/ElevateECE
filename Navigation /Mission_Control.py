@@ -1,16 +1,15 @@
 import random
 import math
 
-from docking_simulation import dock
-from eTaxi import set_true_position, get_true_position
+from eTaxi_Simulated import eTaxi_Simulated
 from navigation_control import drive_to_target, get_line_angle, set_plane, navigate_bot, get_target
 from visualization import make_plot
 
-MAX_NUM_TRIALS = 100000
+MAX_NUM_TRIALS = 1000
 MAX_NUM_STEPS = 90000
 
 
-def main(bulk_test=False, num_trials=MAX_NUM_TRIALS):
+def simulated_navigation_test(bulk_test=False, num_trials=MAX_NUM_TRIALS):
     global target_x_pos, target_y_pos, start_y_pos, start_x_pos
     # new_x = 10.2
     # new_y = 10.2
@@ -39,7 +38,7 @@ def main(bulk_test=False, num_trials=MAX_NUM_TRIALS):
     # target_y_pos = 3500.2
     # set_true_position(new_x, new_y)
     # drive_to_target(MAX_NUM_STEPS)
-
+    eTaxi = eTaxi_Simulated()
     if bulk_test:
         num_failures = 0
         for x in range(num_trials):
@@ -47,7 +46,7 @@ def main(bulk_test=False, num_trials=MAX_NUM_TRIALS):
                 print("Trial: ", x)
             new_x = random.randint(0, 10000)
             new_y = random.randint(0, 10000)
-            set_true_position(new_x, new_y)
+            eTaxi.set_true_position(new_x, new_y)
             inital_x = new_x
             inital_y = new_y
             plane_x = random.randint(0, 10000)
@@ -55,14 +54,14 @@ def main(bulk_test=False, num_trials=MAX_NUM_TRIALS):
             plane_heading = (random.randint(0, 100)/100) * 2*math.pi
 
             set_plane(plane_x, plane_y, plane_heading)
-            step_count, rec_x, rec_y, adj_x, adj_y, measured_x, measured_y, defined_start_x, defined_start_y = drive_to_target(MAX_NUM_STEPS, bulk_test=True)
+            step_count, rec_x, rec_y, adj_x, adj_y, measured_x, measured_y, defined_start_x, defined_start_y = drive_to_target(eTaxi, MAX_NUM_STEPS, bulk_test=True)
             if step_count >= MAX_NUM_STEPS:
                 num_failures += 1
                 print('start_coords: ', inital_x, inital_y)
                 print('bot start coords: ', defined_start_x, defined_start_y)
                 target_x, target_y = get_target()
                 print('target_coords', target_x, target_y)
-                print('end_coords: ', get_true_position())
+                print('end_coords: ', eTaxi.get_true_position())
                 line_angle = math.degrees(get_line_angle())
                 print('line_angle: ', line_angle)
                 print()
@@ -76,12 +75,13 @@ def main(bulk_test=False, num_trials=MAX_NUM_TRIALS):
 
 
 def test_drive_and_acquire():
+    eTaxi = eTaxi_Simulated()
     for x in range(1):
         new_x = random.randint(0, 10000)
         new_y = random.randint(0, 10000)
         # new_x = 20
         # new_y = 20
-        set_true_position(new_x, new_y)
+        eTaxi.set_true_position(new_x, new_y)
         inital_x = new_x
         inital_y = new_y
         # plane_x = 10000
@@ -92,8 +92,8 @@ def test_drive_and_acquire():
         plane_heading = (random.randint(0, 100) / 100) * 2 * math.pi
         set_plane(plane_x, plane_y, plane_heading)
         step_count, rec_x, rec_y, adj_x, adj_y, measured_x, measured_y, defined_start_x, defined_start_y = drive_to_target(
-            MAX_NUM_STEPS, bulk_test=True)
-        dock(plane_x, plane_y, plane_heading)
+            eTaxi, MAX_NUM_STEPS, bulk_test=True)
+        # dock(plane_x, plane_y, plane_heading)
         target_x, target_y = get_target()
 
         make_plot(rec_x, rec_y, adj_x, adj_y, measured_x, measured_y, target_x, target_y, inital_x, inital_y,
@@ -101,10 +101,11 @@ def test_drive_and_acquire():
 
 
 def test_navigate_bot():
+    eTaxi = eTaxi_Simulated()
     way_points = []
     for x in range(100):
         point_x = random.randint(0, 10000)
         point_y = random.randint(0, 10000)
         way_points.append([point_x, point_y])
 
-    navigate_bot(way_points)
+    navigate_bot(eTaxi, way_points)

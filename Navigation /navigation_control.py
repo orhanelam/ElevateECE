@@ -1,7 +1,7 @@
 import math
 
 # Target
-from eTaxi import get_position, MAX_POS_ERROR, move, turn_to_heading, MAX_IMU_ERROR, get_true_position
+from eTaxi_Simulated import eTaxi_Simulated
 from visualization import make_plot
 
 target_x_pos = 2500.2
@@ -22,10 +22,7 @@ TARGET_DIST_FROM_PLANE = 20000
 STEPS_PER_DATAPOINT = 5
 
 
-
-
-
-def navigate_bot(way_points):
+def navigate_bot(eTaxi, way_points):
     global target_x_pos, target_y_pos
 
     full_rec_x = []
@@ -38,7 +35,7 @@ def navigate_bot(way_points):
     for point in way_points:
         target_x_pos = point[0]
         target_y_pos = point[1]
-        step_count, rec_x, rec_y, adj_x, adj_y, measured_x, measured_y, defined_start_x, defined_start_y = drive_to_target(step_limit=MAX_NUM_STEPS, bulk_test=True)
+        step_count, rec_x, rec_y, adj_x, adj_y, measured_x, measured_y, defined_start_x, defined_start_y = drive_to_target(eTaxi, step_limit=MAX_NUM_STEPS, bulk_test=True)
         if step_count >= MAX_NUM_STEPS:
             print('FAILURE!')
         full_rec_x += rec_x
@@ -51,7 +48,7 @@ def navigate_bot(way_points):
 
 
 # grid is quad I, 0 degree is parrallel to x axis
-def drive_to_target(step_limit=float('inf'), bulk_test=False):
+def drive_to_target(eTaxi, step_limit=float('inf'), bulk_test=False):
     global start_x_pos, start_y_pos
 
     # variables used for plotting
@@ -63,45 +60,44 @@ def drive_to_target(step_limit=float('inf'), bulk_test=False):
     measured_y_pos = []
 
     # get current heading and adjust to point to target
-    start_x_pos, start_y_pos = get_position()
-    adjust_heading(start_x_pos, start_y_pos)
+    start_x_pos, start_y_pos = eTaxi.get_position()
+    adjust_heading(eTaxi, start_x_pos, start_y_pos)
 
     count = 0
     loc_x = start_x_pos
     loc_y = start_y_pos
     while not in_tolerance_of_target(loc_x, loc_y) and count < step_limit:
-        drift_dist, loc_x, loc_y = dist_from_line()
-        if drift_dist > MAX_POS_ERROR:
-            adjust_heading(loc_x, loc_y)
-            true_x, true_y = get_true_position()
-            angle_adjust_x_pos.append(true_x)
-            angle_adjust_y_pos.append(true_y)
-            measured_x_pos.append(true_x)
-            measured_y_pos.append(true_y)
+        drift_dist, loc_x, loc_y = dist_from_line(eTaxi)
+        if drift_dist > eTaxi.MAX_POS_ERROR:
+            adjust_heading(eTaxi, loc_x, loc_y)
+            angle_adjust_x_pos.append(loc_x)
+            angle_adjust_y_pos.append(loc_y)
+            measured_x_pos.append(loc_x)
+            measured_y_pos.append(loc_y)
 
         target_delta = dist_from_target(loc_x, loc_y)
         if target_delta < CM_PER_MOVE:
             if target_delta/2 > MIN_MOVE_SIZE:
-                move(target_delta/2)
+                eTaxi.move(target_delta/2)
             elif target_delta > MIN_MOVE_SIZE:
-                move(target_delta)
+                eTaxi.move(target_delta)
             else:
-                move(MIN_MOVE_SIZE)
+                eTaxi.move(MIN_MOVE_SIZE)
         else:
-            move(CM_PER_MOVE)
+            eTaxi.move(CM_PER_MOVE)
 
         if count % STEPS_PER_DATAPOINT == 0:
-            true_x, true_y = get_true_position()
-            recorded_x_pos.append(true_x)
-            recorded_y_pos.append(true_y)
-            measured_x_pos.append(true_x)
-            measured_y_pos.append(true_y)
+            recorded_x_pos.append(loc_x)
+            recorded_y_pos.append(loc_y)
+            measured_x_pos.append(loc_x)
+            measured_y_pos.append(loc_y)
         count += 1
 
-    success, dist = is_bot_in_target_zone()
-    if not success:
-        count = step_limit
-        print('True Distance From target: ', dist)
+    if isinstance(eTaxi, eTaxi_Simulated):
+        success, dist = is_bot_in_target_zone(eTaxi)
+        if not success:
+            count = step_limit
+            print('True Distance From target: ', dist)
 
     if not bulk_test:
         make_plot(recorded_x_pos, recorded_y_pos, angle_adjust_x_pos, angle_adjust_y_pos, measured_x_pos, measured_y_pos, target_x_pos, target_y_pos, start_x_pos, start_y_pos)
@@ -110,12 +106,12 @@ def drive_to_target(step_limit=float('inf'), bulk_test=False):
     return count, recorded_x_pos, recorded_y_pos, angle_adjust_x_pos, angle_adjust_y_pos, measured_x_pos, measured_y_pos, start_x_pos, start_y_pos
 
 
-def adjust_heading(loc_x, loc_y):
+def adjust_heading(eTaxi, loc_x, loc_y):
     line_rad = get_line_angle()
     if point_above_line(loc_x, loc_y):
-        turn_to_heading(line_rad - (MAX_IMU_ERROR*ANGLE_ADJUST_CONSTANT))
+        eTaxi.turn_to_heading(line_rad - (eTaxi.MAX_IMU_ERROR*ANGLE_ADJUST_CONSTANT))
     else:
-        turn_to_heading(line_rad + (MAX_IMU_ERROR*ANGLE_ADJUST_CONSTANT))
+        eTaxi.turn_to_heading(line_rad + (eTaxi.MAX_IMU_ERROR*ANGLE_ADJUST_CONSTANT))
 
 
 def get_line_angle():
@@ -156,8 +152,8 @@ def dist_from_target(loc_x, loc_y):
     return dist
 
 
-def dist_from_line():
-    loc_x, loc_y = get_position()
+def dist_from_line(eTaxi):
+    loc_x, loc_y = eTaxi.get_position()
     num = abs( ((target_y_pos - start_y_pos)*loc_x) - ((target_x_pos - start_x_pos)*loc_y) + (target_x_pos*start_y_pos) - (target_y_pos*start_x_pos) )
     denom = math.sqrt((target_y_pos-start_y_pos)**2 + (target_x_pos-start_x_pos)**2)
     distance = num/denom
@@ -171,8 +167,8 @@ def in_tolerance_of_target(loc_x, loc_y):
     return dist <= TARGET_TOLERANCE
 
 
-def is_bot_in_target_zone():
-    true_x, true_y = get_true_position()
+def is_bot_in_target_zone(eTaxi):
+    true_x, true_y = eTaxi.get_true_position()
     x_diff = true_x - target_x_pos
     y_diff = true_y - target_y_pos
     dist = math.sqrt((x_diff ** 2) + (y_diff ** 2))
