@@ -24,13 +24,13 @@ def dock_v2():
         print("Tag is present")
         offset = tug.cameras[0].get_x_offset()
         print('offset: ', offset)
-        degrees_off_from_tag_heading = (offset / X_OFFSET_MAX) * (fov_degrees / 2)
+        degrees_off_from_tag_heading = (offset / X_OFFSET_MAX) * (fov_rad / 2)
         print('degree turn: ', degrees_off_from_tag_heading)
         # turn bot so tag is symmetrically in opposite side of FOV
         if offset < 0:
-            tug.get_motors().turnLeft(2*degrees_off_from_tag_heading, TURN_SPEED)
+            tug.turnLeft(2*degrees_off_from_tag_heading, TURN_SPEED)
         else:
-            tug.get_motors().turnRight(2*degrees_off_from_tag_heading, TURN_SPEED)
+            tug.turnRight(2*degrees_off_from_tag_heading, TURN_SPEED)
 
         while not tug.cameras[0].get_trust_reading():
             if tug.cameras[0].get_tag_present():
@@ -38,11 +38,11 @@ def dock_v2():
                 tug.move(CM_PER_MOVE)
                 offset_current = tug.cameras[0].get_x_offset()
                 offset_delta = -offset - offset_current
-                degrees_off_from_tag_heading = (offset_delta / X_OFFSET_MAX) * (fov_degrees / 2)
+                degrees_off_from_tag_heading = (offset_delta / X_OFFSET_MAX) * (fov_rad / 2)
                 if offset_delta > 0:
-                    tug.get_motors().turnLeft(degrees_off_from_tag_heading, TURN_SPEED)
+                    tug.turnLeft(degrees_off_from_tag_heading, TURN_SPEED)
                 else:
-                    tug.get_motors().turnRight(degrees_off_from_tag_heading, TURN_SPEED)
+                    tug.turnRight(degrees_off_from_tag_heading, TURN_SPEED)
                 time.sleep(1)
             else:
                 if offset < 0:
