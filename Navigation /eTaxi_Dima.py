@@ -28,7 +28,8 @@ class eTaxi_Dima(eTaxiBase):
     def get_position(self):
         position = self.myTag.get_pos()
         pos_copy = position.copy()
-        return pos_copy[0], pos_copy[1]
+
+        return (100*pos_copy[0]), (100*pos_copy[1])
 
     def move(self, dist):
         self.motors.setSpeed(self.MOVE_SPEED)
