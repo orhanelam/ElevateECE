@@ -108,7 +108,10 @@ def drive_to_target(eTaxi, step_limit=float('inf'), bulk_test=False):
 
 def adjust_heading(eTaxi, loc_x, loc_y):
     line_rad = get_line_angle()
-    if point_above_line(loc_x, loc_y):
+    above_line = point_above_line(loc_x, loc_y)
+    if above_line is None:
+        eTaxi.turn_to_heading(line_rad)
+    elif above_line:
         eTaxi.turn_to_heading(line_rad - (eTaxi.MAX_IMU_ERROR*ANGLE_ADJUST_CONSTANT))
     else:
         eTaxi.turn_to_heading(line_rad + (eTaxi.MAX_IMU_ERROR*ANGLE_ADJUST_CONSTANT))
@@ -141,7 +144,9 @@ def point_above_line(loc_x, loc_y):
     v1 = (target_x_pos - start_x_pos, target_y_pos - start_y_pos)  # Vector 1
     v2 = (target_x_pos - loc_x, target_y_pos - loc_y)  # Vector 1
     xp = v1[0] * v2[1] - v1[1] * v2[0]  # Cross product
-    if xp > 0:
+    if xp == 0:
+        return None
+    elif xp > 0:
         return False
     else:
         return True
