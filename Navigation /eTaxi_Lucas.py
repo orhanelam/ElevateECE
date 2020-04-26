@@ -1,5 +1,4 @@
 import math
-from DWMTag import DWMTag
 from eTaxiBase import eTaxiBase
 from motorController import motorController
 import threading
@@ -34,8 +33,9 @@ class eTaxi_Lucas(eTaxiBase):
         position = self.myTag.get_pos()
         return position[0], position[1]
 
-    def move(self, dist):
-        self.motors.move(dist, self.MOVE_SPEED)
+    def move(self, dist_cm):
+        dist_m = dist_cm/100
+        self.motors.move(dist_m, self.MOVE_SPEED)
 
     def turn_to_heading(self, rads):
         delta = self.angle_between_headings(math.radians(self.heading), rads)

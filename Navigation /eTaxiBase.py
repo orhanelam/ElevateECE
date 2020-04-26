@@ -8,10 +8,10 @@ class eTaxiBase(ABC):
     def get_position(self):
         pass
 
-    def move(self):
+    def move(self, dist_cm):
         pass
 
-    def turn_to_heading(self):
+    def turn_to_heading(self, rads):
         pass
 
     def get_heading(self):
