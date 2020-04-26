@@ -17,6 +17,14 @@ def dock_v2():
     tug = eTaxi_Lucas()
     time.sleep(0.5)
 
+    while True:
+        print('x_offset: ', tug.cameras[0].get_x_offset())
+        print('z_dist: ', tug.cameras[0].get_z())
+        print('tag: ', tug.cameras[0].get_tag_present())
+        print('trust: ', tug.cameras[0].get_trust_reading())
+        print('thread test: ', tug.cameras[0].get_thread_test())
+        print('camera test: ', tug.cameras[0].get_test())
+        
     while not tug.cameras[0].get_tag_present():
        x = 3
     if tug.cameras[0].get_tag_present():
