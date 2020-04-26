@@ -27,6 +27,7 @@ class eTaxi_Lucas(eTaxiBase):
         
         MV_thread = threading.Thread(target=self.update_openMV)
         MV_thread.start()
+        self.run_thread = True
         print('eTaxi_Lucas Initialized')
 
     def get_position(self):
@@ -57,16 +58,14 @@ class eTaxi_Lucas(eTaxiBase):
     def get_heading(self):
         return self.heading
 
+    def pause_update_thread(self):
+        self.run_thread = False
+
+    def resume_update_thread(self):
+        self.run_thread = True
+
     def update_openMV(self):
-        x = 0
-        while x < 10:
-            for camera in self.cameras:
-                camera.update()
-                x += 1
-
-
-
-
-
-
-
+        while True:
+            while self.run_thread:
+                for camera in self.cameras:
+                    camera.update()
