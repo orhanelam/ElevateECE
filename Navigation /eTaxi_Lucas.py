@@ -12,8 +12,8 @@ class eTaxi_Lucas(eTaxiBase):
     MAX_IMU_ERROR_DEG = 0.05
     MAX_IMU_ERROR = (MAX_IMU_ERROR_DEG / 360) * 2 * math.pi
 
-    TURN_SPEED = 100
-    MOVE_SPEED = 100
+    TURN_SPEED = -100
+    MOVE_SPEED = -100
 
     heading = 0.0
 
@@ -22,7 +22,7 @@ class eTaxi_Lucas(eTaxiBase):
     def __init__(self):
         self.motors = motorController()
         self.cameras = []
-        self.cameras.append(H7Camera(port_name="/dev/ttyACM1"))
+        self.cameras.append(H7Camera(port_name="/dev/ttyACM0"))
         #self.cameras.append(H7Camera(port_name="/dev/ttyACM1"))
         
         MV_thread = threading.Thread(target=self.update_openMV)

@@ -4,9 +4,9 @@ import time
 from eTaxi_Lucas import eTaxi_Lucas
 
 X_OFFSET_MAX = 80
-CM_PER_MOVE = 5
+CM_PER_MOVE = 3
 
-TURN_SPEED = 50
+TURN_SPEED = 80
 
 fov_degrees = 10
 fov_rad = math.radians(fov_degrees)
@@ -35,6 +35,7 @@ def dock_v2():
 
         while not tug.cameras[0].get_trust_reading() and not distance_to_travel_for_perp_intercept(tug):
             if tug.cameras[0].get_tag_present():
+                print("CM1")
                 tug.move(CM_PER_MOVE)
                 offset_current = tug.cameras[0].get_x_offset()
                 offset_delta = -offset - offset_current
@@ -51,10 +52,12 @@ def dock_v2():
                     tug.get_motors().turnLeft(search_turn_mag_degrees, TURN_SPEED)
                 time.sleep(3)
         distance = distance_to_travel_for_perp_intercept(tug)
-        tug.move(distance)
+        print("m1")
+        tug.move(-1*distance)
         tug.turn_to_heading(0)
         tag_z_distance = tug.cameras[0].get_z()
-        tug.move(tag_z_distance*2/3)
+        print("m2")
+        tug.move(-tag_z_distance*2/3)
 
 
 # all angles should be in radians

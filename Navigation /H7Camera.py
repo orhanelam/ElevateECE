@@ -21,15 +21,11 @@ class H7Camera():
     def cam_mand(self, serialcmd):
         print("c1")
         sp = serial.Serial(self.port_name, baudrate=115200, bytesize=serial.EIGHTBITS, parity=serial.PARITY_NONE,
-                xonxoff=False, rtscts=False, stopbits=serial.STOPBITS_ONE, timeout=5000, dsrdtr=True)
-        print("c2")
+                xonxoff=False, rtscts=False, stopbits=serial.STOPBITS_ONE, timeout=None, dsrdtr=True)
         sp.setDTR(True) # dsrdtr is ignored on Windows.
         sp.write(serialcmd.encode())
-        print("c3")
         sp.flush()
-        print("c4")
         result = struct.unpack('<L', sp.read(4))[0]
-        print("c5")
         sp.close()
         print("c6")
         return result
@@ -62,10 +58,6 @@ class H7Camera():
 
     def update_trust_reading(self):
         self.trust_reading = self.cam_mand("trst")
-
-    def increment(self, num):
-        bigger = num+2
-        return bigger
     
     def update_test(self):
         self.test = self.cam_mand("test")
@@ -84,7 +76,7 @@ class H7Camera():
 # get methods will be used by docking script
 
     def get_z(self):
-        return self.tag_z
+        return self.z
     
     def get_x_offset(self):
         return self.tag_x_offset
@@ -102,7 +94,11 @@ class H7Camera():
         return self.thread_test
 
 
-# v = H7Camera(port_name="/dev/ttyACM1")
+# v = H7Camera(port_name="/dev/ttyACM0")
 # v.update_test()
 # print(v.get_test())
+# v.update_z()
+# print(v.get_z())
+# v.update_x_offset()
+# print(v.get_x_offset())
 
