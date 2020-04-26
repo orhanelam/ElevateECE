@@ -32,7 +32,7 @@ def dock_v2():
         else:
             tug.get_motors().turnRight(2*degrees_off_from_tag_heading, TURN_SPEED)
 
-        while not tug.cameras[0].get_trust_reading() and not distance_to_travel_for_perp_intercept(tug):
+        while not tug.cameras[0].get_trust_reading():
             if tug.cameras[0].get_tag_present():
                 print("CM1")
                 tug.move(CM_PER_MOVE)
@@ -50,6 +50,7 @@ def dock_v2():
                 else:
                     tug.get_motors().turnLeft(search_turn_mag_degrees, TURN_SPEED)
                 time.sleep(3)
+        time.sleep(1)
         distance = distance_to_travel_for_perp_intercept(tug)
         print("m1")
         print('alignment to perp move dist: ', distance)
