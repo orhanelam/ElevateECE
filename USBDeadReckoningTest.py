@@ -25,7 +25,6 @@ def queryAndProcessYaw(pathToIMU):
 x = MotorControllerUSB()
 
 
-
 def angle_between_headings(angle_1, angle_2):
     wrapped_delta = abs(angle_1 - angle_2) % 2*math.pi
     shortest_delta = 2*math.pi - wrapped_delta if wrapped_delta > math.pi else wrapped_delta
@@ -34,15 +33,16 @@ def angle_between_headings(angle_1, angle_2):
     shortest_delta *= sign
     return shortest_delta
 
-def get_heading(rads):
+
+def get_heading(degrees):
     x.setSpeed(80)
     current_heading = getYaw(args)
     print("Start at: ", current_heading)
-    #delta = angle_between_headings(math.radians(current_heading), rads)
+    # delta = angle_between_headings(math.radians(current_heading), math.radians(degrees))
     delta = 90
     #edit target logic
     #print(delta)
-    target = current_heading + rads
+    target = current_heading + degrees
     if(target > 360):
         target = target - 360
     print("Turn To: ", target)
@@ -67,8 +67,42 @@ def get_heading(rads):
             current_heading = getYaw(args)
             print("Now Heading is : ", current_heading , " and Count is: ", count)
             count += 1
-            
-get_heading(90)
+
+
+def turn_to_heading(rads):
+    x.setSpeed(80)
+    current_heading = getYaw(args)
+    print("Start at: ", current_heading)
+    delta = math.degrees(angle_between_headings(math.radians(current_heading), rads))
+    # delta = 90
+    #edit target logic
+    #print(delta)
+    print("Turn To: ", math.degrees(rads))
+    count = 0
+    time.sleep(3)
+    x.turn(delta)
+    time.sleep(0.1)
+    current_heading = getYaw(args)
+    print("After first turn, pointing at: ", current_heading)
+    while(count < 20):
+        delta = math.degrees(angle_between_headings(math.radians(current_heading), rads))
+        if abs(delta) <= 0.5:
+            print("Adjust Not Needed")
+            x.move(0.2)
+            break
+        else:
+            print("Adjust Needed")
+            print("Turn By: ", delta)
+            time.sleep(0.2)
+            x.turn(delta)
+            current_heading = getYaw(args)
+            print("Now Heading is : ", current_heading , " and Count is: ", count)
+            count += 1
+
+
+turn_to_heading(-90)
+turn_to_heading(90)
+# get_heading(90)
 
 # x.setSpeed(100)
 # time.sleep(5)

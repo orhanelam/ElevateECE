@@ -1,6 +1,7 @@
 import random
 import math
 
+from eTaxi_Dima import eTaxi_Dima
 from eTaxi_Simulated import eTaxi_Simulated
 from navigation_control import drive_to_target, get_line_angle, set_plane, navigate_bot, get_target
 from visualization import make_plot
@@ -72,6 +73,23 @@ def simulated_navigation_test(bulk_test=False, num_trials=MAX_NUM_TRIALS):
         print('Trials Run: ', num_trials)
         print("Trials Failed:  ", num_failures)
         print('Failure Rate: ', num_failures/num_trials)
+
+
+def test_drive_to_point():
+    eTaxi = eTaxi_Dima()
+
+    inital_x, inital_y = eTaxi.get_position()
+    plane_x = random.randint(0, 10000)
+    plane_y = random.randint(0, 10000)
+    plane_heading = (random.randint(0, 100) / 100) * 2 * math.pi
+
+    set_plane(plane_x, plane_y, plane_heading)
+    target_x, target_y = get_target()
+    step_count, rec_x, rec_y, adj_x, adj_y, measured_x, measured_y, defined_start_x, defined_start_y = drive_to_target(
+        eTaxi, MAX_NUM_STEPS, bulk_test=True)
+
+    # make_plot(rec_x, rec_y, adj_x, adj_y, measured_x, measured_y, target_x, target_y, inital_x, inital_y,
+    #           plane_x=plane_x, plane_y=plane_y)
 
 
 def test_drive_and_acquire():
