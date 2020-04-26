@@ -53,6 +53,9 @@ def dock_v2():
         distance = distance_to_travel_for_perp_intercept(tug)
         tug.move(distance)
         tug.turn_to_heading(0)
+        tag_z_distance = tug.cameras[0].get_z()
+        tug.move(tag_z_distance*2/3)
+
         
 
 # all angles should be in radians
