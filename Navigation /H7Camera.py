@@ -19,7 +19,6 @@ class H7Camera():
         self.thread_test = 0
 
     def cam_mand(self, serialcmd):
-        print("c1")
         sp = serial.Serial(self.port_name, baudrate=115200, bytesize=serial.EIGHTBITS, parity=serial.PARITY_NONE,
                 xonxoff=False, rtscts=False, stopbits=serial.STOPBITS_ONE, timeout=None, dsrdtr=True)
         sp.setDTR(True) # dsrdtr is ignored on Windows.
@@ -27,7 +26,6 @@ class H7Camera():
         sp.flush()
         result = struct.unpack('<L', sp.read(4))[0]
         sp.close()
-        print("c6")
         return result
 
     def get_photo(self):
