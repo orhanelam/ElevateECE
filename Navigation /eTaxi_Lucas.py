@@ -4,7 +4,7 @@ from eTaxiBase import eTaxiBase
 from motorController import motorController
 import threading
 
-from pi_script import update_tag_present, update_trust_reading, update_get_x, update_test, test_threading
+from H7Camera import H7Camera
 
 
 class eTaxi_Lucas(eTaxiBase):
@@ -22,6 +22,10 @@ class eTaxi_Lucas(eTaxiBase):
 
     def __init__(self):
         self.motors = motorController()
+        self.cameras = []
+        self.cameras.append(H7Camera(port_name="/dev/ttyACM0"))
+        self.cameras.append(H7Camera(port_name="/dev/ttyACM1"))
+        
         MV_thread = threading.Thread(target=self.update_openMV)
         MV_thread.start()
         print('eTaxi_Lucas Initialized')
@@ -49,11 +53,9 @@ class eTaxi_Lucas(eTaxiBase):
 
     def update_openMV(self):
         while True:
-            update_tag_present()
-            update_trust_reading()
-            update_get_x()
-            update_test()
-            test_threading()
+            for camera in self.cameras:
+                camera.update()
+
 
 
 

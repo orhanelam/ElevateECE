@@ -2,7 +2,6 @@ import math
 import time
 
 from eTaxi_Lucas import eTaxi_Lucas
-from pi_script import get_THREAD_TEST, tag_present, tag_x_offset, trust_reading
 
 X_OFFSET_MAX = 80
 CM_PER_MOVE = 20
@@ -20,12 +19,12 @@ def dock_v1():
     print('Dock_v1')
     tug = eTaxi_Lucas()
     time.sleep(0.5)
-    while not tag_present():
+    while not tug.cameras[0].get_tag_present():
         print('looking for tag')
-        print('THREAD_TEST through getter: ', get_THREAD_TEST())
-    if tag_present():
+        print('THREAD_TEST through getter: ', tug.cameras[0].get_thread_test())
+    if tug.cameras[0].get_tag_present():
         print("Tag is present")
-        offset = tag_x_offset()
+        offset = tug.cameras[0].get_x_offset()
         print('offset: ', offset)
         degrees_off_from_tag_heading = (offset/X_OFFSET_MAX)*(fov_degrees/2)
         print('degree turn: ', degrees_off_from_tag_heading)
@@ -34,7 +33,7 @@ def dock_v1():
         else:
             tug.get_motors().turnRight(degrees_off_from_tag_heading, TURN_SPEED)
         print('Bot just turned hopefully')
-        while not trust_reading():
+        while not tug.cameras[0].get_trust_reading():
             tug.get_motors().move(CM_PER_MOVE, MOVE_SPEED)
         print('bot just moved')
         if offset < 0:
