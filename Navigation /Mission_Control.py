@@ -87,8 +87,8 @@ def test_drive_to_point():
     plane_heading = math.pi - (math.pi/9)
     set_plane(plane_x, plane_y, plane_heading)
     print('plane position set')
-
     target_x, target_y = get_target()
+    print('target_pos: ', target_x, target_y)
     step_count, rec_x, rec_y, adj_x, adj_y, measured_x, measured_y, defined_start_x, defined_start_y = drive_to_target(
         eTaxi, MAX_NUM_STEPS, bulk_test=True)
 
