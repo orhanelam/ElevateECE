@@ -9,7 +9,7 @@ import time
 class H7Camera():
     def __init__(self, port_name="/dev/ttyACM0"):
         #Exact port name may vary
-        self.port = port_name
+        self.port_name = port_name
         
         self.tag_present = False
         self.x_offset = 0.0
@@ -18,7 +18,7 @@ class H7Camera():
         self.test = 0.0
         self.thread_test = 0
 
-    def cam_mand(serialcmd):
+    def cam_mand(self, serialcmd):
         sp = serial.Serial(self.port_name, baudrate=115200, bytesize=serial.EIGHTBITS, parity=serial.PARITY_NONE,
                 xonxoff=False, rtscts=False, stopbits=serial.STOPBITS_ONE, timeout=5000, dsrdtr=True)
         sp.setDTR(True) # dsrdtr is ignored on Windows.
@@ -28,7 +28,7 @@ class H7Camera():
         sp.close()
         return result
 
-    def get_photo():
+    def get_photo(self):
         serialcmd="snap"
         sp = serial.Serial(self.port_name, baudrate=115200, bytesize=serial.EIGHTBITS, parity=serial.PARITY_NONE,
                 xonxoff=False, rtscts=False, stopbits=serial.STOPBITS_ONE, timeout=None, dsrdtr=True)
@@ -45,31 +45,31 @@ class H7Camera():
 
 # update calls used by eTaxi_Lucas
 
-    def update_z():
-        self.z = cam_mand("getz")
+    def update_z(self):
+        self.z = self.cam_mand("getz")
 
-    def update_x_offset():
-        self.tag_x_offset = cam_mand("getx")
+    def update_x_offset(self):
+        self.tag_x_offset = self.cam_mand("getx")
 
-    def update_tag_present():
-        self.tag_present = cam_mand("find")
+    def update_tag_present(self):
+        self.tag_present = self.cam_mand("find")
 
-    def update_trust_reading():
-        self.trust_reading = cam_mand("trst")
+    def update_trust_reading(self):
+        self.trust_reading = self.cam_mand("trst")
 
-    def update_test():
-        self.test = cam_mand("test")
+    def update_test(self):
+        self.test = self.cam_mand("test")
 
-    def update_thread_test():
+    def update_thread_test(self):
         self.thread_test += 1
         
     def update(self):
-        update_z()
-        update_x_offset()
-        update_tag_present()
-        update_trust_reading()
-        update_test()
-        update_thread_test()
+        self.update_z()
+        self.update_x_offset()
+        self.update_tag_present()
+        self.update_trust_reading()
+        self.update_test()
+        self.update_thread_test()
         
 # get methods will be used by docking script
 

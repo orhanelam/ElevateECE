@@ -24,7 +24,7 @@ class eTaxi_Lucas(eTaxiBase):
         self.motors = motorController()
         self.cameras = []
         self.cameras.append(H7Camera(port_name="/dev/ttyACM0"))
-        self.cameras.append(H7Camera(port_name="/dev/ttyACM1"))
+        #self.cameras.append(H7Camera(port_name="/dev/ttyACM1"))
         
         MV_thread = threading.Thread(target=self.update_openMV)
         MV_thread.start()
