@@ -70,6 +70,8 @@ class H7Camera():
             self.update_x_offset()
             if self.update_trust_reading():
                 self.update_z()
+        else:
+            self.trust_reading = False
         # self.update_test()
         # self.update_thread_test()
         
