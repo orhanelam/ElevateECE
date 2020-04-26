@@ -51,6 +51,7 @@ def dock_v2():
                     print('crazy turn requested')
                 time.sleep(1)
             else:
+                print('attempting to find tag')
                 if offset < 0:
                     tug.turnRight(search_turn_mag_degrees)
                 else:
