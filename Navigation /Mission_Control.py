@@ -97,7 +97,7 @@ def test_drive_to_point():
 
     final_x, final_y = eTaxi.get_position()
     print('final position: ', final_x, final_y)
-
+    eTaxi.shut_down()
     # make_plot(rec_x, rec_y, adj_x, adj_y, measured_x, measured_y, target_x, target_y, inital_x, inital_y,
     #           plane_x=plane_x, plane_y=plane_y)
 

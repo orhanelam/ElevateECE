@@ -24,9 +24,9 @@ class eTaxi_Dima(eTaxiBase):
         print('motors initalized')
         self.myTag = DWMTag()
         print('DWM tag initialized')
-        pos_thread = threading.Thread(target=self.update_positioning)
+        self.pos_thread = threading.Thread(target=self.update_positioning)
         print('thread created')
-        pos_thread.start()
+        self.pos_thread.start()
         print('eTaxi_Dima Initialized')
 
     # position is returned in cm
@@ -68,6 +68,6 @@ class eTaxi_Dima(eTaxiBase):
         while True:
             self.myTag.update_position()
 
-
-
-
+    def shut_down(self):
+        self.myTag.close_serial()
+        self.pos_thread.exit()
