@@ -57,7 +57,9 @@ def dock_v2():
                 else:
                     tug.turnLeft(search_turn_mag_degrees)
                 time.sleep(3)
+            print("Check z: " + str(tug.cameras[0].get_z()))
         time.sleep(3)
+        print("Final z: " + str(tug.cameras[0].get_z()))
         distance = distance_to_travel_for_perp_intercept(tug)
         while distance > 500:
             print('bad z: ', distance)
