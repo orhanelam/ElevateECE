@@ -53,6 +53,7 @@ def dock_v2():
                 time.sleep(3)
         distance = distance_to_travel_for_perp_intercept(tug)
         print("m1")
+        print('alignment to perp move dist: ', distance)
         tug.move(distance)
         tug.turn_to_heading(0)
         tag_z_distance = tug.cameras[0].get_z()
