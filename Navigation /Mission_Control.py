@@ -4,7 +4,7 @@ import math
 from eTaxi_Dima import eTaxi_Dima
 from eTaxi_Simulated import eTaxi_Simulated
 from navigation_control import drive_to_target, get_line_angle, set_plane, navigate_bot, get_target
-from visualization import make_plot
+# from visualization import make_plot
 
 MAX_NUM_TRIALS = 1000
 MAX_NUM_STEPS = 90000
@@ -66,8 +66,8 @@ def simulated_navigation_test(bulk_test=False, num_trials=MAX_NUM_TRIALS):
                 line_angle = math.degrees(get_line_angle())
                 print('line_angle: ', line_angle)
                 print()
-                make_plot(rec_x, rec_y, adj_x, adj_y, measured_x, measured_y, target_x, target_y, inital_x, inital_y,
-                          plane_x=plane_x, plane_y=plane_y)
+                # make_plot(rec_x, rec_y, adj_x, adj_y, measured_x, measured_y, target_x, target_y, inital_x, inital_y,
+                #           plane_x=plane_x, plane_y=plane_y)
 
         print('Results:')
         print('Trials Run: ', num_trials)
@@ -76,15 +76,17 @@ def simulated_navigation_test(bulk_test=False, num_trials=MAX_NUM_TRIALS):
 
 
 def test_drive_to_point():
-
+    print('in test drive to point!')
     eTaxi = eTaxi_Dima()
+    print('intialized eTaxi')
 
     inital_x, inital_y = eTaxi.get_position()
     plane_x = 228
     plane_y = 340
     plane_heading = math.pi + (math.pi/4)
-
     set_plane(plane_x, plane_y, plane_heading)
+    print('plane position set')
+
     target_x, target_y = get_target()
     step_count, rec_x, rec_y, adj_x, adj_y, measured_x, measured_y, defined_start_x, defined_start_y = drive_to_target(
         eTaxi, MAX_NUM_STEPS, bulk_test=True)
@@ -118,8 +120,8 @@ def test_drive_and_acquire():
         # dock(plane_x, plane_y, plane_heading)
         target_x, target_y = get_target()
 
-        make_plot(rec_x, rec_y, adj_x, adj_y, measured_x, measured_y, target_x, target_y, inital_x, inital_y,
-                  plane_x=plane_x, plane_y=plane_y)
+        # make_plot(rec_x, rec_y, adj_x, adj_y, measured_x, measured_y, target_x, target_y, inital_x, inital_y,
+        #           plane_x=plane_x, plane_y=plane_y)
 
 
 def test_navigate_bot():
