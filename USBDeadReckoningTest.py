@@ -71,34 +71,20 @@ def get_heading(degrees):
 
 def turn_to_heading(rads):
     x.setSpeed(80)
+    time.sleep(0.2)
     current_heading = getYaw(args)
-    print("Start at: ", current_heading)
     delta = math.degrees(angle_between_headings(math.radians(current_heading), rads))
-    # delta = 90
-    #edit target logic
-    #print(delta)
-    print("Turn To: ", math.degrees(rads))
+    print('Current heading: ', current_heading)
+    print('Delta for initial spin: ', delta)
     count = 0
-    time.sleep(3)
-    x.turn(delta)
-    time.sleep(0.1)
-    current_heading = getYaw(args)
-    print("After first turn, pointing at: ", current_heading)
-    while(count < 20):
+    while abs(delta) > 3 and count < 20:
+        x.turn(-delta)
+        time.sleep(0.2)
+        current_heading = getYaw(args)
         delta = math.degrees(angle_between_headings(math.radians(current_heading), rads))
-        if abs(delta) <= 0.5:
-            print("Adjust Not Needed")
-            x.move(0.2)
-            break
-        else:
-            print("Adjust Needed")
-            print("Turn By: ", delta)
-            time.sleep(0.2)
-            x.turn(delta)
-            current_heading = getYaw(args)
-            print("Now Heading is : ", current_heading , " and Count is: ", count)
-            count += 1
-
+        print('Current heading: ', current_heading)
+        print('Delta for correction ', count, ' is: ', delta)
+        count += 1
 
 # turn_to_heading(-90)
 # turn_to_heading(90)
