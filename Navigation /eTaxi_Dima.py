@@ -19,9 +19,13 @@ class eTaxi_Dima(eTaxiBase):
     MAX_NUM_TURN_ADJUSTMENTS = 20
 
     def __init__(self):
+        print('initalizing dima bot')
         self.motors = MotorControllerUSB()
+        print('motors initalized')
         self.myTag = DWMTag()
+        print('DWM tag initialized')
         pos_thread = threading.Thread(target=self.update_positioning)
+        print('thread created')
         pos_thread.start()
         print('eTaxi_Dima Initialized')
 
