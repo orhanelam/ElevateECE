@@ -67,7 +67,9 @@ class H7Camera():
         
     def update(self):
         if self.update_tag_present():
+            time.sleep(0.1)
             self.update_x_offset()
+            time.sleep(0.1)
             self.update_trust_reading()
             # self.update_z()
         else:

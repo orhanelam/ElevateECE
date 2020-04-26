@@ -2,6 +2,7 @@ import math
 from eTaxiBase import eTaxiBase
 from motorController import motorController
 import threading
+import time
 
 from H7Camera import H7Camera
 
@@ -61,4 +62,5 @@ class eTaxi_Lucas(eTaxiBase):
     def update_openMV(self):
         while True:
             for camera in self.cameras:
+                time.sleep(0.5)
                 camera.update()
