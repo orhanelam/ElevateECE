@@ -30,10 +30,11 @@ class eTaxi_Dima(eTaxiBase):
         return position[0], position[1]
 
     def move(self, dist):
+        self.motors.setSpeed(self.MOVE_SPEED)
         self.motors.move(dist)
 
     def turn_to_heading(self, rads):
-        self.motors.setSpeed(self.MOVE_SPEED)
+        self.motors.setSpeed(self.TURN_SPEED)
         current_heading = getYaw(args)
         delta = self.angle_between_headings(math.radians(current_heading), rads)
         count = 0
