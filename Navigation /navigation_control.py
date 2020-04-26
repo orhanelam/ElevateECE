@@ -65,6 +65,8 @@ def drive_to_target(eTaxi, step_limit=float('inf'), bulk_test=False):
     adjust_heading(eTaxi, start_x_pos, start_y_pos)
     print('pointing at target')
 
+    print('line angle: ', get_line_angle())
+
     count = 0
     loc_x = start_x_pos
     loc_y = start_y_pos
