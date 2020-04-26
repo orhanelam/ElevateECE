@@ -81,7 +81,7 @@ class H7Camera():
         return self.z
     
     def get_x_offset(self):
-        return self.tag_x_offset
+        return self.x_offset
 
     def get_tag_present(self):
         return self.tag_present
