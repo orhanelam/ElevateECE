@@ -9,7 +9,7 @@ CM_PER_MOVE = 10
 
 fov_degrees = 10
 fov_rad = math.radians(fov_degrees)
-search_turn_mag_degrees = fov_degrees/6
+search_turn_mag_degrees = fov_degrees/3
 
 
 def dock_v2():
