@@ -26,17 +26,18 @@ def rotateTo(angle):
     return
     
 def validateAngle(angle):
-     #logic for initialDir + or - angle should be tested
-     target = initialDir + angle
-     current = getYaw(args)
-     if((current >= target - 0.1*target) & (current <= target + 0.1*target)):
-         print("Adjust NOT needed")
-     else:
-         #adjust(current, target)
-         print(current)
-         print(target)
-         print("Adjust needed")
-     return
+    initialDir = getYaw(args)
+    #logic for initialDir + or - angle should be tested
+    target = initialDir + angle
+    current = getYaw(args)
+    if((current >= target - 0.1*target) & (current <= target + 0.1*target)):
+        print("Adjust NOT needed")
+    else:
+        #adjust(current, target)
+        print(current)
+        print(target)
+        print("Adjust needed")
+    return
     
 def getSlope(x1, y1, x2, y2):
     return (float(y2)-float(y1))/(float(x2)-float(x1))
@@ -66,21 +67,21 @@ def go(allPoints, angle):
         # validateAngle(angle)
     return allDist
 
-# Step 0
-initialDir = getYaw(args)
-
-# Step 1 Given x1, y1, x2, y2
-angle = calculateRotation(initialDir, x1, y1, x2, y2)
-print(angle)
-rotateTo(angle)
-testRotate = input()
-validateAngle(angle)
-
-# Step 2
-path = getSlope(x1, y1, x2, y2)
-allPoints = generatePoints(numOfChecks, path, x1, x2)
-print(allPoints)
-
-# Step 3
-allDist = go(allPoints, angle)
-print(allDist)
+# # Step 0
+# initialDir = getYaw(args)
+#
+# # Step 1 Given x1, y1, x2, y2
+# angle = calculateRotation(initialDir, x1, y1, x2, y2)
+# print(angle)
+# rotateTo(angle)
+# testRotate = input()
+# validateAngle(angle)
+#
+# # Step 2
+# path = getSlope(x1, y1, x2, y2)
+# allPoints = generatePoints(numOfChecks, path, x1, x2)
+# print(allPoints)
+#
+# # Step 3
+# allDist = go(allPoints, angle)
+# print(allDist)

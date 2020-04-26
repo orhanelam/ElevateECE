@@ -5,8 +5,6 @@ from imu_integrated_movement import args, getYaw
 from MotorControllerUSB import MotorControllerUSB
 import threading
 
-from pi_script import update_tag_present, update_trust_reading, update_get_x, update_test, test_threading
-
 
 class eTaxi_Dima(eTaxiBase):
     # Error Vars
