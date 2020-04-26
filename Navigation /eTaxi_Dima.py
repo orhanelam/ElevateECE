@@ -35,12 +35,13 @@ class eTaxi_Dima(eTaxiBase):
 
     def turn_to_heading(self, rads):
         self.motors.setSpeed(self.TURN_SPEED)
+        time.sleep(0.2)
         current_heading = getYaw(args)
         delta = math.degrees(self.angle_between_headings(math.radians(current_heading), rads))
         count = 0
         while abs(delta) > self.ACCEPTABLE_TURN_ERROR and count < self.MAX_NUM_TURN_ADJUSTMENTS:
             self.motors.turn(-delta)
-            time.sleep(0.1)
+            time.sleep(0.2)
             current_heading = getYaw(args)
             delta = math.degrees(self.angle_between_headings(math.radians(current_heading), rads))
             count += 1
