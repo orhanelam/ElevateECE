@@ -45,8 +45,8 @@ class H7Camera():
 
 # update calls used by eTaxi_Lucas
 
-    def update_z(self):
-        self.z = self.cam_mand("getz")
+    # def update_z(self):
+    #     self.z = self.cam_mand("getz")
 
     def update_x_offset(self):
         self.x_offset = self.cam_mand("getx")
@@ -69,7 +69,7 @@ class H7Camera():
         if self.update_tag_present():
             self.update_x_offset()
             self.update_trust_reading()
-            self.update_z()
+            # self.update_z()
         else:
             self.trust_reading = 0
         # self.update_test()
@@ -78,7 +78,7 @@ class H7Camera():
 # get methods will be used by docking script
 
     def get_z(self):
-        return self.z
+        return self.cam_mand("getz")
     
     def get_x_offset(self):
         return self.x_offset
