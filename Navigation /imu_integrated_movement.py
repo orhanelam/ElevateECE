@@ -16,7 +16,7 @@ def queryAndProcessYaw(pathToIMU):
     for _ in range(10):
         yaw = subprocess.Popen([pathToIMU, "-m", "ndof"])
         yaww = check_output([pathToIMU, "-t", "eul"])
-        results += float(yaww.split()[1].decode('utf-8'))
+        results += [float(yaww.split()[1].decode('utf-8'))]
     results.sort()
     middle_elements = results[2:8]
     return mean(middle_elements)
