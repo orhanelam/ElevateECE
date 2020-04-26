@@ -66,7 +66,7 @@ def distance_to_travel_for_perp_intercept(eTaxi):
     time.sleep(3)
     if eTaxi.cameras[0].get_tag_present():
         distance_to_tag = eTaxi.cameras[0].get_z()
-        print('x to tag: ', distance_to_tag)
+        print('z to tag: ', distance_to_tag)
         offset = eTaxi.cameras[0].get_x_offset()
         theta = (offset / X_OFFSET_MAX) * (fov_rad / 2)
         psi = abs(eTaxi.angle_between_headings(0, eTaxi.get_heading()))
