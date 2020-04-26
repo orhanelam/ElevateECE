@@ -4,6 +4,7 @@ from eTaxiBase import eTaxiBase
 from imu_integrated_movement import args, getYaw
 from MotorControllerUSB import MotorControllerUSB
 import threading
+import time
 
 
 class eTaxi_Dima(eTaxiBase):
@@ -13,8 +14,9 @@ class eTaxi_Dima(eTaxiBase):
     MAX_IMU_ERROR = (MAX_IMU_ERROR_DEG / 360) * 2 * math.pi
 
     ACCEPTABLE_TURN_ERROR = 0.5
-    TURN_SPEED = 100
+    TURN_SPEED = 80
     MOVE_SPEED = 100
+    MAX_NUM_TURN_ADJUSTMENTS = 20
 
     def __init__(self):
         self.motors = MotorControllerUSB()
@@ -31,11 +33,13 @@ class eTaxi_Dima(eTaxiBase):
         self.motors.move(dist)
 
     def turn_to_heading(self, rads):
+        self.motors.setSpeed(self.MOVE_SPEED)
         current_heading = getYaw(args)
         delta = self.angle_between_headings(math.radians(current_heading), rads)
         count = 0
-        while abs(delta) > self.ACCEPTABLE_TURN_ERROR and count < 10:
+        while abs(delta) > self.ACCEPTABLE_TURN_ERROR and count < self.MAX_NUM_TURN_ADJUSTMENTS:
             self.motors.turn(-math.degrees(delta))
+            time.sleep(0.1)
             current_heading = getYaw(args)
             delta = self.angle_between_headings(math.radians(current_heading), rads)
             count += 1
