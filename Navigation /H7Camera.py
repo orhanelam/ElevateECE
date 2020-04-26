@@ -13,7 +13,7 @@ class H7Camera():
         
         self.tag_present = False
         self.x_offset = 0.0
-        self.z = 0.0
+        self.z = 999.9
         self.trust_reading = False
         self.test = 0.0
         self.thread_test = 0

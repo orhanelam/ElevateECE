@@ -59,8 +59,9 @@ def dock_v2():
                 time.sleep(3)
             print("Check z: " + str(tug.cameras[0].get_z()))
         time.sleep(3)
-        print("Final z: " + str(tug.cameras[0].get_z()))
-        distance = distance_to_travel_for_perp_intercept(tug)
+        final_z = tug.cameras[0].get_z()
+        print("Final z: " + str(final_z))
+        distance = distance_to_travel_for_perp_intercept(tug, final_z)
         while distance > 500:
             print('bad z: ', distance)
             time.sleep(3)
@@ -76,11 +77,11 @@ def dock_v2():
 
 
 # all angles should be in radians
-def distance_to_travel_for_perp_intercept(eTaxi):
+def distance_to_travel_for_perp_intercept(eTaxi, z_dist):
     time.sleep(3)
     if eTaxi.cameras[0].get_tag_present():
         time.sleep(0.5)
-        distance_to_tag = eTaxi.cameras[0].get_z()
+        distance_to_tag = z_dist
         print('z to tag: ', distance_to_tag)
         offset = eTaxi.cameras[0].get_x_offset()
         theta = (offset / X_OFFSET_MAX) * (fov_rad / 2)
