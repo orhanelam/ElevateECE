@@ -1,5 +1,6 @@
 import time
 import math
+from statistics import mean
 from MotorControllerUSB import MotorControllerUSB
 import subprocess
 from subprocess import check_output
@@ -16,7 +17,7 @@ def queryAndProcessYaw(pathToIMU):
     for _ in range(10):
         yaw = subprocess.Popen([pathToIMU, "-m", "ndof"])
         yaww = check_output([pathToIMU, "-t", "eul"])
-        results += float(yaww.split()[1].decode('utf-8'))
+        results.append(float(yaww.split()[1].decode('utf-8')))
     results.sort()
     middle_elements = results[2:8]
     return mean(middle_elements)
@@ -35,7 +36,7 @@ def angle_between_headings(angle_1, angle_2):
 
 def get_heading(rads):
     x.setSpeed(80)
-    current_heading = queryAndProcessYaw(args)
+    current_heading = getYaw(args)
     print("Start at: ", current_heading)
     #delta = angle_between_headings(math.radians(current_heading), rads)
     delta = 90
@@ -49,7 +50,7 @@ def get_heading(rads):
     time.sleep(3)
     x.turn(delta)
     time.sleep(0.1)
-    current_heading = queryAndProcessYaw(args)
+    current_heading = getYaw(args)
     print("After first turn, pointing at: ", current_heading)
     while(count < 20):
         if((current_heading >= target - 0.5) & (current_heading <= target + 0.5)):
@@ -63,7 +64,7 @@ def get_heading(rads):
             print("Turn By: ", delta)
             time.sleep(0.2)
             x.turn(delta)
-            current_heading = queryAndProcessYaw(args)
+            current_heading = getYaw(args)
             print("Now Heading is : ", current_heading , " and Count is: ", count)
             count += 1
             
