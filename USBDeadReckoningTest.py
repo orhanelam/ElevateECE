@@ -100,9 +100,9 @@ def turn_to_heading(rads):
             count += 1
 
 
-turn_to_heading(-90)
-turn_to_heading(90)
-# get_heading(90)
+# turn_to_heading(-90)
+# turn_to_heading(90)
+get_heading(90)
 
 # x.setSpeed(100)
 # time.sleep(5)
