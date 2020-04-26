@@ -6,7 +6,7 @@ from eTaxi_Lucas import eTaxi_Lucas
 X_OFFSET_MAX = 80
 CM_PER_MOVE = 3
 
-TURN_SPEED = 80
+TURN_SPEED = -80
 
 fov_degrees = 10
 fov_rad = math.radians(fov_degrees)
@@ -53,7 +53,7 @@ def dock_v2():
                 time.sleep(3)
         distance = distance_to_travel_for_perp_intercept(tug)
         print("m1")
-        tug.move(-1*distance)
+        tug.move(distance)
         tug.turn_to_heading(0)
         tag_z_distance = tug.cameras[0].get_z()
         # print("m2")
