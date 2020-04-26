@@ -78,15 +78,19 @@ class H7Camera():
 # get methods will be used by docking script
 
     def get_z(self):
+        time.sleep(0.5)
         return self.cam_mand("getz")
     
     def get_x_offset(self):
+        time.sleep(0.5)
         return self.x_offset
 
     def get_tag_present(self):
+        time.sleep(0.5)
         return self.tag_present
 
     def get_trust_reading(self):
+        time.sleep(0.5)
         return self.trust_reading
 
     def get_test(self):
