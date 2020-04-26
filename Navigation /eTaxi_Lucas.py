@@ -63,4 +63,7 @@ class eTaxi_Lucas(eTaxiBase):
         while True:
             for camera in self.cameras:
                 time.sleep(0.5)
-                camera.update()
+                #camera.update()
+                camera.update_thread_test()
+                camera.update_test()
+                camera.update_tag_present()

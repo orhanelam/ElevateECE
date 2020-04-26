@@ -11,22 +11,27 @@ class H7Camera():
         #Exact port name may vary
         self.port_name = port_name
         
-        self.tag_present = False
+        self.tag_present = 0
         self.x_offset = 0.0
         self.z = 999.9
-        self.trust_reading = False
+        self.trust_reading = 0
         self.test = 0.0
         self.thread_test = 0
 
     def cam_mand(self, serialcmd):
+        
         sp = serial.Serial(self.port_name, baudrate=115200, bytesize=serial.EIGHTBITS, parity=serial.PARITY_NONE,
                 xonxoff=False, rtscts=False, stopbits=serial.STOPBITS_ONE, timeout=None, dsrdtr=True)
-        sp.setDTR(True) # dsrdtr is ignored on Windows.
-        sp.write(serialcmd.encode())
-        sp.flush()
-        result = struct.unpack('<L', sp.read(4))[0]
-        sp.close()
-        return result
+        try:
+            sp.setDTR(True) # dsrdtr is ignored on Windows.
+            sp.write(serialcmd.encode())
+            sp.flush()
+            result = struct.unpack('<L', sp.read(4))[0]
+            sp.close()
+            return result
+        except:
+            print("Serial went wrong")
+            return -1
 
     def get_photo(self):
         serialcmd="snap"
@@ -45,8 +50,8 @@ class H7Camera():
 
 # update calls used by eTaxi_Lucas
 
-    # def update_z(self):
-    #     self.z = self.cam_mand("getz")
+    def update_z(self):
+        self.z = self.cam_mand("getz")
 
     def update_x_offset(self):
         self.x_offset = self.cam_mand("getx")
@@ -71,7 +76,9 @@ class H7Camera():
             self.update_x_offset()
             time.sleep(0.1)
             self.update_trust_reading()
-            # self.update_z()
+            time.sleep(0.1)
+            self.update_z()
+            time.sleep(0.1)
         else:
             self.trust_reading = 0
         # self.update_test()
@@ -81,7 +88,8 @@ class H7Camera():
 
     def get_z(self):
         time.sleep(0.5)
-        return self.cam_mand("getz")
+        return self.z
+#         return self.cam_mand("getz")
     
     def get_x_offset(self):
         time.sleep(0.5)
