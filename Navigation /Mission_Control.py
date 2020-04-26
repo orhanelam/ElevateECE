@@ -1,5 +1,6 @@
 import random
 import math
+import time
 
 from eTaxi_Dima import eTaxi_Dima
 from eTaxi_Simulated import eTaxi_Simulated
@@ -80,8 +81,10 @@ def test_drive_to_point():
     eTaxi = eTaxi_Dima()
     print('initialized eTaxi')
 
-    inital_x, inital_y = eTaxi.get_position()
-    print('starting_position: ', inital_x, inital_y)
+    time.sleep(0.5)
+    for _ in range(20):
+        inital_x, inital_y = eTaxi.get_position()
+        print('starting_position: ', inital_x, inital_y)
     plane_x = 215
     plane_y = 150
     plane_heading = math.pi - (math.pi/9)
