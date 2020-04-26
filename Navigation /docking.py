@@ -2,7 +2,7 @@ import math
 import threading
 import time
 
-from eTaxi import eTaxi
+from eTaxi_Lucas import eTaxi
 from motorController import motorController
 from pi_script import update_tag_present, update_trust_reading, update_get_x, update_test, \
     test_threading, get_THREAD_TEST, tag_present, tag_x_offset, trust_reading

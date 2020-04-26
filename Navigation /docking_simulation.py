@@ -4,7 +4,7 @@ import math
 
 # eVTOL Position
 
-from eTaxi import get_true_position, get_imu_heading, angle_between_headings, MOVE_SPEED, TURN_SPEED
+from eTaxi_Lucas import get_true_position, get_imu_heading, angle_between_headings, MOVE_SPEED, TURN_SPEED
 from motorController import motorController
 from navigation_control import turn_to_heading
 

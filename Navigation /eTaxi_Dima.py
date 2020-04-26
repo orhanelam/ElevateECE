@@ -2,13 +2,13 @@ import math
 from DWMTag import DWMTag
 from eTaxiBase import eTaxiBase
 from imu_integrated_movement import args, getYaw
-from motorController import motorController
+from MotorControllerUSB import MotorControllerUSB
 import threading
 
 from pi_script import update_tag_present, update_trust_reading, update_get_x, update_test, test_threading
 
 
-class eTaxi(eTaxiBase):
+class eTaxi_Dima(eTaxiBase):
     # Error Vars
     MAX_POS_ERROR = 10
     MAX_IMU_ERROR_DEG = 0.05
@@ -18,20 +18,18 @@ class eTaxi(eTaxiBase):
     MOVE_SPEED = 100
 
     def __init__(self):
-        self.motors = motorController()
+        self.motors = MotorControllerUSB()
         self.myTag = DWMTag()
         pos_thread = threading.Thread(target=self.update_positioning)
-        MV_thread = threading.Thread(target=self.update_openMV)
         pos_thread.start()
-        MV_thread.start()
-        print('eTaxi Initialized')
+        print('eTaxi_Dima Initialized')
 
     def get_position(self):
         position = self.myTag.get_pos()
         return position[0], position[1]
 
     def move(self, dist):
-        self.motors.move(dist, self.MOVE_SPEED)
+        self.motors.move(dist)
 
     def turn_to_heading(self, rads):
         current_heading = getYaw(args)
@@ -39,9 +37,9 @@ class eTaxi(eTaxiBase):
         count = 0
         while delta > self.ACCEPTABLE_TURN_ERROR and count < 10:
             if delta < 0:
-                self.motors.turnRight(math.degrees(abs(delta)), self.TURN_SPEED)
+                self.motors.turn(math.degrees(delta))
             else:
-                self.motors.turnLeft(math.degrees(abs(delta)), self.TURN_SPEED)
+                self.motors.turn(math.degrees(delta))
             current_heading = getYaw(args)
             delta = self.angle_between_headings(math.radians(current_heading), rads)
             count += 1
@@ -49,13 +47,6 @@ class eTaxi(eTaxiBase):
     def get_heading(self):
         return getYaw(args)
 
-    def update_openMV(self):
-        while True:
-            update_tag_present()
-            update_trust_reading()
-            update_get_x()
-            update_test()
-            test_threading()
 
     def update_positioning(self):
         while True:

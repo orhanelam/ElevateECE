@@ -1,11 +1,11 @@
 import threading
 
 from DWMTag import DWMTag
-from eTaxi import eTaxi
+from eTaxi_Dima import eTaxi_Dima
 
 
 def main():
-    bot = eTaxi()
+    bot = eTaxi_Dima()
     while True:
         position = bot.get_position()
         print('position: ', position)
