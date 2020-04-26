@@ -8,6 +8,7 @@ target_x_pos = 2500.2
 target_y_pos = 10.2
 start_x_pos = 0.0
 start_y_pos = 0.0
+PLANE_HEADING = 0.0
 
 # Config vars
 TARGET_TOLERANCE = 20
@@ -62,6 +63,7 @@ def drive_to_target(eTaxi, step_limit=float('inf'), bulk_test=False):
     # get current heading and adjust to point to target
     start_x_pos, start_y_pos = eTaxi.get_position()
     adjust_heading(eTaxi, start_x_pos, start_y_pos)
+    print('pointing at target')
 
     count = 0
     loc_x = start_x_pos
@@ -75,7 +77,7 @@ def drive_to_target(eTaxi, step_limit=float('inf'), bulk_test=False):
             measured_x_pos.append(loc_x)
             measured_y_pos.append(loc_y)
 
-        target_delta= dist_from_target(loc_x, loc_y)
+        target_delta = dist_from_target(loc_x, loc_y)
         if target_delta < CM_PER_MOVE:
             if target_delta/2 > MIN_MOVE_SIZE:
                 eTaxi.move(target_delta/2)
@@ -93,6 +95,7 @@ def drive_to_target(eTaxi, step_limit=float('inf'), bulk_test=False):
             measured_y_pos.append(loc_y)
         count += 1
 
+    eTaxi.turn_to_heading(PLANE_HEADING + math.pi)
     if isinstance(eTaxi, eTaxi_Simulated):
         success, dist = is_bot_in_target_zone(eTaxi)
         if not success:
@@ -181,7 +184,8 @@ def is_bot_in_target_zone(eTaxi):
 
 
 def set_plane(plane_x, plane_y, plane_heading):
-    global target_x_pos, target_y_pos
+    global target_x_pos, target_y_pos, PLANE_HEADING
+    PLANE_HEADING = plane_heading
     target_x_pos = plane_x + (TARGET_DIST_FROM_PLANE*math.cos(plane_heading))
     target_y_pos = plane_y + (TARGET_DIST_FROM_PLANE*math.sin(plane_heading))
 
