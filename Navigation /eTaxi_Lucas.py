@@ -18,6 +18,8 @@ class eTaxi_Lucas(eTaxiBase):
 
     heading = 0.0
 
+    motors = None
+
     def __init__(self):
         self.motors = motorController()
         MV_thread = threading.Thread(target=self.update_openMV)
@@ -38,6 +40,9 @@ class eTaxi_Lucas(eTaxiBase):
         else:
             self.motors.turnLeft(math.degrees(abs(delta)), self.TURN_SPEED)
         self.heading = rads
+
+    def get_motors(self):
+        return self.motors
 
     def get_heading(self):
         return self.heading

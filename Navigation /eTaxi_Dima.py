@@ -33,18 +33,14 @@ class eTaxi_Dima(eTaxiBase):
         current_heading = getYaw(args)
         delta = self.angle_between_headings(math.radians(current_heading), rads)
         count = 0
-        while delta > self.ACCEPTABLE_TURN_ERROR and count < 10:
-            if delta < 0:
-                self.motors.turn(math.degrees(delta))
-            else:
-                self.motors.turn(math.degrees(delta))
+        while abs(delta) > self.ACCEPTABLE_TURN_ERROR and count < 10:
+            self.motors.turn(-math.degrees(delta))
             current_heading = getYaw(args)
             delta = self.angle_between_headings(math.radians(current_heading), rads)
             count += 1
 
     def get_heading(self):
         return getYaw(args)
-
 
     def update_positioning(self):
         while True:
