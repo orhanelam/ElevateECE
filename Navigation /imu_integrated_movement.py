@@ -22,7 +22,7 @@ def queryAndProcessYaw(pathToIMU):
     middle_elements = results[2:8]
     return mean(middle_elements)
 
-print(getYaw(args))
+# print(getYaw(args))
 
 numOfChecks = 20
 x1 = 1

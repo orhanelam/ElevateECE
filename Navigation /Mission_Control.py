@@ -76,9 +76,8 @@ def simulated_navigation_test(bulk_test=False, num_trials=MAX_NUM_TRIALS):
 
 
 def test_drive_to_point():
+
     eTaxi = eTaxi_Dima()
-
-
 
     inital_x, inital_y = eTaxi.get_position()
     plane_x = 228
