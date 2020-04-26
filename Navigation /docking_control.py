@@ -4,7 +4,7 @@ import time
 from eTaxi_Lucas import eTaxi_Lucas
 
 X_OFFSET_MAX = 80
-CM_PER_MOVE = 3
+CM_PER_MOVE = 10
 
 
 fov_degrees = 10
@@ -61,7 +61,7 @@ def dock_v2():
         print('alignment to perp move dist: ', distance)
         tug.move(distance)
         tug.turn_to_heading(0)
-        tag_z_distance = tug.cameras[0].get_z()
+        # tag_z_distance = tug.cameras[0].get_z()
         # print("m2")
         # tug.move(-tag_z_distance*2/3)
 
