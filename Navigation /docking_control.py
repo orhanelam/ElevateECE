@@ -45,7 +45,7 @@ def dock_v2():
                     tug.turnLeft(abs(rads_off_from_tag_heading))
                 time.sleep(1)
             else:
-                if offset > 0:
+                if offset < 0:
                     tug.turnRight(search_turn_mag_degrees)
                 else:
                     tug.turnLeft(search_turn_mag_degrees)
