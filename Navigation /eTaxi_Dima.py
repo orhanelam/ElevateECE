@@ -29,17 +29,20 @@ class eTaxi_Dima(eTaxiBase):
         pos_thread.start()
         print('eTaxi_Dima Initialized')
 
+    # position is returned in cm
     def get_position(self):
         position = self.myTag.get_pos()
         pos_copy = position.copy()
 
         return (100*pos_copy[0]), (100*pos_copy[1])
 
+    # distance is in cm
     def move(self, dist_cm):
         self.motors.setSpeed(self.MOVE_SPEED)
         dist_meters = dist_cm/100
         self.motors.move(dist_meters)
 
+    # rads is in radians
     def turn_to_heading(self, rads):
         self.motors.setSpeed(self.TURN_SPEED)
         time.sleep(0.2)
@@ -57,8 +60,9 @@ class eTaxi_Dima(eTaxiBase):
             print('Delta for correction ', count, ' is: ', delta)
             count += 1
 
+    # get heading is returned in radians
     def get_heading(self):
-        return getYaw(args)
+        return math.radians(getYaw(args))
 
     def update_positioning(self):
         while True:
