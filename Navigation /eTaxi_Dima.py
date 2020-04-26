@@ -12,6 +12,7 @@ class eTaxi_Dima(eTaxiBase):
     MAX_IMU_ERROR_DEG = 0.05
     MAX_IMU_ERROR = (MAX_IMU_ERROR_DEG / 360) * 2 * math.pi
 
+    ACCEPTABLE_TURN_ERROR = 3
     TURN_SPEED = 100
     MOVE_SPEED = 100
 
