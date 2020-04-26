@@ -53,11 +53,11 @@ class H7Camera():
 
     def update_tag_present(self):
         self.tag_present = self.cam_mand("find")
-        return [self.tag_present].copy()[0]
+        return self.tag_present
 
     def update_trust_reading(self):
         self.trust_reading = self.cam_mand("trst")
-        return [self.trust_reading].copy()[0]
+        return self.trust_reading
     
     def update_test(self):
         self.test = self.cam_mand("test")
