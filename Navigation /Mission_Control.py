@@ -81,6 +81,7 @@ def test_drive_to_point():
     print('initialized eTaxi')
 
     inital_x, inital_y = eTaxi.get_position()
+    print('starting_position: ', inital_x, inital_y)
     plane_x = 230
     plane_y = 150
     plane_heading = math.pi - (math.pi/9)
