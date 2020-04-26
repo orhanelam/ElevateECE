@@ -54,7 +54,7 @@ def dock_v2():
         tug.move(distance)
         tug.turn_to_heading(0)
         tag_z_distance = tug.cameras[0].get_z()
-        tug.move(tag_z_distance*2/3)
+        # tug.move(tag_z_distance*2/3)
 
 
 # all angles should be in radians
@@ -71,6 +71,7 @@ def distance_to_travel_for_perp_intercept(eTaxi):
         else:
             distance_2 = -(distance_to_tag * math.sin(theta) * math.tan((math.pi/2)- psi))
         return distance_1 + distance_2
+    return 0
                 
 
 
