@@ -71,7 +71,7 @@ class H7Camera():
             if self.update_trust_reading():
                 self.update_z()
         else:
-            self.trust_reading = False
+            self.trust_reading = 0
         # self.update_test()
         # self.update_thread_test()
         
