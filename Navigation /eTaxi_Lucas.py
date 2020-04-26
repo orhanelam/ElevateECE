@@ -12,8 +12,8 @@ class eTaxi_Lucas(eTaxiBase):
     MAX_IMU_ERROR_DEG = 0.05
     MAX_IMU_ERROR = (MAX_IMU_ERROR_DEG / 360) * 2 * math.pi
 
-    TURN_SPEED = -100
-    MOVE_SPEED = -100
+    TURN_SPEED = 80
+    MOVE_SPEED = -80
 
     heading = 0.0
 
