@@ -2,6 +2,7 @@ import math
 import time
 
 from eTaxi_Lucas import eTaxi_Lucas
+from H7Camera import H7Camera
 
 X_OFFSET_MAX = 80
 CM_PER_MOVE = 20
@@ -19,9 +20,14 @@ def dock_v1():
     print('Dock_v1')
     tug = eTaxi_Lucas()
     time.sleep(0.5)
-
-    value = [tug.cameras[0].get_thread_test()].copy()
-    print('thread_test', value[0])
+    
+#     value = [tug.cameras[0].get_thread_test()].copy()
+#     print('thread_test', value[0])
+#     while True:
+#         value = tug.cameras[0].get_thread_test()
+#         print("tx1: ", value)
+#         value = tug.cameras[0].get_test()
+#         print("tx2: ", value)
         
     while not tug.cameras[0].get_tag_present():
         print('looking for tag')

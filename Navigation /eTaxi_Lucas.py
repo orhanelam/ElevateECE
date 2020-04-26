@@ -22,7 +22,7 @@ class eTaxi_Lucas(eTaxiBase):
     def __init__(self):
         self.motors = motorController()
         self.cameras = []
-        self.cameras.append(H7Camera(port_name="/dev/ttyACM0"))
+        self.cameras.append(H7Camera(port_name="/dev/ttyACM1"))
         #self.cameras.append(H7Camera(port_name="/dev/ttyACM1"))
         
         MV_thread = threading.Thread(target=self.update_openMV)
@@ -52,9 +52,13 @@ class eTaxi_Lucas(eTaxiBase):
         return self.heading
 
     def update_openMV(self):
-        while True:
+        x = 0
+        while x < 10:
             for camera in self.cameras:
+                print("update start")
                 camera.update()
+                x += 1
+
 
 
 
