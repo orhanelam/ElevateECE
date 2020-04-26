@@ -19,6 +19,10 @@ def dock_v1():
     print('Dock_v1')
     tug = eTaxi_Lucas()
     time.sleep(0.5)
+
+    value = [tug.cameras[0].get_thread_test()].copy()
+    print('thread_test', value[0])
+        
     while not tug.cameras[0].get_tag_present():
         print('looking for tag')
         print('THREAD_TEST through getter: ', tug.cameras[0].get_thread_test())
