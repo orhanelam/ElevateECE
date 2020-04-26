@@ -50,8 +50,13 @@ def dock_v2():
                 else:
                     tug.turnLeft(search_turn_mag_degrees)
                 time.sleep(3)
-        time.sleep(1)
+        time.sleep(3)
         distance = distance_to_travel_for_perp_intercept(tug)
+        while distance > 500:
+            print('bad z: ', distance)
+            time.sleep(3)
+            distance = distance_to_travel_for_perp_intercept(tug)
+
         print("m1")
         print('alignment to perp move dist: ', distance)
         tug.move(distance)
