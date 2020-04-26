@@ -6,7 +6,6 @@ from eTaxi_Lucas import eTaxi_Lucas
 X_OFFSET_MAX = 80
 CM_PER_MOVE = 3
 
-TURN_SPEED = -80
 
 fov_degrees = 10
 fov_rad = math.radians(fov_degrees)
@@ -28,9 +27,9 @@ def dock_v2():
         print('degree turn: ', degrees_off_from_tag_heading)
         # turn bot so tag is symmetrically in opposite side of FOV
         if offset < 0:
-            tug.turnLeft(2*degrees_off_from_tag_heading, TURN_SPEED)
+            tug.turnLeft(2*degrees_off_from_tag_heading)
         else:
-            tug.turnRight(2*degrees_off_from_tag_heading, TURN_SPEED)
+            tug.turnRight(2*degrees_off_from_tag_heading)
 
         while not tug.cameras[0].get_trust_reading():
             if tug.cameras[0].get_tag_present():
@@ -40,15 +39,15 @@ def dock_v2():
                 offset_delta = -offset - offset_current
                 degrees_off_from_tag_heading = (offset_delta / X_OFFSET_MAX) * (fov_rad / 2)
                 if offset_delta > 0:
-                    tug.turnLeft(degrees_off_from_tag_heading, TURN_SPEED)
+                    tug.turnLeft(degrees_off_from_tag_heading)
                 else:
-                    tug.turnRight(degrees_off_from_tag_heading, TURN_SPEED)
+                    tug.turnRight(degrees_off_from_tag_heading)
                 time.sleep(1)
             else:
                 if offset < 0:
-                    tug.get_motors().turnRight(search_turn_mag_degrees, TURN_SPEED)
+                    tug.turnRight(search_turn_mag_degrees)
                 else:
-                    tug.get_motors().turnLeft(search_turn_mag_degrees, TURN_SPEED)
+                    tug.turnLeft(search_turn_mag_degrees)
                 time.sleep(3)
         time.sleep(1)
         distance = distance_to_travel_for_perp_intercept(tug)
@@ -59,7 +58,6 @@ def dock_v2():
         tag_z_distance = tug.cameras[0].get_z()
         # print("m2")
         # tug.move(-tag_z_distance*2/3)
-
 
 
 # all angles should be in radians
@@ -78,7 +76,6 @@ def distance_to_travel_for_perp_intercept(eTaxi):
             distance_2 = -(distance_to_tag * math.sin(theta) * math.tan((math.pi/2)- psi))
         return distance_1 + distance_2
     return 0
-                
 
 
 dock_v2()
