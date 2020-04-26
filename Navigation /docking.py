@@ -1,6 +1,8 @@
 import math
 import threading
 import time
+
+from eTaxi import eTaxi
 from motorController import motorController
 from pi_script import update_tag_present, update_trust_reading, update_get_x, update_test, \
     test_threading, get_THREAD_TEST, tag_present, tag_x_offset, trust_reading
@@ -20,7 +22,7 @@ fov_rad = math.radians(fov_degrees)
 
 def dock_v1():
     print('Dock_v1')
-    initalize_openMV()
+    tug = eTaxi()
     time.sleep(0.5)
     while not tag_present():
         print('looking for tag')
@@ -44,20 +46,6 @@ def dock_v1():
         else:
             motors.turnLeft(degrees_off_from_tag_heading, TURN_SPEED)
         print('done')
-
-
-def initalize_openMV():
-    MV_update_thread = threading.Thread(target=update_openMV)
-    MV_update_thread.start()
-
-
-def update_openMV():
-    while True:
-        update_tag_present()
-        update_trust_reading()
-        update_get_x()
-        update_test()
-        test_threading()
 
 
 dock_v1()
