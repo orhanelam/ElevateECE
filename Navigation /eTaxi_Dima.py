@@ -10,7 +10,7 @@ import time
 class eTaxi_Dima(eTaxiBase):
     # Error Vars
     MAX_POS_ERROR = 10
-    MAX_IMU_ERROR_DEG = 0.05
+    MAX_IMU_ERROR_DEG = 3.5
     MAX_IMU_ERROR = (MAX_IMU_ERROR_DEG / 360) * 2 * math.pi
 
     ACCEPTABLE_TURN_ERROR = 3
