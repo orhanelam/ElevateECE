@@ -81,9 +81,9 @@ def test_drive_to_point():
     print('initialized eTaxi')
 
     inital_x, inital_y = eTaxi.get_position()
-    plane_x = 228
-    plane_y = 340
-    plane_heading = math.pi + (math.pi/4)
+    plane_x = 230
+    plane_y = 150
+    plane_heading = math.pi - (math.pi/9)
     set_plane(plane_x, plane_y, plane_heading)
     print('plane position set')
 
