@@ -76,15 +76,15 @@ def drive_to_target(eTaxi, step_limit=float('inf'), bulk_test=False):
             measured_y_pos.append(loc_y)
 
         target_delta_meters = 100*dist_from_target(loc_x, loc_y)
-        if target_delta_meters < METERS_PER_MOVE:
-            if target_delta_meters/2 > MIN_MOVE_SIZE:
-                eTaxi.move(target_delta_meters/2)
-            elif target_delta_meters > MIN_MOVE_SIZE:
-                eTaxi.move(target_delta_meters)
-            else:
-                eTaxi.move(MIN_MOVE_SIZE)
-        else:
-            eTaxi.move(METERS_PER_MOVE)
+        # if target_delta_meters < METERS_PER_MOVE:
+        #     if target_delta_meters/2 > MIN_MOVE_SIZE:
+        #         eTaxi.move(target_delta_meters/2)
+        #     elif target_delta_meters > MIN_MOVE_SIZE:
+        #         eTaxi.move(target_delta_meters)
+        #     else:
+        #         eTaxi.move(MIN_MOVE_SIZE)
+        # else:
+        eTaxi.move(METERS_PER_MOVE)
 
         if count % STEPS_PER_DATAPOINT == 0:
             recorded_x_pos.append(loc_x)
