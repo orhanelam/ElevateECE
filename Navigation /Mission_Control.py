@@ -133,3 +133,6 @@ def test_navigate_bot():
         way_points.append([point_x, point_y])
 
     navigate_bot(eTaxi, way_points)
+
+
+test_drive_to_point()
