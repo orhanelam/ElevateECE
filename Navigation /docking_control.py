@@ -31,6 +31,8 @@ def dock_v2():
                 tug.turnLeft(2*abs(rads_off_from_tag_heading))
             else:
                 tug.turnRight(2*abs(rads_off_from_tag_heading))
+        else:
+            print('crazy turn requested')
 
         while not tug.cameras[0].get_trust_reading():
             if tug.cameras[0].get_tag_present():
@@ -45,6 +47,8 @@ def dock_v2():
                         tug.turnRight(abs(rads_off_from_tag_heading))
                     else:
                         tug.turnLeft(abs(rads_off_from_tag_heading))
+                else:
+                    print('crazy turn requested')
                 time.sleep(1)
             else:
                 if offset < 0:
@@ -72,11 +76,8 @@ def dock_v2():
 def distance_to_travel_for_perp_intercept(eTaxi):
     time.sleep(3)
     if eTaxi.cameras[0].get_tag_present():
-        eTaxi.pause_update_thread()
         time.sleep(0.5)
         distance_to_tag = eTaxi.cameras[0].get_z()
-        eTaxi.resume_update_thread()
-        time.sleep(0.5)
         print('z to tag: ', distance_to_tag)
         offset = eTaxi.cameras[0].get_x_offset()
         theta = (offset / X_OFFSET_MAX) * (fov_rad / 2)
