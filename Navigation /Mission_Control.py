@@ -81,14 +81,17 @@ def test_drive_to_point():
 
 
     inital_x, inital_y = eTaxi.get_position()
-    plane_x = 238
-    plane_y = 350
-    plane_heading = 0
+    plane_x = 228
+    plane_y = 340
+    plane_heading = math.pi + (math.pi/4)
 
     set_plane(plane_x, plane_y, plane_heading)
     target_x, target_y = get_target()
     step_count, rec_x, rec_y, adj_x, adj_y, measured_x, measured_y, defined_start_x, defined_start_y = drive_to_target(
         eTaxi, MAX_NUM_STEPS, bulk_test=True)
+
+    final_x, final_y = eTaxi.get_position()
+    print('final position: ', final_x, final_y)
 
     # # make_plot(rec_x, rec_y, adj_x, adj_y, measured_x, measured_y, target_x, target_y, inital_x, inital_y,
     #           plane_x=plane_x, plane_y=plane_y)
