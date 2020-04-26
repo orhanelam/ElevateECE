@@ -78,17 +78,18 @@ def simulated_navigation_test(bulk_test=False, num_trials=MAX_NUM_TRIALS):
 def test_drive_to_point():
     eTaxi = eTaxi_Dima()
 
-    inital_x, inital_y = eTaxi.get_position()
-    plane_x = random.randint(0, 10000)
-    plane_y = random.randint(0, 10000)
-    plane_heading = (random.randint(0, 100) / 100) * 2 * math.pi
-
-    set_plane(plane_x, plane_y, plane_heading)
-    target_x, target_y = get_target()
-    step_count, rec_x, rec_y, adj_x, adj_y, measured_x, measured_y, defined_start_x, defined_start_y = drive_to_target(
-        eTaxi, MAX_NUM_STEPS, bulk_test=True)
-
-    # make_plot(rec_x, rec_y, adj_x, adj_y, measured_x, measured_y, target_x, target_y, inital_x, inital_y,
+    eTaxi.move(1)
+    # inital_x, inital_y = eTaxi.get_position()
+    # plane_x = random.randint(0, 10000)
+    # plane_y = random.randint(0, 10000)
+    # plane_heading = (random.randint(0, 100) / 100) * 2 * math.pi
+    #
+    # set_plane(plane_x, plane_y, plane_heading)
+    # target_x, target_y = get_target()
+    # step_count, rec_x, rec_y, adj_x, adj_y, measured_x, measured_y, defined_start_x, defined_start_y = drive_to_target(
+    #     eTaxi, MAX_NUM_STEPS, bulk_test=True)
+    #
+    # # make_plot(rec_x, rec_y, adj_x, adj_y, measured_x, measured_y, target_x, target_y, inital_x, inital_y,
     #           plane_x=plane_x, plane_y=plane_y)
 
 
