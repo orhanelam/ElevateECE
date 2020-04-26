@@ -49,7 +49,7 @@ class H7Camera():
         self.z = self.cam_mand("getz")
 
     def update_x_offset(self):
-        self.tag_x_offset = self.cam_mand("getx")
+        self.x_offset = self.cam_mand("getx")
 
     def update_tag_present(self):
         self.tag_present = self.cam_mand("find")
@@ -57,7 +57,7 @@ class H7Camera():
 
     def update_trust_reading(self):
         self.trust_reading = self.cam_mand("trst")
-        return [self.trust_reading()].copy()[0]
+        return [self.trust_reading].copy()[0]
     
     def update_test(self):
         self.test = self.cam_mand("test")
