@@ -2,12 +2,24 @@ import subprocess
 import math
 from math import atan
 from subprocess import check_output
+from statistics import mean
+
 args = "/home/pi/IMU/pi-bno055/getbno055"
 
+
 def getYaw(pathToIMU):
-    yaw = subprocess.Popen([pathToIMU, "-m", "ndof"])
-    yaww = check_output([pathToIMU, "-t", "eul"])
-    return float(yaww.split()[1].decode('utf-8'))
+    return queryAndProcessYaw(pathToIMU)
+
+
+def queryAndProcessYaw(pathToIMU):
+    results = []
+    for _ in range(10):
+        yaw = subprocess.Popen([pathToIMU, "-m", "ndof"])
+        yaww = check_output([pathToIMU, "-t", "eul"])
+        results += float(yaww.split()[1].decode('utf-8'))
+    results.sort()
+    middle_elements = results[2:8]
+    return mean(middle_elements)
 
 print(getYaw(args))
 
