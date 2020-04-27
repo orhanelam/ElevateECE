@@ -30,10 +30,14 @@ class MotorControllerUSB:
         
     def move(self, meters):
         moveConstant=0.75
-        metersToTime = meters*moveConstant/self.speed
+        metersToTime = abs(meters)*moveConstant/self.speed
         time.sleep(metersToTime)
-        sm.set_motor(3, self.speed)
-        sm.set_motor(4, self.speed)
+        if(meters < 0):
+            sm.set_motor(3, -self.speed)
+            sm.set_motor(4, -self.speed)
+        else:
+            sm.set_motor(3, self.speed)
+            sm.set_motor(4, self.speed)
         time.sleep(metersToTime)
         sm.set_motor(3, 0)
         sm.set_motor(4, 0)
