@@ -119,7 +119,7 @@ def dock_v3():
     time.sleep(0.5)
 
     v = H7Camera(port_name="/dev/ttyACM0")
-    
+    print("cam ready") 
     # This runs
 #     iii = 0
 #     while iii < 6:
@@ -131,17 +131,21 @@ def dock_v3():
 #         iii += 1
 # -------------------------------
     L = 0
-    T = math.pi/3
+    T = math.pi/6
     while not v.get_tag_present():
         print('looking for tag')
 
+    print("proceeding")
     if v.get_tag_present():
         while not v.get_trust_reading():
+            print("trust check")
             tug.move(10)
 
     offset = v.get_x_offset()
+    print("offset :" + str(offset))
     # turn 15 degrees towards tag
     print("turning")
+    time.sleep(3)
     if offset < 0:
         tug.turnLeft(T)
         L = 1
@@ -149,9 +153,12 @@ def dock_v3():
         tug.turnRight(T)
         
     tag_dist = v.get_z()
-    distance = distance_to_travel_for_perp_intercept(tug, v, tag_dist)
+    distance = distance_to_travel_for_perp_intercept(tug, v, tag_dist) + 15
     print('distance: '+ str(distance))
     time.sleep(3)
+    if(distance > 80):
+        return
+    
     tug.move(distance)
     if L:
         tug.turnRight(T)
@@ -162,14 +169,17 @@ def dock_v3():
 
 # all angles should be in radians
 def distance_to_travel_for_perp_intercept(tug, v, z_dist):
-    time.sleep(3)
-    if v.get_tag_present():
+    
+    while not v.get_tag_present():
+        print("No Tag")
+        
+    if 1:
         time.sleep(0.5)
         distance_to_tag = z_dist
         print('z to tag: ', distance_to_tag)
         offset = v.get_x_offset()
         theta_1 = (offset / X_OFFSET_MAX) * (fov_rad / 2)
-        psi_2 = abs(tug.angle_between_headings(0, 30))
+        psi_2 = abs(tug.angle_between_headings(0, math.pi/8))
         distance_1 = distance_to_tag * math.cos(theta_1)
         print('distance_1: ', distance_1)
         if psi_2 < math.pi/2:
