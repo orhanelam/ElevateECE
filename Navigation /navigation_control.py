@@ -48,6 +48,7 @@ def navigate_bot(eTaxi, way_points, plot=False):
         target_point_x += [defined_start_x]
         target_point_y += [defined_start_y]
         print('REACHED POSITION: ', count)
+        print('position: ', eTaxi.get_position(), 'heading: ', math.degrees(eTaxi.get_heading()))
         count += 1
     if plot:
         make_plot(full_rec_x, full_rec_y, full_adj_x, full_adj_y, target_point_x, target_point_y, target_x_pos, target_y_pos, start_x_pos, start_y_pos)
@@ -87,9 +88,7 @@ def drive_to_target(eTaxi, step_limit=float('inf'), bulk_test=False):
 
         target_delta = dist_from_target(loc_x, loc_y)
         if target_delta < CM_PER_MOVE:
-            if target_delta/2 > MIN_MOVE_SIZE:
-                eTaxi.move(target_delta/2)
-            elif target_delta > MIN_MOVE_SIZE:
+            if target_delta > MIN_MOVE_SIZE:
                 eTaxi.move(target_delta)
             else:
                 eTaxi.move(MIN_MOVE_SIZE)
@@ -121,11 +120,14 @@ def adjust_heading(eTaxi, loc_x, loc_y):
     line_rad = get_line_angle()
     above_line = point_above_line(loc_x, loc_y)
     if above_line is None:
+        print('Bot is turning to on to LINE: ', math.degrees(line_rad))
         eTaxi.turn_to_heading(line_rad)
     elif above_line:
         eTaxi.turn_to_heading(line_rad - (eTaxi.MAX_IMU_ERROR*ANGLE_ADJUST_CONSTANT))
+        print('Bot is turning to heading: ', math.degrees(line_rad - (eTaxi.MAX_IMU_ERROR*ANGLE_ADJUST_CONSTANT)))
     else:
         eTaxi.turn_to_heading(line_rad + (eTaxi.MAX_IMU_ERROR*ANGLE_ADJUST_CONSTANT))
+        print('Bot is turning to heading: ', math.degrees(line_rad + (eTaxi.MAX_IMU_ERROR * ANGLE_ADJUST_CONSTANT)))
 
 
 def get_line_angle():

@@ -36,7 +36,6 @@ class eTaxi_Dima(eTaxiBase):
     # position is returned in cm
     def get_position(self):
         position = self.myTag.get_pos()
-        print('get_position in eTaxi: ', position)
         pos_copy = position.copy()
 
         return (100*pos_copy[0]), (100*pos_copy[1])
@@ -69,13 +68,12 @@ class eTaxi_Dima(eTaxiBase):
         while abs(delta) > self.ACCEPTABLE_TURN_ERROR and count < self.MAX_NUM_TURN_ADJUSTMENTS:
             if count == self.MAX_NUM_TURN_ADJUSTMENTS / 2:
                 self.motors.turn(-delta + 30)
-
             self.motors.turn(-delta)
             time.sleep(2)
             current_heading = getYaw(args)
             delta = math.degrees(self.angle_between_headings(math.radians(current_heading), rads))
-            print('Current heading: ', current_heading)
-            print('Delta for correction ', count, ' is: ', delta)
+            # print('Current heading: ', current_heading)
+            # print('Delta for correction ', count, ' is: ', delta)
             count += 1
 
     # get heading is returned in radians
