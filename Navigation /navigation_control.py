@@ -12,12 +12,12 @@ start_y_pos = 0.0
 PLANE_HEADING = 0.0
 
 # Config vars
-TARGET_TOLERANCE = 20
+TARGET_TOLERANCE = 25
 ANGLE_ADJUST_CONSTANT = 1 # multiplier, 1 has no effect
 MAX_NUM_STEPS = 90000
 METERS_PER_MOVE = .5
 CM_PER_MOVE = METERS_PER_MOVE * 100
-MIN_MOVE_SIZE = 0.05
+MIN_MOVE_SIZE = 0.1
 TARGET_DIST_FROM_PLANE = 0
 
 # Logging Vars
@@ -89,7 +89,9 @@ def drive_to_target(eTaxi, step_limit=float('inf'), bulk_test=False):
 
         target_delta = dist_from_target(loc_x, loc_y)
         if target_delta < CM_PER_MOVE:
-            if target_delta > MIN_MOVE_SIZE:
+            if target_delta/2 > MIN_MOVE_SIZE:
+                eTaxi.move(target_delta/2)
+            elif target_delta > MIN_MOVE_SIZE:
                 eTaxi.move(target_delta)
             else:
                 eTaxi.move(MIN_MOVE_SIZE)
