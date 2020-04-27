@@ -60,7 +60,7 @@ def x_cm(x):
 
 
 def z_cm(x):
-    return (-3.315*x - 7.777)
+    return (-.7912*x - 3.0865)
 
 def find_tag():
     tags = 0
@@ -88,7 +88,7 @@ def collect_data():
     return x, z
 
 def trust(x, z):
-    if( (x[-1] - x[0]) < 5 and (z[-1] - z[0]) < 10000):
+    if (x[-1] - x[0]) < 4:
         return 1
     return 0
 
@@ -104,7 +104,7 @@ while(True):
         time.sleep(150)
         led.off()
         x, z = collect_data()
-        data = int(z[10])
+        data = int(z[10])-80
         usb.send(ustruct.pack("<L", data))
 
     if (cmd == b'getx'):
@@ -112,7 +112,7 @@ while(True):
         time.sleep(150)
         led.off()
         x, z = collect_data()
-        data = int(x[10])-80
+        data = int(x[10])
         usb.send(ustruct.pack("<L", data))
 
     if (cmd == b'find'):
@@ -131,9 +131,9 @@ while(True):
         usb.send(ustruct.pack("<L", trust))
 
     if (cmd == b'test'):
-        led.on()
+        led2.on()
         time.sleep(150)
-        led.off()
+        led2.off()
         ans = 7
         usb.send(ustruct.pack("<L", ans))
 
@@ -146,5 +146,4 @@ while(True):
         led2.on()
         time.sleep(150)
         led2.off()
-
 
