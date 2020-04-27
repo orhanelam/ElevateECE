@@ -105,6 +105,9 @@ def drive_to_target(eTaxi, step_limit=float('inf'), bulk_test=False):
             measured_y_pos.append(loc_y)
         count += 1
 
+    target_distance = dist_from_target(loc_x, loc_y)
+    print('eTaxi to target distance: ', target_distance)
+    
     # eTaxi.turn_to_heading(PLANE_HEADING + math.pi)
     if isinstance(eTaxi, eTaxi_Simulated):
         success, dist = is_bot_in_target_zone(eTaxi)
@@ -205,3 +208,10 @@ def set_plane(plane_x, plane_y, plane_heading):
 
 def get_target():
     return target_x_pos, target_y_pos
+
+
+def distance_from_target(loc_x, loc_y):
+    x_diff = loc_x - target_x_pos
+    y_diff = loc_y - target_y_pos
+    dist = math.sqrt((x_diff ** 2) + (y_diff ** 2))
+    return dist
