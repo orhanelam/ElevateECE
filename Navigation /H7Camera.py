@@ -87,19 +87,15 @@ class H7Camera():
 # get methods will be used by docking script
 
     def get_z(self):
-        time.sleep(0.5)
         return self.cam_mand("getz")
 
     def get_x_offset(self):
-        time.sleep(0.5)
         return self.cam_mand("getx")
 
     def get_tag_present(self):
-        time.sleep(0.5)
         return self.cam_mand("find")
 
     def get_trust_reading(self):
-        time.sleep(0.5)
         return self.cam_mand("trst")
 
     def get_test(self):
@@ -109,8 +105,10 @@ class H7Camera():
         return self.thread_test
 
 
-#v = H7Camera(port_name="/dev/ttyACM0")
-
+# v = H7Camera(port_name="/dev/ttyACM0")
+# print(v.get_tag_present())
+# while(True):
+#     print(v.get_x_offset())
 #  iii = 0
 # while iii < 10:
 #     v.update_test()
