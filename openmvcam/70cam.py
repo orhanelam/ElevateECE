@@ -74,7 +74,7 @@ def collect_data():
     z = []
     x = []
     i = 0
-    while(i < 20):
+    while(i < 10):
         clock.tick()
         img = sensor.snapshot()
         for tag in img.find_apriltags(families=image.TAG16H5, fx=f_x, fy=f_y, cx=c_x, cy=c_y): # defaults to TAG36H11
@@ -88,7 +88,7 @@ def collect_data():
     return x, z
 
 def trust(x, z):
-    if (x[-1] - x[0]) < 4:
+    if (x[-1] - x[0]) < 1:
         return 1
     return 0
 
@@ -104,7 +104,7 @@ while(True):
         time.sleep(150)
         led.off()
         x, z = collect_data()
-        data = int(z[10])
+        data = int(z[4])
         usb.send(ustruct.pack("<L", data))
 
     if (cmd == b'getx'):
@@ -112,7 +112,7 @@ while(True):
         time.sleep(150)
         led.off()
         x, z = collect_data()
-        data = int(x[10] - 80)
+        data = int(x[4]-80)
         usb.send(ustruct.pack("<L", data))
 
     if (cmd == b'find'):
@@ -146,4 +146,6 @@ while(True):
         led2.on()
         time.sleep(150)
         led2.off()
+
+
 

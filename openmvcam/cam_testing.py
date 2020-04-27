@@ -127,12 +127,12 @@ while(True):
     data = z[10]
     print(data)
 
-#while(True):
-    #clock.tick()
-    #img = sensor.snapshot()
-    #for tag in img.find_apriltags(families=image.TAG16H5, fx=f_x, fy=f_y, cx=c_x, cy=c_y): # defaults to TAG36H11
-        #img.draw_rectangle(tag.rect(), color = (255, 0, 0))
-        #img.draw_cross(tag.cx(), tag.cy(), color = (0, 255, 0))
+while(True):
+    clock.tick()
+    img = sensor.snapshot()
+    for tag in img.find_apriltags(families=image.TAG16H5, fx=f_x, fy=f_y, cx=c_x, cy=c_y): # defaults to TAG36H11
+        img.draw_rectangle(tag.rect(), color = (255, 0, 0))
+        img.draw_cross(tag.cx(), tag.cy(), color = (0, 255, 0))
 
 #usb.send(ustruct.pack("<L", tags))
 
