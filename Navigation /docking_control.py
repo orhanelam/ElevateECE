@@ -21,15 +21,15 @@ def dock_v2():
     v = H7Camera(port_name="/dev/ttyACM0")
 
 
-    iii = 0
-    while iii < 10:
-        v.update_test()
-        print(v.get_test())
-        v.update_z()
-        print(v.get_z())
-        v.update_x_offset()
-        print(v.get_x_offset())
-        iii += 1
+#     iii = 0
+#     while iii < 10:
+#         v.update_test()
+#         print(v.get_test())
+#         v.update_z()
+#         print(v.get_z())
+#         v.update_x_offset()
+#         print(v.get_x_offset())
+#         iii += 1
 
 
     while not v.get_tag_present():
