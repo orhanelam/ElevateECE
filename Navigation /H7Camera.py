@@ -90,7 +90,7 @@ class H7Camera():
         return self.cam_mand("getz")
 
     def get_x_offset(self):
-        return self.cam_mand("getx")
+        return self.cam_mand("getx") - 80
 
     def get_tag_present(self):
         return self.cam_mand("find")

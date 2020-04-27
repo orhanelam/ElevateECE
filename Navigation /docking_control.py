@@ -159,6 +159,14 @@ def dock_v3():
         
     tag_dist = v.get_z()
     distance = distance_to_travel_for_perp_intercept(tug, v, tag_dist, offset)
+
+    if(distance < 25):
+        distance += 10
+    if(distance < 40):
+        distance += 10
+    if(distance > 70):
+        distance = distance - 10
+    
     print('distance: '+ str(distance))
     time.sleep(3)
     if(distance > 80):
@@ -166,29 +174,28 @@ def dock_v3():
         return
     
     tug.move(distance)
+    time.sleep(2)
     
     if L:
         tug.turnRight(T)
     else:
         tug.turnLeft(T)
-        
-    #tug.turn_to_heading(0)
-#     tag_dist = v.get_z()
-#     print("final approach:"+str(tag_dist))    
-#
-    time.sleep(3)
-    offset2 = v.get_x_offset()
-    print("offset2: " + str(offset2))
-    rads_off_by = (offset2 / X_OFFSET_MAX) * (fov_rad / 2)
-    print('Delta for initial spin: ', math.degrees(rads_off_by))
     
-    if abs(rads_off_by) < 4:
-        rads_off_by *= 2
-    if rads_off_by < 0:
-        tug.turnLeft(rads_off_by)
-    else:
-        tug.turnRight(rads_off_by)
-
+    #turn_to_center_on_tag_real(tug, v)
+#     time.sleep(0.2)
+#     off_1 = v.get_x_offset()
+#     print("offset: " + str(off_1))
+#     rads_off_by = (off_1 / X_OFFSET_MAX) * (fov_rad / 2)
+#     print('Delta for initial spin: ', math.degrees(rads_off_by))
+# 
+#     if abs(rads_off_by) < 4:
+#         rads_off_by *= 2
+#     if rads_off_by < 0:
+#         tug.turnLeft(abs(rads_off_by))
+#     else:
+#         tug.turnRight(abs(rads_off_by))   
+    time.sleep(1)
+    
     while(tag_dist > 20):
         tug.move(10)
         tag_dist = v.get_z()
@@ -344,7 +351,7 @@ def turn_to_center_on_tag(bot, vision):
 # # 
 # v = H7Camera(port_name="/dev/ttyACM0")
 # print("cam ready")
-# turn_to_center_on_tag(tug, v)
+# turn_to_center_on_tag_real(tug, v)
 
 
 dock_v3()

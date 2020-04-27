@@ -13,7 +13,7 @@ class eTaxi_Lucas(eTaxiBase):
     MAX_IMU_ERROR_DEG = 0.05
     MAX_IMU_ERROR = (MAX_IMU_ERROR_DEG / 360) * 2 * math.pi
 
-    TURN_SPEED = 80
+    TURN_SPEED = 50
     MOVE_SPEED = -80
 
     heading = 0.0
@@ -51,11 +51,11 @@ class eTaxi_Lucas(eTaxiBase):
         self.heading = rads
 
     def turnRight(self, rads):
-        self.motors.turnRight(math.degrees(rads), self.TURN_SPEED)
+        self.motors.turnRight(math.degrees(abs(rads)), self.TURN_SPEED)
         self.heading = self.heading - rads
 
     def turnLeft(self, rads):
-        self.motors.turnLeft(math.degrees(rads), self.TURN_SPEED)
+        self.motors.turnLeft(math.degrees(abs(rads)), self.TURN_SPEED)
         self.heading = self.heading + rads
 
 
