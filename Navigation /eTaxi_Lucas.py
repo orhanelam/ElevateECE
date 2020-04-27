@@ -42,6 +42,7 @@ class eTaxi_Lucas(eTaxiBase):
 
     def turn_to_heading(self, rads):
         delta = self.angle_between_headings(math.radians(self.heading), rads)
+        print('turn_to_heading_delta: ', delta)
         if delta < 0:
             self.motors.turnRight(math.degrees(abs(delta)), self.TURN_SPEED)
         else:
