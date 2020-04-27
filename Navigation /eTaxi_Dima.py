@@ -69,7 +69,7 @@ class eTaxi_Dima(eTaxiBase):
         while abs(delta) > self.ACCEPTABLE_TURN_ERROR and count < self.MAX_NUM_TURN_ADJUSTMENTS:
             if count == self.MAX_NUM_TURN_ADJUSTMENTS / 2:
                 self.motors.turn(-delta + 30)
-                # x.turn(-delta - 30)
+
             self.motors.turn(-delta)
             time.sleep(2)
             current_heading = getYaw(args)
