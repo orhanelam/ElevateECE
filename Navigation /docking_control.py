@@ -248,6 +248,29 @@ def distance_to_travel_for_perp_intercept(tug, v, z_dist, offset):
 
 # straight70()
 
+
+def turn_to_center_on_tag_real(bot, vision):
+    time.sleep(0.2)
+    off_1 = vision.get_x_offset()
+    print("offset: " + str(off_1))
+    rads_off_by = (off_1 / X_OFFSET_MAX) * (fov_rad / 2)
+    print('Delta for initial spin: ', math.degrees(rads_off_by))
+    count = 0
+    while abs(rads_off_by) > ACCEPTABLE_TURN_ERROR and count < MAX_NUM_TURN_ADJUSTMENTS:
+        if abs(rads_off_by) < 4:
+            rads_off_by *= 2
+        if rads_off_by < 0:
+            bot.turnLeft(rads_off_by)
+        else:
+            bot.turnRight(rads_off_by)
+
+        time.sleep(0.2)
+        off_2 = vision.get_x_offset()
+        print("offset: " + str(off_2))
+        rads_off_by = (off_2 / X_OFFSET_MAX) * (fov_rad / 2)
+        print('Delta for initial spin: ', math.degrees(rads_off_by))
+
+
 def turn_to_center_on_tag(bot, vision):
     time.sleep(0.2)
     off_1 = vision.get_x_offset()
