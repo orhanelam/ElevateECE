@@ -248,25 +248,64 @@ def distance_to_travel_for_perp_intercept(tug, v, z_dist, offset):
 
 # straight70()
 
-def turn_to_center_on_tag(tug, v):
+def turn_to_center_on_tag(bot, vision):
     time.sleep(0.2)
-    offset = v.get_x_offset()
-    print("offset: " + str(offset))
-    rads_off_by = (offset / X_OFFSET_MAX) * (fov_rad / 2)
-    print('Delta for initial spin: ', math.degrees(rads_off_by))
-#     count = 0
-#    
-#     offset = v.get_x_offset()
-#     print("offset: " + str(offset))
-#     time.sleep(5)
+    off_1 = vision.get_x_offset()
+    print("offset: " + str(off_1))
+    rads_off_by_1 = (off_1 / X_OFFSET_MAX) * (fov_rad / 2)
+    print('Delta for initial spin: ', math.degrees(rads_off_by_1))
+
 #     while abs(rads_off_by) > ACCEPTABLE_TURN_ERROR and count < MAX_NUM_TURN_ADJUSTMENTS:
-    if abs(rads_off_by) < 4:
-        rads_off_by *= 2
-    if rads_off_by < 0:
-        tug.turnLeft(rads_off_by)
+    if abs(rads_off_by_1) < 4:
+        rads_off_by_1 *= 2
+    if rads_off_by_1 < 0:
+        bot.turnLeft(rads_off_by_1)
     else:
-        tug.turnRight(rads_off_by)
-#     time.sleep(0.2)
+        bot.turnRight(rads_off_by_1)
+
+    time.sleep(0.2)
+    off_2 = vision.get_x_offset()
+    print("offset: " + str(off_2))
+    rads_off_by_2 = (off_2 / X_OFFSET_MAX) * (fov_rad / 2)
+    print('Delta for initial spin: ', math.degrees(rads_off_by_2))
+    if abs(rads_off_by_2) <= ACCEPTABLE_TURN_ERROR:
+        return
+    if abs(rads_off_by_2) < 4:
+        rads_off_by_2 *= 2
+    if rads_off_by_2 < 0:
+        bot.turnLeft(rads_off_by_2)
+    else:
+        bot.turnRight(rads_off_by_2)
+
+    time.sleep(0.2)
+    off_3 = vision.get_x_offset()
+    print("offset: " + str(off_3))
+    rads_off_by_3 = (off_3 / X_OFFSET_MAX) * (fov_rad / 2)
+    print('Delta for initial spin: ', math.degrees(rads_off_by_3))
+    if abs(rads_off_by_3) <= ACCEPTABLE_TURN_ERROR:
+        return
+    if abs(rads_off_by_3) < 4:
+        rads_off_by_3 *= 2
+    if rads_off_by_3 < 0:
+        bot.turnLeft(rads_off_by_3)
+    else:
+        bot.turnRight(rads_off_by_3)
+
+    time.sleep(0.2)
+    off_4 = vision.get_x_offset()
+    print("offset: " + str(off_4))
+    rads_off_by_4 = (off_4 / X_OFFSET_MAX) * (fov_rad / 2)
+    print('Delta for initial spin: ', math.degrees(rads_off_by_4))
+    if abs(rads_off_by_4) <= ACCEPTABLE_TURN_ERROR:
+        return
+    if abs(rads_off_by_4) < 4:
+        rads_off_by_4 *= 2
+    if rads_off_by_4 < 0:
+        bot.turnLeft(rads_off_by_4)
+    else:
+        bot.turnRight(rads_off_by_4)
+
+    return 
 #     offset = v.get_x_offset()
 #     print("offset: " + str(offset))
 #     rads_off_by = (offset / X_OFFSET_MAX) * (fov_rad / 2)
