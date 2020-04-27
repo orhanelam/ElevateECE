@@ -79,6 +79,9 @@ class eTaxi_Dima(eTaxiBase):
             print('Current heading: ', current_heading)
             print('Delta for correction ', count, ' is: ', delta)
             count += 1
+        if count == self.MAX_NUM_TURN_ADJUSTMENTS:
+            print('HIT MAX NUMBER OF TURN ADJUSTMENTS')
+
 
     # get heading is returned in radians
     def get_heading(self):
@@ -90,4 +93,4 @@ class eTaxi_Dima(eTaxiBase):
 
     def shut_down(self):
         self.myTag.close_serial()
-        self.pos_thread.exit()
+        # self.pos_thread.exit()
