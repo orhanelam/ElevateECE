@@ -104,7 +104,7 @@ while(True):
         time.sleep(150)
         led.off()
         x, z = collect_data()
-        data = int(z[10])-80
+        data = int(z[10])
         usb.send(ustruct.pack("<L", data))
 
     if (cmd == b'getx'):
@@ -112,7 +112,7 @@ while(True):
         time.sleep(150)
         led.off()
         x, z = collect_data()
-        data = int(x[10])
+        data = int(x[10] - 80)
         usb.send(ustruct.pack("<L", data))
 
     if (cmd == b'find'):
