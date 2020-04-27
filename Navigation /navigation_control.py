@@ -12,7 +12,7 @@ start_y_pos = 0.0
 PLANE_HEADING = 0.0
 
 # Config vars
-TARGET_TOLERANCE = 10
+TARGET_TOLERANCE = 25
 ANGLE_ADJUST_CONSTANT = 1 # multiplier, 1 has no effect
 MAX_NUM_STEPS = 90000
 METERS_PER_MOVE = .5
