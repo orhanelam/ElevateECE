@@ -112,6 +112,36 @@ def dock_v2():
     # tug.move(-tag_z_distance*2/3)
 
 
+
+def dock_v3():
+    print('Dock_v1')
+    tug = eTaxi_Lucas()
+    time.sleep(0.5)
+
+    v = H7Camera(port_name="/dev/ttyACM0")
+
+    while not v.tag_present():
+        print('looking for tag')
+
+    if v.tag_present():
+        while not v.trust_reading():
+            tug.move(CM_PER_MOVE)
+
+        offset = v.get_x_offset()
+        # turn 15 degrees towards tag
+        if offset < 0:
+            tug.turnLeft(math.pi/12) 
+        else:
+            tug.turnRight(math.pi/12)
+            
+        tag_dist = v.get_z()
+        distance = distance_to_travel_for_perp_intercept(tug, v, tag_dist)
+        tug.move(distance)
+        tug.turn_to_heading(0)
+
+
+
+
 # all angles should be in radians
 def distance_to_travel_for_perp_intercept(tug, v, z_dist):
     time.sleep(3)
