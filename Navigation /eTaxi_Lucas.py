@@ -25,7 +25,7 @@ class eTaxi_Lucas(eTaxiBase):
         self.cameras = []
         self.cameras.append(H7Camera(port_name="/dev/ttyACM0"))
         #self.cameras.append(H7Camera(port_name="/dev/ttyACM1"))
-
+        
 
         MV_thread = threading.Thread(target=self.update_openMV)
         MV_thread.start()
@@ -62,8 +62,11 @@ class eTaxi_Lucas(eTaxiBase):
     def update_openMV(self):
         while True:
             for camera in self.cameras:
-                time.sleep(0.5)
-                #camera.update()
-                camera.update_thread_test()
-                camera.update_test()
-                camera.update_tag_present()
+                time.sleep(3)
+                camera.update()
+#                 camera.update_thread_test()
+#                 time.sleep(3)
+#                 camera.update_test()
+#                 time.sleep(3)
+#                 camera.update_tag_present()
+#                 time.sleep(3)

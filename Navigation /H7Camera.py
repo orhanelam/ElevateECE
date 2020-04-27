@@ -110,11 +110,15 @@ class H7Camera():
         return self.thread_test
 
 
-# v = H7Camera(port_name="/dev/ttyACM0")
-# v.update_test()
-# print(v.get_test())
-# v.update_z()
-# print(v.get_z())
-# v.update_x_offset()
-# print(v.get_x_offset())
+#v = H7Camera(port_name="/dev/ttyACM0")
+
+#  iii = 0
+# while iii < 10:
+#     v.update_test()
+#     print(v.get_test())
+#     v.update_z()
+#     print(v.get_z())
+#     v.update_x_offset()
+#     print(v.get_x_offset())
+#     iii += 1
 

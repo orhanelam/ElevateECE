@@ -2,6 +2,7 @@ import math
 import time
 
 from eTaxi_Lucas import eTaxi_Lucas
+from H7Camera import H7Camera
 
 X_OFFSET_MAX = 80
 CM_PER_MOVE = 10
@@ -14,8 +15,21 @@ search_turn_mag_degrees = fov_degrees/2
 
 def dock_v2():
     print('Dock_v1')
-    tug = eTaxi_Lucas()
+    #tug = eTaxi_Lucas()
     time.sleep(0.5)
+    
+    v = H7Camera(port_name="/dev/ttyACM0")
+
+
+    iii = 0
+    while iii < 10:
+        v.update_test()
+        print(v.get_test())
+        v.update_z()
+        print(v.get_z())
+        v.update_x_offset()
+        print(v.get_x_offset())
+        iii += 1
 
     while True:
         print('x_offset: ', tug.cameras[0].get_x_offset())
