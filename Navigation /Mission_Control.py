@@ -128,6 +128,24 @@ def test_drive_and_acquire():
         #           plane_x=plane_x, plane_y=plane_y)
 
 
+
+def demo_waypoints():
+    eTaxi = eTaxi_Dima()
+    
+    way_points = []
+    point_1 = [160, 160]
+    point_2 = [225, 160]
+    point_3 = [225, 340]
+    point_4 = [160, 160]
+
+    way_points.append(point_1)
+    way_points.append(point_2)
+    way_points.append(point_3)
+    way_points.append(point_4)
+
+    navigate_bot(eTaxi, way_points)
+
+
 def test_navigate_bot():
     eTaxi = eTaxi_Simulated()
     way_points = []
@@ -139,4 +157,6 @@ def test_navigate_bot():
     navigate_bot(eTaxi, way_points)
 
 
-test_drive_to_point()
+# test_drive_to_point()
+
+demo_waypoints()
