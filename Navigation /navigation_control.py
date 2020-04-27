@@ -45,7 +45,7 @@ def navigate_bot(eTaxi, way_points):
         full_adj_y += adj_y
         target_point_x += [defined_start_x]
         target_point_y += [defined_start_y]
-    make_plot(full_rec_x, full_rec_y, full_adj_x, full_adj_y, target_point_x, target_point_y, target_x_pos, target_y_pos, start_x_pos, start_y_pos)
+    # make_plot(full_rec_x, full_rec_y, full_adj_x, full_adj_y, target_point_x, target_point_y, target_x_pos, target_y_pos, start_x_pos, start_y_pos)
 
 
 # grid is quad I, 0 degree is parrallel to x axis

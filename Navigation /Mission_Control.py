@@ -131,7 +131,7 @@ def test_drive_and_acquire():
 
 def demo_waypoints():
     eTaxi = eTaxi_Dima()
-    
+
     way_points = []
     point_1 = [160, 160]
     point_2 = [225, 160]
