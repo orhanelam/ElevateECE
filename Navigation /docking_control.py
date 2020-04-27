@@ -160,12 +160,21 @@ def dock_v3():
         return
     
     tug.move(distance)
+    
     if L:
         tug.turnRight(T)
     else:
         tug.turnLeft(T)
+        
     #tug.turn_to_heading(0)
-
+    tag_dist = v.get_z()
+    print("final approach:"+str(tag_dist))    
+    
+    while(tag_dist > 20):
+        tug.move(.08)
+        tag_dist = v.get_z()
+        print(tag_dist)
+    
 
 # all angles should be in radians
 def distance_to_travel_for_perp_intercept(tug, v, z_dist):
