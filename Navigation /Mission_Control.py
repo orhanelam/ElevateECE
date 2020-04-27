@@ -134,8 +134,8 @@ def demo_waypoints():
 
     way_points = []
     point_1 = [160, 160]
-    point_2 = [220, 160]
-    point_3 = [220, 330]
+    point_2 = [215, 160]
+    point_3 = [215, 330]
     point_4 = [160, 160]
 
     way_points.append(point_1)
