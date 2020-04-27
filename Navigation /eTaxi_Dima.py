@@ -29,7 +29,7 @@ class eTaxi_Dima(eTaxiBase):
         self.pos_thread.start()
         print('eTaxi_Dima Initialized')
         # test dead reckoning code
-        self.heading = 0
+        # self.heading = 0
 
     # position is returned in cm
     def get_position(self):
@@ -45,17 +45,17 @@ class eTaxi_Dima(eTaxiBase):
         self.motors.move(dist_meters)
 
     # test code for dead reckoning
-    def turn_to_heading(self, rads):
-        self.motors.setSpeed(self.TURN_SPEED)
-        print('Initial heading: ', self.heading)
-        delta = math.degrees(self.angle_between_headings(self.heading, rads))
-        print('Delta for is: ', delta)
-        self.motors.turn(-delta)
-        self.heading = rads
-        print('New Heading ', math.degrees(rads))
+    # def turn_to_heading(self, rads):
+    #     self.motors.setSpeed(self.TURN_SPEED)
+    #     print('Initial heading: ', self.heading)
+    #     delta = math.degrees(self.angle_between_headings(self.heading, rads))
+    #     print('Delta for is: ', delta)
+    #     self.motors.turn(-delta)
+    #     self.heading = rads
+    #     print('New Heading ', math.degrees(rads))
 
     # rads is in radians
-    def turn_to_heading2(self, rads):
+    def turn_to_heading(self, rads):
         self.motors.setSpeed(self.TURN_SPEED)
         time.sleep(0.2)
         current_heading = getYaw(args)
