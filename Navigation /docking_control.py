@@ -141,10 +141,10 @@ def dock_v3():
         print('looking for tag')
 
     print("proceeding")
-    if v.get_tag_present():
-        while not v.get_trust_reading():
-            print("trust check")
-            tug.move(10)
+#     if v.get_tag_present():
+#         while not v.get_trust_reading():
+#             print("trust check")
+#             tug.move(10)
 
     offset = v.get_x_offset()
     print("offset :" + str(offset))
@@ -158,11 +158,11 @@ def dock_v3():
         tug.turnRight(T)
         
     tag_dist = v.get_z()
-    distance = distance_to_travel_for_perp_intercept(tug, v, tag_dist)
+    distance = distance_to_travel_for_perp_intercept(tug, v, tag_dist, offset)
     print('distance: '+ str(distance))
     time.sleep(3)
     if(distance > 80):
-        print("bad distance: "+ distance)
+        print("bad distance: "+ str(distance))
         return
     
     tug.move(distance)
@@ -173,9 +173,22 @@ def dock_v3():
         tug.turnLeft(T)
         
     #tug.turn_to_heading(0)
-    tag_dist = v.get_z()
-    print("final approach:"+str(tag_dist))    
+#     tag_dist = v.get_z()
+#     print("final approach:"+str(tag_dist))    
+#
+    time.sleep(3)
+    offset2 = v.get_x_offset()
+    print("offset2: " + str(offset2))
+    rads_off_by = (offset2 / X_OFFSET_MAX) * (fov_rad / 2)
+    print('Delta for initial spin: ', math.degrees(rads_off_by))
     
+    if abs(rads_off_by) < 4:
+        rads_off_by *= 2
+    if rads_off_by < 0:
+        tug.turnLeft(rads_off_by)
+    else:
+        tug.turnRight(rads_off_by)
+
     while(tag_dist > 20):
         tug.move(10)
         tag_dist = v.get_z()
@@ -206,7 +219,7 @@ def straight70():
     print(tag_dist)
         
 # all angles should be in radians
-def distance_to_travel_for_perp_intercept(tug, v, z_dist):
+def distance_to_travel_for_perp_intercept(tug, v, z_dist, offset):
     
     while not v.get_tag_present():
         print("No Tag")
@@ -215,7 +228,9 @@ def distance_to_travel_for_perp_intercept(tug, v, z_dist):
         time.sleep(0.5)
         distance_to_tag = z_dist
         print('z to tag: ', distance_to_tag)
-        offset = v.get_x_offset()
+#         offset = v.get_x_offset()
+        print('Internal offset' + str(offset))
+    
         theta_1 = (offset / X_OFFSET_MAX) * (fov_rad / 2)
         psi_2 = abs(tug.angle_between_headings(0, math.pi/6))
         distance_1 = distance_to_tag * math.cos(theta_1)
@@ -236,23 +251,38 @@ def distance_to_travel_for_perp_intercept(tug, v, z_dist):
 def turn_to_center_on_tag(tug, v):
     time.sleep(0.2)
     offset = v.get_x_offset()
+    print("offset: " + str(offset))
     rads_off_by = (offset / X_OFFSET_MAX) * (fov_rad / 2)
     print('Delta for initial spin: ', math.degrees(rads_off_by))
-    count = 0
-    while abs(rads_off_by) > ACCEPTABLE_TURN_ERROR and count < MAX_NUM_TURN_ADJUSTMENTS:
-        if abs(rads_off_by) < 4:
-            rads_off_by *= 2
-        if rads_off_by < 0:
-            tug.turnLeft(rads_off_by)
-        else:
-            tug.turnRight(rads_off_by)
-        time.sleep(0.2)
-        offset = v.get_x_offset()
-        rads_off_by = (offset / X_OFFSET_MAX) * (fov_rad / 2)
-        print('Delta for correction ', count, ' is: ', rads_off_by)
-        count += 1
-    if count == MAX_NUM_TURN_ADJUSTMENTS:
-        print('HIT MAX NUMBER OF TURN ADJUSTMENTS')
+#     count = 0
+#    
+#     offset = v.get_x_offset()
+#     print("offset: " + str(offset))
+#     time.sleep(5)
+#     while abs(rads_off_by) > ACCEPTABLE_TURN_ERROR and count < MAX_NUM_TURN_ADJUSTMENTS:
+    if abs(rads_off_by) < 4:
+        rads_off_by *= 2
+    if rads_off_by < 0:
+        tug.turnLeft(rads_off_by)
+    else:
+        tug.turnRight(rads_off_by)
+#     time.sleep(0.2)
+#     offset = v.get_x_offset()
+#     print("offset: " + str(offset))
+#     rads_off_by = (offset / X_OFFSET_MAX) * (fov_rad / 2)
+#     print('Delta for correction ', count, ' is: ', rads_off_by)
+#     count += 1
+#     if count == MAX_NUM_TURN_ADJUSTMENTS:
+#         print('HIT MAX NUMBER OF TURN ADJUSTMENTS')
+
+
+# 
+# tug = eTaxi_Lucas()
+# # time.sleep(0.5)
+# # 
+# v = H7Camera(port_name="/dev/ttyACM0")
+# print("cam ready")
+# turn_to_center_on_tag(tug, v)
 
 
 dock_v3()

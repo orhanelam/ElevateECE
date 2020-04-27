@@ -107,6 +107,7 @@ class H7Camera():
 
 # v = H7Camera(port_name="/dev/ttyACM0")
 # print(v.get_tag_present())
+# print(v.get_x_offset())
 # while(True):
 #     print(v.get_x_offset())
 #  iii = 0
