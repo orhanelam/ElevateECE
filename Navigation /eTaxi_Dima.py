@@ -46,13 +46,14 @@ class eTaxi_Dima(eTaxiBase):
 
     # test code for dead reckoning
     def turn_to_heading(self, rads):
+        self.motors.setSpeed(self.TURN_SPEED)
         print('Initial heading: ', self.heading)
         delta = math.degrees(self.angle_between_headings(self.heading, rads))
         print('Delta for is: ', delta)
         self.motors.turn(-delta)
         self.heading = rads
         print('New Heading ', math.degrees(rads))
-        
+
     # rads is in radians
     def turn_to_heading2(self, rads):
         self.motors.setSpeed(self.TURN_SPEED)
