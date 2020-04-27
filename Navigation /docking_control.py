@@ -260,9 +260,9 @@ def turn_to_center_on_tag_real(bot, vision):
         if abs(rads_off_by) < 4:
             rads_off_by *= 2
         if rads_off_by < 0:
-            bot.turnLeft(rads_off_by)
+            bot.turnLeft(abs(rads_off_by))
         else:
-            bot.turnRight(rads_off_by)
+            bot.turnRight(abs(rads_off_by))
 
         time.sleep(0.2)
         off_2 = vision.get_x_offset()
