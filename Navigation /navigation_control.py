@@ -45,7 +45,7 @@ def navigate_bot(eTaxi, way_points):
         full_adj_y += adj_y
         target_point_x += [defined_start_x]
         target_point_y += [defined_start_y]
-    # make_plot(full_rec_x, full_rec_y, full_adj_x, full_adj_y, target_point_x, target_point_y, target_x_pos, target_y_pos, start_x_pos, start_y_pos)
+    make_plot(full_rec_x, full_rec_y, full_adj_x, full_adj_y, target_point_x, target_point_y, target_x_pos, target_y_pos, start_x_pos, start_y_pos)
 
 
 # grid is quad I, 0 degree is parrallel to x axis
@@ -64,7 +64,8 @@ def drive_to_target(eTaxi, step_limit=float('inf'), bulk_test=False):
     start_x_pos, start_y_pos = eTaxi.get_position()
     adjust_heading(eTaxi, start_x_pos, start_y_pos)
     print('pointing at target')
-
+    print('current_pos: ', start_x_pos, start_y_pos)
+    print('target_pos: ', target_x_pos, target_y_pos)
     print('line angle: ', get_line_angle())
 
     count = 0
@@ -130,7 +131,7 @@ def get_line_angle():
         if x_diff < 0:
             return line_rad + math.pi
         elif y_diff < 0 and x_diff > 0:
-            return (2*math.pi)  + line_rad
+            return (2*math.pi) + line_rad
         else:
             return line_rad
     elif x_diff == 0:
