@@ -50,9 +50,12 @@ class eTaxi_Lucas(eTaxiBase):
 
     def turnRight(self, rads):
         self.motors.turnLeft(math.degrees(rads), self.TURN_SPEED)
+        self.heading = self.heading - rads
 
     def turnLeft(self, rads):
         self.motors.turnRight(math.degrees(rads), self.TURN_SPEED)
+        self.heading = self.heading + rads
+
 
     def get_motors(self):
         return self.motors
