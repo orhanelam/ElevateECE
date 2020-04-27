@@ -140,8 +140,6 @@ def dock_v3():
         tug.turn_to_heading(0)
 
 
-
-
 # all angles should be in radians
 def distance_to_travel_for_perp_intercept(tug, v, z_dist):
     time.sleep(3)
