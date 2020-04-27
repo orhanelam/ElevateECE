@@ -153,10 +153,11 @@ def dock_v3():
         tug.turnRight(T)
         
     tag_dist = v.get_z()
-    distance = distance_to_travel_for_perp_intercept(tug, v, tag_dist) + 15
+    distance = distance_to_travel_for_perp_intercept(tug, v, tag_dist)
     print('distance: '+ str(distance))
     time.sleep(3)
     if(distance > 80):
+        print("bad distance: "+ distance)
         return
     
     tug.move(distance)
@@ -171,11 +172,34 @@ def dock_v3():
     print("final approach:"+str(tag_dist))    
     
     while(tag_dist > 20):
-        tug.move(.08)
+        tug.move(10)
+        tag_dist = v.get_z()
+        print(tag_dist)
+        
+    print(tag_dist)
+    
+def straight70():
+    print('Straight 70')
+    tug = eTaxi_Lucas()
+    time.sleep(0.5)
+
+    v = H7Camera(port_name="/dev/ttyACM0")
+    print("cam ready")
+    
+    while not v.get_tag_present():
+        print('looking for tag')
+        
+    tag_dist = v.get_z()
+    print("final approach:"+str(tag_dist))
+    time.sleep(4)
+    
+    while(tag_dist > 20):
+        tug.move(10)
         tag_dist = v.get_z()
         print(tag_dist)
     
-
+    print(tag_dist)
+        
 # all angles should be in radians
 def distance_to_travel_for_perp_intercept(tug, v, z_dist):
     
@@ -188,7 +212,7 @@ def distance_to_travel_for_perp_intercept(tug, v, z_dist):
         print('z to tag: ', distance_to_tag)
         offset = v.get_x_offset()
         theta_1 = (offset / X_OFFSET_MAX) * (fov_rad / 2)
-        psi_2 = abs(tug.angle_between_headings(0, math.pi/8))
+        psi_2 = abs(tug.angle_between_headings(0, math.pi/6))
         distance_1 = distance_to_tag * math.cos(theta_1)
         print('distance_1: ', distance_1)
         if psi_2 < math.pi/2:
@@ -202,6 +226,7 @@ def distance_to_travel_for_perp_intercept(tug, v, z_dist):
         return distance_1 + distance_2
     return 0
 
+# straight70()
 
 dock_v3()
 
