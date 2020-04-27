@@ -68,8 +68,10 @@ class eTaxi_Dima(eTaxiBase):
         while abs(delta) > self.ACCEPTABLE_TURN_ERROR and count < self.MAX_NUM_TURN_ADJUSTMENTS:
             if count == self.MAX_NUM_TURN_ADJUSTMENTS / 2:
                 self.motors.turn(-delta + 30)
+            if abs(delta) < 4:
+                delta *= 2
             self.motors.turn(-delta)
-            time.sleep(2)
+            time.sleep(0.2)
             current_heading = getYaw(args)
             delta = math.degrees(self.angle_between_headings(math.radians(current_heading), rads))
             # print('Current heading: ', current_heading)
