@@ -33,7 +33,6 @@ class DWMTag():
         self.curr_time = curr_time = datetime.datetime.now().strftime("%H:%M:%S.%f")
 
     def update_position(self):
-        print('attempting to update position')
         '''
         Calling this function reads the line over the serial connection
         and parses it to update the variables
