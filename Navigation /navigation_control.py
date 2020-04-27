@@ -34,6 +34,7 @@ def navigate_bot(eTaxi, way_points, plot=False):
     target_point_x = []
     target_point_y = []
 
+    count = 1
     for point in way_points:
         target_x_pos = point[0]
         target_y_pos = point[1]
@@ -46,6 +47,8 @@ def navigate_bot(eTaxi, way_points, plot=False):
         full_adj_y += adj_y
         target_point_x += [defined_start_x]
         target_point_y += [defined_start_y]
+        print('REACHED POSITION: ', count)
+        count += 1
     if plot:
         make_plot(full_rec_x, full_rec_y, full_adj_x, full_adj_y, target_point_x, target_point_y, target_x_pos, target_y_pos, start_x_pos, start_y_pos)
 
