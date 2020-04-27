@@ -114,30 +114,50 @@ def dock_v2():
 
 
 def dock_v3():
-    print('Dock_v1')
+    print('Dock_v3')
     tug = eTaxi_Lucas()
     time.sleep(0.5)
 
     v = H7Camera(port_name="/dev/ttyACM0")
-
-    while not v.tag_present():
+    
+    # This runs
+#     iii = 0
+#     while iii < 6:
+#         while v.get_tag_present() and v.get_z() > 20:
+#             if v.get_tag_present():
+#                 print(v.get_test())
+#                 print(v.get_z())
+#                 print(v.get_x_offset())
+#         iii += 1
+# -------------------------------
+    L = 0
+    T = math.pi/3
+    while not v.get_tag_present():
         print('looking for tag')
 
-    if v.tag_present():
-        while not v.trust_reading():
-            tug.move(CM_PER_MOVE)
+    if v.get_tag_present():
+        while not v.get_trust_reading():
+            tug.move(10)
 
-        offset = v.get_x_offset()
-        # turn 15 degrees towards tag
-        if offset < 0:
-            tug.turnLeft(math.pi/12) 
-        else:
-            tug.turnRight(math.pi/12)
-            
-        tag_dist = v.get_z()
-        distance = distance_to_travel_for_perp_intercept(tug, v, tag_dist)
-        tug.move(distance)
-        tug.turn_to_heading(0)
+    offset = v.get_x_offset()
+    # turn 15 degrees towards tag
+    print("turning")
+    if offset < 0:
+        tug.turnLeft(T)
+        L = 1
+    else:
+        tug.turnRight(T)
+        
+    tag_dist = v.get_z()
+    distance = distance_to_travel_for_perp_intercept(tug, v, tag_dist)
+    print('distance: '+ str(distance))
+    time.sleep(3)
+    tug.move(distance)
+    if L:
+        tug.turnRight(T)
+    else:
+        tug.turnLeft(T)
+    #tug.turn_to_heading(0)
 
 
 # all angles should be in radians
@@ -149,7 +169,7 @@ def distance_to_travel_for_perp_intercept(tug, v, z_dist):
         print('z to tag: ', distance_to_tag)
         offset = v.get_x_offset()
         theta_1 = (offset / X_OFFSET_MAX) * (fov_rad / 2)
-        psi_2 = abs(tug.angle_between_headings(0, tug.get_heading()))
+        psi_2 = abs(tug.angle_between_headings(0, 30))
         distance_1 = distance_to_tag * math.cos(theta_1)
         print('distance_1: ', distance_1)
         if psi_2 < math.pi/2:
