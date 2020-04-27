@@ -92,7 +92,7 @@ class H7Camera():
 
     def get_x_offset(self):
         time.sleep(0.5)
-        return self.cam_mand("getx")
+        return self.cam_mand("getx") - 80
 
     def get_tag_present(self):
         time.sleep(0.5)
