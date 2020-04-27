@@ -99,13 +99,15 @@ def distance_to_travel_for_perp_intercept(tug, v, z_dist):
         distance_to_tag = z_dist
         print('z to tag: ', distance_to_tag)
         offset = v.get_x_offset()
-        theta = (offset / X_OFFSET_MAX) * (fov_rad / 2)
-        psi = abs(tug.angle_between_headings(0, v.get_heading()))
-        distance_1 = distance_to_tag * math.cos(theta)
-        if psi < math.pi/2:
-            distance_2 = (distance_to_tag * math.sin(theta) * math.tan(psi-(math.pi/2)))
+        theta_1 = (offset / X_OFFSET_MAX) * (fov_rad / 2)
+        psi_2 = abs(tug.angle_between_headings(0, v.get_heading()))
+        distance_1 = distance_to_tag * math.cos(theta_1)
+        if psi_2 < math.pi/2:
+            distance_2 = -(distance_to_tag * math.sin(theta_1) * math.tan((math.pi/2)- psi_2))
         else:
-            distance_2 = -(distance_to_tag * math.sin(theta) * math.tan((math.pi/2)- psi))
+            psi_1 = math.pi - psi_2
+            distance_2 = (distance_to_tag * math.sin(theta_1) * math.tan((math.pi/2) - psi_1))
+
         return distance_1 + distance_2
     return 0
 
