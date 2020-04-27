@@ -9,7 +9,7 @@ import time
 
 class eTaxi_Dima(eTaxiBase):
     # Error Vars
-    MAX_POS_ERROR = 6
+    MAX_POS_ERROR = 4.5
 
     ACCEPTABLE_TURN_ERROR = 2
 
