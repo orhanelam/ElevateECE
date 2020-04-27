@@ -138,8 +138,7 @@ def dock_v3():
         distance = distance_to_travel_for_perp_intercept(tug, v, tag_dist)
         tug.move(distance)
         tug.turn_to_heading(0)
-        
-        
+
 
 
 
