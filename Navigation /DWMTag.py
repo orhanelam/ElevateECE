@@ -59,6 +59,7 @@ class DWMTag():
             else:
                 print("Distance not calculated: ",line.decode())
         except Exception as ex:
+            x = 3
             # print('position unavailable')
             # print(ex)
 
