@@ -15,7 +15,7 @@ search_turn_mag_degrees = fov_degrees/2
 
 def dock_v2():
     print('Dock_v1')
-    #tug = eTaxi_Lucas()
+    tug = eTaxi_Lucas()
     time.sleep(0.5)
     
     v = H7Camera(port_name="/dev/ttyACM0")
@@ -31,20 +31,12 @@ def dock_v2():
         print(v.get_x_offset())
         iii += 1
 
-    while True:
-        print('x_offset: ', tug.cameras[0].get_x_offset())
-        print('z_dist: ', tug.cameras[0].get_z())
-        print('tag: ', tug.cameras[0].get_tag_present())
-        print('trust: ', tug.cameras[0].get_trust_reading())
-        print('thread test: ', tug.cameras[0].get_thread_test())
-        print('camera test: ', tug.cameras[0].get_test())
 
-
-    while not tug.cameras[0].get_tag_present():
+    while not v.get_tag_present():
        x = 3
-    if tug.cameras[0].get_tag_present():
+    if v.get_tag_present():
         print("Tag is present")
-        offset = tug.cameras[0].get_x_offset()
+        offset = v.get_x_offset()
         print('offset: ', offset)
         rads_off_from_tag_heading = (offset / X_OFFSET_MAX) * (fov_rad / 2)
         print('degree turn: ', math.degrees(rads_off_from_tag_heading))
@@ -57,11 +49,11 @@ def dock_v2():
         else:
             print('crazy turn requested')
 
-        while not tug.cameras[0].get_trust_reading():
-            if tug.cameras[0].get_tag_present():
+        while not v.get_trust_reading():
+            if v.get_tag_present():
                 print("CM1")
                 tug.move(CM_PER_MOVE)
-                offset_current = tug.cameras[0].get_x_offset()
+                offset_current = v.get_x_offset()
                 offset_delta = -offset - offset_current
                 rads_off_from_tag_heading = (offset_delta / X_OFFSET_MAX) * (fov_rad / 2)
                 print('offset-delta: ', offset_delta)
@@ -80,15 +72,15 @@ def dock_v2():
                 else:
                     tug.turnLeft(search_turn_mag_degrees)
                 time.sleep(3)
-            print("Check z: " + str(tug.cameras[0].get_z()))
+            print("Check z: " + str(v.get_z()))
         time.sleep(3)
-        final_z = tug.cameras[0].get_z()
+        final_z = v.get_z()
         print("Final z: " + str(final_z))
-        distance = distance_to_travel_for_perp_intercept(tug, final_z)
+        distance = distance_to_travel_for_perp_intercept(tug, v, final_z)
         while distance > 500:
             print('bad z: ', distance)
             time.sleep(3)
-            distance = distance_to_travel_for_perp_intercept(tug)
+            distance = distance_to_travel_for_perp_intercept(tug, v, final_z)
 
         print("m1")
         print('alignment to perp move dist: ', distance)
@@ -100,15 +92,15 @@ def dock_v2():
 
 
 # all angles should be in radians
-def distance_to_travel_for_perp_intercept(eTaxi, z_dist):
+def distance_to_travel_for_perp_intercept(tug, v, z_dist):
     time.sleep(3)
-    if eTaxi.cameras[0].get_tag_present():
+    if v.get_tag_present():
         time.sleep(0.5)
         distance_to_tag = z_dist
         print('z to tag: ', distance_to_tag)
-        offset = eTaxi.cameras[0].get_x_offset()
+        offset = v.get_x_offset()
         theta = (offset / X_OFFSET_MAX) * (fov_rad / 2)
-        psi = abs(eTaxi.angle_between_headings(0, eTaxi.get_heading()))
+        psi = abs(tug.angle_between_headings(0, v.get_heading()))
         distance_1 = distance_to_tag * math.cos(theta)
         if psi < math.pi/2:
             distance_2 = (distance_to_tag * math.sin(theta) * math.tan(psi-(math.pi/2)))

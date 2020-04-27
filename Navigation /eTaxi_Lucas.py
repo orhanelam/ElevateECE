@@ -22,13 +22,14 @@ class eTaxi_Lucas(eTaxiBase):
 
     def __init__(self):
         self.motors = motorController()
-        self.cameras = []
-        self.cameras.append(H7Camera(port_name="/dev/ttyACM0"))
-        #self.cameras.append(H7Camera(port_name="/dev/ttyACM1"))
-        
 
-        MV_thread = threading.Thread(target=self.update_openMV)
-        MV_thread.start()
+        # None of this works and we don't know why
+        # self.cameras = []
+        # self.cameras.append(H7Camera(port_name="/dev/ttyACM0"))
+        #self.cameras.append(H7Camera(port_name="/dev/ttyACM1"))
+        # MV_thread = threading.Thread(target=self.update_openMV)
+        # MV_thread.start()
+
         print('eTaxi_Lucas Initialized')
 
     def get_position(self):
@@ -59,14 +60,14 @@ class eTaxi_Lucas(eTaxiBase):
     def get_heading(self):
         return self.heading
 
-    def update_openMV(self):
-        while True:
-            for camera in self.cameras:
-                time.sleep(3)
-                camera.update()
-#                 camera.update_thread_test()
-#                 time.sleep(3)
-#                 camera.update_test()
-#                 time.sleep(3)
-#                 camera.update_tag_present()
-#                 time.sleep(3)
+    # def update_openMV(self):
+    #     while True:
+    #         for camera in self.cameras:
+    #             time.sleep(3)
+    #             camera.update()
+    #             camera.update_thread_test()
+    #             time.sleep(3)
+    #             camera.update_test()
+    #             time.sleep(3)
+    #             camera.update_tag_present()
+    #             time.sleep(3)
