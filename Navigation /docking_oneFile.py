@@ -109,9 +109,9 @@ def dock_one_file():
     if abs(rads_off_by) < 4:
         rads_off_by *= 2
     if rads_off_by < 0:
-        motors.turnLeft(math.degrees(rads_off_by), TURN_SPEED)
+        motors.turnLeft(math.degrees(abs(rads_off_by)), TURN_SPEED)
     else:
-        motors.turnRight(math.degrees(rads_off_by), TURN_SPEED)
+        motors.turnRight(math.degrees(abs(rads_off_by)), TURN_SPEED)
 
     while (tag_dist > 20):
         dist_m = 10 / 100
