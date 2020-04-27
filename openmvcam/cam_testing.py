@@ -59,7 +59,7 @@ def x_cm(x):
 
 
 def z_cm(x):
-    return (-3.315*x - 7.777)
+    return (-.7912*x - 3.0865) #(-3.315*x - 7.777)
 
 def find_tag():
     tags = 0
@@ -123,11 +123,16 @@ led.off()
 print(tags)
 
 while(True):
-    clock.tick()
-    img = sensor.snapshot()
-    for tag in img.find_apriltags(families=image.TAG16H5, fx=f_x, fy=f_y, cx=c_x, cy=c_y): # defaults to TAG36H11
-        img.draw_rectangle(tag.rect(), color = (255, 0, 0))
-        img.draw_cross(tag.cx(), tag.cy(), color = (0, 255, 0))
+    x, z = collect_data()
+    data = z[10]
+    print(data)
+
+#while(True):
+    #clock.tick()
+    #img = sensor.snapshot()
+    #for tag in img.find_apriltags(families=image.TAG16H5, fx=f_x, fy=f_y, cx=c_x, cy=c_y): # defaults to TAG36H11
+        #img.draw_rectangle(tag.rect(), color = (255, 0, 0))
+        #img.draw_cross(tag.cx(), tag.cy(), color = (0, 255, 0))
 
 #usb.send(ustruct.pack("<L", tags))
 
