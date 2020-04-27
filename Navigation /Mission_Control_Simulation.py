@@ -116,7 +116,8 @@ def demo_waypoints():
     way_points.append(point_3)
     way_points.append(point_4)
 
-    navigate_bot(eTaxi, way_points)
+    eTaxi.set_true_position(160, 350)
+    navigate_bot(eTaxi, way_points, plot=True)
 
 
 def test_navigate_bot():
@@ -130,3 +131,4 @@ def test_navigate_bot():
     navigate_bot(eTaxi, way_points)
 
 
+demo_waypoints()

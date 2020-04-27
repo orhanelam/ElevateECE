@@ -48,3 +48,9 @@ IMU Setup:
 6. From there a command like "./getbno055 -t eul" will give orientation info (90deg test is working)
 Make sure the mode (-m) has fusion set to ON. If not, execute command "./getbno055 -m ndof" and then you can get readings with "./getbno055 -t eul"
 7. Once all of this is setup and functional, see imu_integrated_movement (specifically the getYaw() method) to see how to obtain IMU information from within another python script
+
+Notes on IMU:
+
+1. Be sure to remove pin from IMU's Vin power and replug it every new trial
+2. IMU's "zero-direction" is the direction it is facing at the moment it receives power
+3. Known bug with the call to IMU from within a python script: Error with subprocess. It's random and can be fixed by making the call to IMU within a while loop with try/except. Please see MarcDemo for reference in GetYaw()
