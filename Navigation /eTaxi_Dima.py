@@ -81,7 +81,7 @@ class eTaxi_Dima(eTaxiBase):
             count += 1
         if count == self.MAX_NUM_TURN_ADJUSTMENTS:
             print('HIT MAX NUMBER OF TURN ADJUSTMENTS')
-        
+
 
     # get heading is returned in radians
     def get_heading(self):
