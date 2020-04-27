@@ -67,7 +67,7 @@ def drive_to_target(eTaxi, step_limit=float('inf'), bulk_test=False):
     measured_y_pos = []
 
     # get current heading and adjust to point to target
-    start_x_pos, start_y_pos = eTaxi.get_position()
+    set_start_position(eTaxi)
     adjust_heading(eTaxi, start_x_pos, start_y_pos)
     print('pointing at target')
     print('current_pos: ', start_x_pos, start_y_pos)
@@ -107,7 +107,7 @@ def drive_to_target(eTaxi, step_limit=float('inf'), bulk_test=False):
 
     target_distance = dist_from_target(loc_x, loc_y)
     print('eTaxi to target distance: ', target_distance)
-    
+
     # eTaxi.turn_to_heading(PLANE_HEADING + math.pi)
     if isinstance(eTaxi, eTaxi_Simulated):
         success, dist = is_bot_in_target_zone(eTaxi)
@@ -190,6 +190,18 @@ def in_tolerance_of_target(loc_x, loc_y):
     dist = math.sqrt((x_diff**2) + (y_diff**2))
     return dist <= TARGET_TOLERANCE
 
+
+def set_start_position(eTaxi):
+    global start_x_pos, start_y_pos
+    sum_x = 0
+    sum_y = 0
+    num_queries = 10
+    for _ in range(num_queries):
+        x, y = eTaxi.get_position()
+        sum_x += x
+        sum_y += y
+    start_x_pos = sum_x/num_queries
+    start_y_pos = sum_y/num_queries
 
 def is_bot_in_target_zone(eTaxi):
     true_x, true_y = eTaxi.get_true_position()
