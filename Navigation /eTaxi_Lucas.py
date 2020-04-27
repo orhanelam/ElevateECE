@@ -22,6 +22,7 @@ class eTaxi_Lucas(eTaxiBase):
 
     def __init__(self):
         self.motors = motorController()
+        self.heading = 0
 
         # None of this works and we don't know why
         # self.cameras = []

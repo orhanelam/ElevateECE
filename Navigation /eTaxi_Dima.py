@@ -73,12 +73,11 @@ class eTaxi_Dima(eTaxiBase):
             if abs(delta) < 4:
                 delta *= 2
             self.motors.turn(-delta)
-            while True:
-                time.sleep(1.5)
-                current_heading = getYaw(args)
-                # delta = math.degrees(self.angle_between_headings(math.radians(current_heading), rads))
-                print('Current heading: ', current_heading)
-                # print('Delta for correction ', count, ' is: ', delta)
+            time.sleep(1.5)
+            current_heading = getYaw(args)
+            delta = math.degrees(self.angle_between_headings(math.radians(current_heading), rads))
+            print('Current heading: ', current_heading)
+            print('Delta for correction ', count, ' is: ', delta)
             count += 1
 
     # get heading is returned in radians
