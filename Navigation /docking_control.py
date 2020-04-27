@@ -305,7 +305,7 @@ def turn_to_center_on_tag(bot, vision):
     else:
         bot.turnRight(rads_off_by_4)
 
-    return 
+    return
 #     offset = v.get_x_offset()
 #     print("offset: " + str(offset))
 #     rads_off_by = (offset / X_OFFSET_MAX) * (fov_rad / 2)
