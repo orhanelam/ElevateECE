@@ -166,5 +166,5 @@ def distance_to_travel_for_perp_intercept(tug, v, z_dist):
     return 0
 
 
-dock_v2()
+dock_v3()
 
