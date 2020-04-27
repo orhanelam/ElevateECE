@@ -73,7 +73,7 @@ class eTaxi_Dima(eTaxiBase):
             if abs(delta) < 4:
                 delta *= 2
             self.motors.turn(-delta)
-            time.sleep(1.5)
+            time.sleep(0.2)
             current_heading = getYaw(args)
             delta = math.degrees(self.angle_between_headings(math.radians(current_heading), rads))
             print('Current heading: ', current_heading)
