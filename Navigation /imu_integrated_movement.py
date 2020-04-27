@@ -8,9 +8,13 @@ args = "/home/pi/IMU/pi-bno055/getbno055"
 
 
 def getYaw(pathToIMU):
-    yaw = subprocess.Popen([pathToIMU, "-m", "ndof"])
-    yaww = check_output([pathToIMU, "-t", "eul"])
-    return float(yaww.split()[1].decode('utf-8'))
+    while True:
+        try:
+            yaw = subprocess.Popen([pathToIMU, "-m", "ndof"])
+            yaww = check_output([pathToIMU, "-t", "eul"])
+            return float(yaww.split()[1].decode('utf-8'))
+        except:
+            print("ERROR with IMU")
 
 def queryAndProcessYaw(pathToIMU):
     results = []
