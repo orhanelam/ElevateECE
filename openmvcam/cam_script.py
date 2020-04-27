@@ -2,6 +2,7 @@ import pyb, time
 import sensor, image, time, math, ustruct
 
 led = pyb.LED(3)
+led2 = pyb.LED(2)
 usb = pyb.USB_VCP()
 while (usb.isconnected()==False):
    led.on()
@@ -78,7 +79,7 @@ def collect_data():
         img = sensor.snapshot()
         for tag in img.find_apriltags(families=image.TAG16H5, fx=f_x, fy=f_y, cx=c_x, cy=c_y): # defaults to TAG36H11
             z.append(z_cm(round(tag.z_translation(), 3))) # this is highly variable, need to trim
-            x.append(x_cm(tag.x_translation()))
+            x.append(tag.cx())
             i = i + 1
 
     z.sort()
@@ -87,7 +88,7 @@ def collect_data():
     return x, z
 
 def trust(x, z):
-    if( (x[-1] - x[0]) < 3 and (z[-1] - z[0]) < 10000):
+    if( (x[-1] - x[0]) < 5 and (z[-1] - z[0]) < 10000):
         return 1
     return 0
 
@@ -136,3 +137,12 @@ while(True):
         ans = 7
         usb.send(ustruct.pack("<L", ans))
 
+    if (cmd == b'plzz'):
+        led.on()
+        time.sleep(150)
+        led.off()
+        ans = 3
+        usb.send(ustruct.pack("<L", ans))
+        led2.on()
+        time.sleep(150)
+        led2.off()

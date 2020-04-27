@@ -87,7 +87,7 @@ def collect_data():
     return x, z
 
 def trust(x, z):
-    if( (x[-1] - x[0]) < 3 and (z[-1] - z[0]) < 10000):
+    if( (x[-1] - x[0]) < 5 and (z[-1] - z[0]) < 10000):
         return 1
     return 0
 
@@ -114,14 +114,14 @@ while(True):
         data = x[10]
         usb.send(ustruct.pack("<L", data))
         
-    if (cmd == b'findtag'):
+    if (cmd == b'find'):
         led.on()
         time.sleep(150)
         led.off()
         tags = find_tag() 
         usb.send(ustruct.pack("<L", tags))
     
-    if (cmd == b'trust'):
+    if (cmd == b'trst'):
         led.on()
         time.sleep(150)
         led.off()
