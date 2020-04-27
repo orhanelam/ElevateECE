@@ -145,6 +145,8 @@ def demo_waypoints():
 
     navigate_bot(eTaxi, way_points)
 
+    eTaxi.shut_down()
+
 
 
 # test_drive_to_point()
