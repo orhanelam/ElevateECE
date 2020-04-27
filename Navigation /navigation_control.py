@@ -79,6 +79,7 @@ def drive_to_target(eTaxi, step_limit=float('inf'), bulk_test=False):
     loc_y = start_y_pos
     while not in_tolerance_of_target(loc_x, loc_y) and count < step_limit:
         drift_dist, loc_x, loc_y = dist_from_line(eTaxi)
+        print('Current Bot Location: ', loc_x, loc_y)
         if drift_dist > eTaxi.MAX_POS_ERROR:
             adjust_heading(eTaxi, loc_x, loc_y)
             angle_adjust_x_pos.append(loc_x)
