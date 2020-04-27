@@ -70,6 +70,7 @@ class DWMTag():
         Ex:
         [1.79, 1.80]
         '''
+        print('get_pos DWMTAG: ', self.x_position, self.y_position)
         return [self.x_position, self.y_position]
 
     def get_time(self):

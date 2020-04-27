@@ -34,6 +34,7 @@ class eTaxi_Dima(eTaxiBase):
     # position is returned in cm
     def get_position(self):
         position = self.myTag.get_pos()
+        print('get_position in eTaxi: ', position)
         pos_copy = position.copy()
 
         return (100*pos_copy[0]), (100*pos_copy[1])
