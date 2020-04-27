@@ -2,7 +2,6 @@ import random
 import math
 import time
 
-from eTaxi_Dima import eTaxi_Dima
 from eTaxi_Simulated import eTaxi_Simulated
 from navigation_control import drive_to_target, get_line_angle, set_plane, navigate_bot, get_target
 # from visualization import make_plot
@@ -76,32 +75,6 @@ def simulated_navigation_test(bulk_test=False, num_trials=MAX_NUM_TRIALS):
         print('Failure Rate: ', num_failures/num_trials)
 
 
-def test_drive_to_point():
-    print('in test drive to point!')
-    eTaxi = eTaxi_Dima()
-    print('initialized eTaxi')
-
-    time.sleep(0.5)
-    for _ in range(20):
-        inital_x, inital_y = eTaxi.get_position()
-        print('starting_position: ', inital_x, inital_y)
-    plane_x = 215
-    plane_y = 150
-    plane_heading = math.pi - (math.pi/9)
-    set_plane(plane_x, plane_y, plane_heading)
-    print('plane position set')
-    target_x, target_y = get_target()
-    print('target_pos: ', target_x, target_y)
-    step_count, rec_x, rec_y, adj_x, adj_y, measured_x, measured_y, defined_start_x, defined_start_y = drive_to_target(
-        eTaxi, MAX_NUM_STEPS, bulk_test=True)
-
-    final_x, final_y = eTaxi.get_position()
-    print('final position: ', final_x, final_y)
-    eTaxi.shut_down()
-    # make_plot(rec_x, rec_y, adj_x, adj_y, measured_x, measured_y, target_x, target_y, inital_x, inital_y,
-    #           plane_x=plane_x, plane_y=plane_y)
-
-
 def test_drive_and_acquire():
     eTaxi = eTaxi_Simulated()
     for x in range(1):
@@ -130,7 +103,7 @@ def test_drive_and_acquire():
 
 
 def demo_waypoints():
-    eTaxi = eTaxi_Dima()
+    eTaxi = eTaxi_Simulated()
 
     way_points = []
     point_1 = [160, 160]
@@ -146,7 +119,14 @@ def demo_waypoints():
     navigate_bot(eTaxi, way_points)
 
 
+def test_navigate_bot():
+    eTaxi = eTaxi_Simulated()
+    way_points = []
+    for x in range(100):
+        point_x = random.randint(0, 10000)
+        point_y = random.randint(0, 10000)
+        way_points.append([point_x, point_y])
 
-# test_drive_to_point()
+    navigate_bot(eTaxi, way_points)
 
-demo_waypoints()
+

@@ -62,7 +62,6 @@ def drive_to_target(eTaxi, step_limit=float('inf'), bulk_test=False):
     measured_y_pos = []
 
     # get current heading and adjust to point to target
-    time.sleep(2)
     start_x_pos, start_y_pos = eTaxi.get_position()
     adjust_heading(eTaxi, start_x_pos, start_y_pos)
     print('pointing at target')

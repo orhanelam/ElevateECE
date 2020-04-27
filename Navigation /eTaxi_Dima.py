@@ -13,7 +13,7 @@ class eTaxi_Dima(eTaxiBase):
     MAX_IMU_ERROR_DEG = 3.5
     MAX_IMU_ERROR = (MAX_IMU_ERROR_DEG / 360) * 2 * math.pi
 
-    ACCEPTABLE_TURN_ERROR = 3
+    ACCEPTABLE_TURN_ERROR = 2
     TURN_SPEED = 80
     MOVE_SPEED = 40
     MAX_NUM_TURN_ADJUSTMENTS = 20
@@ -27,7 +27,9 @@ class eTaxi_Dima(eTaxiBase):
         self.pos_thread = threading.Thread(target=self.update_positioning)
         print('thread created')
         self.pos_thread.start()
+        time.sleep(2)
         print('eTaxi_Dima Initialized')
+
         # test dead reckoning code
         # self.heading = 0
 
@@ -65,6 +67,9 @@ class eTaxi_Dima(eTaxiBase):
         print('Delta for initial spin: ', delta)
         count = 0
         while abs(delta) > self.ACCEPTABLE_TURN_ERROR and count < self.MAX_NUM_TURN_ADJUSTMENTS:
+            if count == self.MAX_NUM_TURN_ADJUSTMENTS / 2:
+                x.turn(-delta + 30)
+                # x.turn(-delta - 30)
             self.motors.turn(-delta)
             time.sleep(2)
             current_heading = getYaw(args)
