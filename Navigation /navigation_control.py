@@ -103,7 +103,7 @@ def drive_to_target(eTaxi, step_limit=float('inf'), bulk_test=False):
             measured_y_pos.append(loc_y)
         count += 1
 
-    eTaxi.turn_to_heading(PLANE_HEADING + math.pi)
+    # eTaxi.turn_to_heading(PLANE_HEADING + math.pi)
     if isinstance(eTaxi, eTaxi_Simulated):
         success, dist = is_bot_in_target_zone(eTaxi)
         if not success:
