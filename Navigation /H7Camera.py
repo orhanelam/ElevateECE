@@ -88,23 +88,22 @@ class H7Camera():
 
     def get_z(self):
         time.sleep(0.5)
-        return self.z
-#         return self.cam_mand("getz")
-    
+        return self.cam_mand("getz")
+
     def get_x_offset(self):
         time.sleep(0.5)
-        return self.x_offset
+        return self.cam_mand("getx")
 
     def get_tag_present(self):
         time.sleep(0.5)
-        return self.tag_present
+        return self.cam_mand("find")
 
     def get_trust_reading(self):
         time.sleep(0.5)
-        return self.trust_reading
+        return self.cam_mand("trst")
 
     def get_test(self):
-        return self.test
+        return self.cam_mand("test")
     
     def get_thread_test(self):
         return self.thread_test
