@@ -12,7 +12,7 @@
 ## How to Run
 
 Prerequisites: 
-* A properly configured network of DWM1001s, with all anchors powered on.
+* A properly configured network of DWM1001s, with all anchors powered on. See https://www.decawave.com/wp-content/uploads/2019/03/DWM1001_Gateway_Quick_Deployment_Guide.pdf
 * pyserial library (install by running 'pip install pyserial')
 * While this code is compatible with both Python 2 and 3, we recommend using Python 3
 
