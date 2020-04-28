@@ -29,5 +29,6 @@ Only call Tag.get_pos() to get [Tag.x_position, Tag.y_position] which returns th
 
 ## Links
 For the complete guide to the DWM1001 API: https://www.decawave.com/sites/default/files/dwm1001-api-guide.pdf
+For the DWM1001 quick deployment guide: https://www.decawave.com/wp-content/uploads/2019/03/DWM1001_Gateway_Quick_Deployment_Guide.pdf
 
 
