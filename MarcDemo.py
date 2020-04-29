@@ -28,40 +28,6 @@ def angle_between_headings(angle_1, angle_2):
     return shortest_delta
 
 
-def get_heading(degrees):
-    current_heading = getYaw(args)
-    print("Start at: ", current_heading)
-    # delta = angle_between_headings(math.radians(current_heading), math.radians(degrees))
-    delta = 90
-    #edit target logic
-    #print(delta)
-    target = current_heading + degrees
-    if(target > 360):
-        target = target - 360
-    print("Turn To: ", target)
-    count = 0
-    time.sleep(3)
-    x.turn(delta)
-    time.sleep(0.1)
-    current_heading = getYaw(args)
-    print("After first turn, pointing at: ", current_heading)
-    while(count < 20):
-        if((current_heading >= target - 0.5) & (current_heading <= target + 0.5)):
-            print("Adjust Not Needed")
-            x.move(1)
-            break
-        else:
-            print("Adjust Needed")
-            #delta = angle_between_headings(math.radians(current_heading), rads)
-            delta = target - current_heading
-            print("Turn By: ", delta)
-            time.sleep(0.2)
-            x.turn(delta)
-            current_heading = getYaw(args)
-            print("Now Heading is : ", current_heading , " and Count is: ", count)
-            count += 1
-
-
 def turn_to_heading(rads):
     time.sleep(0.2)
     current_heading = getYaw(args)
@@ -72,7 +38,6 @@ def turn_to_heading(rads):
     while abs(delta) > degreeError  and count < maxNumChecks:
         if(count == maxNumChecks / 2):
             x.turn(-delta + 30)
-            #x.turn(-delta - 30)
         x.turn(-delta)
         time.sleep(0.2)
         current_heading = getYaw(args)
@@ -109,31 +74,4 @@ def movementWithTTH():
     x.move(-1.5)
 
 movementWithTTH()
-
-# get_heading(90)
-
-# x.setSpeed(100)
-# time.sleep(5)
-# x.turn(90) 
-# 
-# x.setSpeed(90)
-# time.sleep(5)
-# x.turn(90)
-# 
-# x.setSpeed(80)
-# time.sleep(5)
-# x.turn(90)
-
-# x.setSpeed(100)
-# time.sleep(15)
-# x.move(1.5)
-# 
-# x.setSpeed(90)
-# time.sleep(15)
-# x.move(1.5)
-# 
-# x.setSpeed(80)
-# time.sleep(15)
-# x.move(1.5)
-
 
